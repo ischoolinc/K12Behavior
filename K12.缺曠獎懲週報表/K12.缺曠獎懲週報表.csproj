@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B630FF0D-CFB7-44DD-8C19-B6E022D1BCF4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>K12.缺曠獎懲週報表</RootNamespace>
+    <AssemblyName>K12.WeeklyReports</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\ischool_Senior with FISCA\FiscaRuntime\addmodules\K12Behavior\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aspose.Cells, Version=4.4.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ischool_Senior with FISCA\LibraryProject\Aspose.Cells.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Aspose.Words, Version=4.4.1.0, Culture=neutral, PublicKeyToken=716fcc553a201e56">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ischool_Senior with FISCA\LibraryProject\Aspose.Words.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar2, Version=7.9.0.5, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ischool_Senior with FISCA\ischool\bin\Debug\DevComponents.DotNetBar2.dll</HintPath>
+    </Reference>
+    <Reference Include="FISCA, Version=1.9.0.25, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ischool_Senior with FISCA\LibraryProject\FISCA.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.Authentication">
+      <HintPath>..\..\..\ischool_Senior with FISCA\FiscaRuntime\kernel\FISCA.Authentication.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.DSAClient">
+      <HintPath>..\..\..\ischool_Senior with FISCA\FiscaRuntime\kernel\FISCA.DSAClient.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.DSAUtil">
+      <HintPath>..\..\..\ischool_Senior with FISCA\FiscaRuntime\kernel\FISCA.DSAUtil.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.Permission, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ischool_Senior with FISCA\LibraryProject\FISCA.Permission.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.Presentation, Version=1.0.2.7, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ischool_Senior with FISCA\LibraryProject\FISCA.Presentation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="K12.Data, Version=1.0.2.43, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ischool_Senior with FISCA\LibraryProject\K12.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="K12.Presentation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ischool_Senior with FISCA\LibraryProject\K12.Presentation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SmartSchool.Common">
+      <HintPath>..\..\..\ischool_Senior with FISCA\ischool\bin\Debug\SmartSchool.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SmartSchool.Common.DotNetBar">
+      <HintPath>..\..\..\ischool_Senior with FISCA\ischool\bin\Debug\SmartSchool.Common.DotNetBar.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommonMethods.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Get.cs" />
+    <Compile Include="IReport.cs" />
+    <Compile Include="Permissions.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SeatNoComparer.cs" />
+    <Compile Include="Form\SelectDateRangeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\SelectDateRangeForm.designer.cs">
+      <DependentUpon>SelectDateRangeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\SelectPeriodForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\SelectPeriodForm.designer.cs">
+      <DependentUpon>SelectPeriodForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\SelectTypeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\SelectTypeForm.designer.cs">
+      <DependentUpon>SelectTypeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\SelectWeekForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\SelectWeekForm.designer.cs">
+      <DependentUpon>SelectWeekForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="獎懲週報表\Report.cs" />
+    <Compile Include="獎懲週報表\WeekDisciplineReportCount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="獎懲週報表\WeekDisciplineReportCount.designer.cs">
+      <DependentUpon>WeekDisciplineReportCount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="缺曠週報表_依假別\Report.cs" />
+    <Compile Include="缺曠週報表_依假別\WARCByAbsence.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="缺曠週報表_依假別\WARCByAbsence.designer.cs">
+      <DependentUpon>WARCByAbsence.cs</DependentUpon>
+    </Compile>
+    <Compile Include="缺曠週報表_依假別\WeekAbsenceReportConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="缺曠週報表_依假別\WeekAbsenceReportConfig.designer.cs">
+      <DependentUpon>WeekAbsenceReportConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="缺曠週報表_依節次\Report.cs" />
+    <Compile Include="缺曠週報表_依節次\WeekAbsenceReportCountByPeriod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="缺曠週報表_依節次\WeekAbsenceReportCountByPeriod.designer.cs">
+      <DependentUpon>WeekAbsenceReportCountByPeriod.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\SelectDateRangeForm.resx">
+      <DependentUpon>SelectDateRangeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\SelectPeriodForm.resx">
+      <DependentUpon>SelectPeriodForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\SelectTypeForm.resx">
+      <DependentUpon>SelectTypeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\SelectWeekForm.resx">
+      <DependentUpon>SelectWeekForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="獎懲週報表\WeekDisciplineReportCount.resx">
+      <DependentUpon>WeekDisciplineReportCount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="缺曠週報表_依假別\WARCByAbsence.resx">
+      <DependentUpon>WARCByAbsence.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="缺曠週報表_依假別\WeekAbsenceReportConfig.resx">
+      <DependentUpon>WeekAbsenceReportConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="缺曠週報表_依節次\WeekAbsenceReportCountByPeriod.resx">
+      <DependentUpon>WeekAbsenceReportCountByPeriod.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LoadingIcon.gif" />
+    <None Include="Resources\獎懲週報表.xls" />
+    <None Include="Resources\缺曠週報表_依假別.xls" />
+    <None Include="Resources\缺曠週報表_依節次.xls" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

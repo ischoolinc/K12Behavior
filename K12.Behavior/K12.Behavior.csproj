@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1408924B-E64B-4B53-82CA-F2965727313F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>K12.Behavior</RootNamespace>
+    <AssemblyName>K12.Behavior</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\..\Documents and Settings\Dylan.Huang\桌面\ischool desktop\addmodules\K12Behavior\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aspose.Cells, Version=4.3.0.0, Culture=neutral, PublicKeyToken=9a40d5a4b59e5256, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\Aspose.Cells.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar2, Version=9.5.0.1, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\DevComponents.DotNetBar2.dll</HintPath>
+    </Reference>
+    <Reference Include="FISCA, Version=2.1.4.8, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\FISCA.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.DSAUtil, Version=3.9.0.10, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\FISCA.DSAUtil.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.LogAgent, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\FISCA.LogAgent.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.Permission, Version=1.2.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\FISCA.Permission.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.Presentation, Version=1.1.0.19, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\FISCA.Presentation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\Framework.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="K12.Data, Version=2.0.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\K12.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="K12.Presentation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\K12.Presentation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DetailContentBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DetailContentBase.Designer.cs">
+      <DependentUpon>DetailContentBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Feature\AbsenceList.cs" />
+    <Compile Include="Feature\CardPanelEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Feature\ListViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Feature\PeriodList.cs" />
+    <Compile Include="Permissions.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StuAdminExtendControls\DisciplineControl\ResonText.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\DisciplineControl\ResonText.designer.cs">
+      <DependentUpon>ResonText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\MeritAndDemeritControl\ChangeTextForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\MeritAndDemeritControl\ChangeTextForm.designer.cs">
+      <DependentUpon>ChangeTextForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\MeritAndDemeritControl\SetValueSchoolYearSemester.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\MeritAndDemeritControl\SetValueSchoolYearSemester.designer.cs">
+      <DependentUpon>SetValueSchoolYearSemester.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentSortObj.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SampleForm\SelectClasses.resx">
+      <DependentUpon>SelectClasses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SampleForm\SelectDateRange.resx">
+      <DependentUpon>SelectDateRange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SampleForm\SelectSchoolYear.resx">
+      <DependentUpon>SelectSchoolYear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SampleForm\SelectStudents.resx">
+      <DependentUpon>SelectStudents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SampleForm\SpeedAddForm.resx">
+      <DependentUpon>SpeedAddForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SampleForm\WizardForm.resx">
+      <DependentUpon>WizardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StuAdminExtendControls\AttendanceControl\AttendanceEditForm.resx">
+      <DependentUpon>AttendanceEditForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StuAdminExtendControls\Config\AbsenceConfigForm.resx">
+      <DependentUpon>AbsenceConfigForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StuAdminExtendControls\Config\CompleteForm.resx">
+      <DependentUpon>CompleteForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StuAdminExtendControls\DisciplineControl\DisciplineForm.resx">
+      <DependentUpon>DisciplineForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StuAdminExtendControls\Config\ImportConfirm.resx">
+      <DependentUpon>ImportConfirm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StuAdminExtendControls\Config\PeriodConfigForm.resx">
+      <DependentUpon>PeriodConfigForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StuAdminExtendControls\Config\ReduceForm.resx">
+      <DependentUpon>ReduceForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StuAdminExtendControls\DisciplineControl\ResonText.resx">
+      <DependentUpon>ResonText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StuAdminExtendControls\MeritAndDemeritControl\ChangeTextForm.resx">
+      <DependentUpon>ChangeTextForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StuAdminExtendControls\MeritAndDemeritControl\MerDemEditForm.resx">
+      <DependentUpon>MerDemEditForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StuAdminExtendControls\MeritAndDemeritControl\ModifyForm.resx">
+      <DependentUpon>ModifyForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StuAdminExtendControls\MeritAndDemeritControl\SetValueSchoolYearSemester.resx">
+      <DependentUpon>SetValueSchoolYearSemester.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentExtendControls\AttendanceControl\AttendanceForm.resx">
+      <DependentUpon>AttendanceForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentExtendControls\AttendanceControl\AttendanceFormPast.resx">
+      <DependentUpon>AttendanceFormPast.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentExtendControls\AttendanceControl\PeriodControl.resx">
+      <DependentUpon>PeriodControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentExtendControls\AttendanceItem.resx">
+      <DependentUpon>AttendanceItem.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentExtendControls\DemeritItem.resx">
+      <DependentUpon>DemeritItem.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentExtendControls\DemeritItemControls\ClearDemeritForm.resx">
+      <DependentUpon>ClearDemeritForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentExtendControls\DemeritItemControls\DemeritEditForm.resx">
+      <DependentUpon>DemeritEditForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentExtendControls\DemeritItemControls\MultiClearDemeritForm.resx">
+      <DependentUpon>MultiClearDemeritForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentExtendControls\MeritItem.resx">
+      <DependentUpon>MeritItem.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentExtendControls\MeritItemControls\MeritEditForm.resx">
+      <DependentUpon>MeritEditForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentExtendControls\Ribbon\MutiMeritDemerit.resx">
+      <DependentUpon>MutiMeritDemerit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentExtendControls\Ribbon\SpeedMeritDemeritInsert.resx">
+      <DependentUpon>SpeedMeritDemeritInsert.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SampleForm\SelectClasses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SampleForm\SelectClasses.designer.cs">
+      <DependentUpon>SelectClasses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SampleForm\SelectDateRange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SampleForm\SelectDateRange.designer.cs">
+      <DependentUpon>SelectDateRange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SampleForm\SelectSchoolYear.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SampleForm\SelectSchoolYear.designer.cs">
+      <DependentUpon>SelectSchoolYear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SampleForm\SelectStudents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SampleForm\SelectStudents.designer.cs">
+      <DependentUpon>SelectStudents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SampleForm\SpeedAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SampleForm\SpeedAddForm.designer.cs">
+      <DependentUpon>SpeedAddForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SampleForm\StudentMag.cs" />
+    <Compile Include="SampleForm\WizardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SampleForm\WizardForm.designer.cs">
+      <DependentUpon>WizardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SortClassIndex.cs" />
+    <Compile Include="StuAdminExtendControls\AttendanceControl\AttendanceEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\AttendanceControl\AttendanceEditForm.designer.cs">
+      <DependentUpon>AttendanceEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\Config\AbsenceConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\Config\AbsenceConfigForm.designer.cs">
+      <DependentUpon>AbsenceConfigForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Feature\AbsenceInfo.cs" />
+    <Compile Include="StuAdminExtendControls\Config\CompleteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\Config\CompleteForm.designer.cs">
+      <DependentUpon>CompleteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\Config\DataGridViewExport.cs" />
+    <Compile Include="StuAdminExtendControls\DisciplineControl\DisciplineForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\DisciplineControl\DisciplineForm.designer.cs">
+      <DependentUpon>DisciplineForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\Config\ImportConfirm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\Config\ImportConfirm.designer.cs">
+      <DependentUpon>ImportConfirm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\Config\PeriodConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\Config\PeriodConfigForm.designer.cs">
+      <DependentUpon>PeriodConfigForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Feature\PeriodInfo.cs" />
+    <Compile Include="StuAdminExtendControls\Config\ReduceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\Config\ReduceForm.designer.cs">
+      <DependentUpon>ReduceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\MeritAndDemeritControl\MerDemEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\MeritAndDemeritControl\MerDemEditForm.designer.cs">
+      <DependentUpon>MerDemEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\MeritAndDemeritControl\ModifyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\MeritAndDemeritControl\ModifyForm.designer.cs">
+      <DependentUpon>ModifyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentExtendControls\AttendanceControl\AttendanceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentExtendControls\AttendanceControl\AttendanceForm.designer.cs">
+      <DependentUpon>AttendanceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentExtendControls\AttendanceControl\AttendanceFormPast.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentExtendControls\AttendanceControl\AttendanceFormPast.designer.cs">
+      <DependentUpon>AttendanceFormPast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentExtendControls\AttendanceControl\CustomDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StudentExtendControls\AttendanceControl\PeriodControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StudentExtendControls\AttendanceControl\PeriodControl.designer.cs">
+      <DependentUpon>PeriodControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentExtendControls\AttendanceItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StudentExtendControls\AttendanceItem.designer.cs">
+      <DependentUpon>AttendanceItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Feature\EditorStatus.cs" />
+    <Compile Include="Feature\KeyConverter.cs" />
+    <Compile Include="StudentExtendControls\DemeritItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StudentExtendControls\DemeritItem.designer.cs">
+      <DependentUpon>DemeritItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentExtendControls\DemeritItemControls\ClearDemeritForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentExtendControls\DemeritItemControls\ClearDemeritForm.designer.cs">
+      <DependentUpon>ClearDemeritForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentExtendControls\DemeritItemControls\DemeritEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentExtendControls\DemeritItemControls\DemeritEditForm.designer.cs">
+      <DependentUpon>DemeritEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentExtendControls\DemeritItemControls\MultiClearDemeritForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentExtendControls\DemeritItemControls\MultiClearDemeritForm.designer.cs">
+      <DependentUpon>MultiClearDemeritForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentExtendControls\MeritItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StudentExtendControls\MeritItem.designer.cs">
+      <DependentUpon>MeritItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentExtendControls\MeritItemControls\MeritEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentExtendControls\MeritItemControls\MeritEditForm.designer.cs">
+      <DependentUpon>MeritEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentExtendControls\Ribbon\AllStudentByClass.cs" />
+    <Compile Include="StudentExtendControls\Ribbon\MutiMeritDemerit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentExtendControls\Ribbon\MutiMeritDemerit.designer.cs">
+      <DependentUpon>MutiMeritDemerit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentExtendControls\Ribbon\SpeedMeritDemeritInsert.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentExtendControls\Ribbon\SpeedMeritDemeritInsert.Designer.cs">
+      <DependentUpon>SpeedMeritDemeritInsert.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btnDemerit.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btnMerit.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boolean_field_fav_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attach_write_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\preview_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\star_write_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\network_lock_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\notepad_lock_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ClassExtendControls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\laws_ok_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\achievement_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\achievement_clock_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\laws_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\laws_clock_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\paste_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Library\Aspose.Cells.dll" />
+    <Content Include="Library\Aspose.Cells.xml" />
+    <Content Include="Library\DevComponents.DotNetBar2.dll" />
+    <Content Include="Library\FISCA.dll" />
+    <Content Include="Library\FISCA.DSAUtil.dll" />
+    <Content Include="Library\FISCA.DSAUtil.pdb" />
+    <Content Include="Library\FISCA.DSAUtil.xml" />
+    <Content Include="Library\FISCA.LogAgent.dll" />
+    <Content Include="Library\FISCA.LogAgent.pdb" />
+    <Content Include="Library\FISCA.LogAgent.xml" />
+    <Content Include="Library\FISCA.pdb" />
+    <Content Include="Library\FISCA.Permission.dll" />
+    <Content Include="Library\FISCA.Permission.pdb" />
+    <Content Include="Library\FISCA.Permission.xml" />
+    <Content Include="Library\FISCA.Presentation.dll" />
+    <Content Include="Library\FISCA.Presentation.pdb" />
+    <Content Include="Library\FISCA.Presentation.xml" />
+    <Content Include="Library\Framework.dll" />
+    <Content Include="Library\K12.Data.dll" />
+    <Content Include="Library\K12.Data.pdb" />
+    <Content Include="Library\K12.Data.xml" />
+    <Content Include="Library\K12.Presentation.dll" />
+    <Content Include="Library\K12.Presentation.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{38F092D0-6A60-4FF4-A6CD-8880E4DDE611}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>K12.Behavior.Keyboard</RootNamespace>
+    <AssemblyName>K12.Behavior.Keyboard</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\..\Documents and Settings\Dylan.Huang\桌面\ischool desktop\addmodules\Keyboard\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aspose.Cells, Version=4.4.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\TFS2010-Git\Library\Aspose.Cells.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Campus.Windows">
+      <HintPath>..\..\..\..\..\TFS2010-Git\Library\Campus.Windows.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar2, Version=9.5.0.1, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\TFS2010-Git\Library\DevComponents.DotNetBar2.dll</HintPath>
+    </Reference>
+    <Reference Include="FISCA">
+      <HintPath>..\..\..\..\..\TFS2010-Git\Library\FISCA.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.Authentication">
+      <HintPath>..\..\..\..\..\TFS2010-Git\Library\FISCA.Authentication.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.Data">
+      <HintPath>..\..\..\..\..\TFS2010-Git\Library\FISCA.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.DSAClient">
+      <HintPath>..\..\..\..\..\TFS2010-Git\Library\FISCA.DSAClient.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.DSAUtil">
+      <HintPath>..\..\..\..\..\TFS2010-Git\Library\FISCA.DSAUtil.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.LogAgent">
+      <HintPath>..\..\..\..\..\TFS2010-Git\Library\FISCA.LogAgent.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.Permission">
+      <HintPath>..\..\..\..\..\TFS2010-Git\Library\FISCA.Permission.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.Presentation">
+      <HintPath>..\..\..\..\..\TFS2010-Git\Library\FISCA.Presentation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FISCA.UDT">
+      <HintPath>..\..\..\..\..\TFS2010-Git\Library\FISCA.UDT.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="K12.Data">
+      <HintPath>..\..\..\..\..\TFS2010-Git\Library\K12.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="K12.Presentation">
+      <HintPath>..\..\..\..\..\TFS2010-Git\Library\K12.Presentation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SmartSchool.Common">
+      <HintPath>..\..\..\..\..\TFS2010-Git\Library\SmartSchool.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SmartSchool.Common.DotNetBar">
+      <HintPath>..\..\..\..\..\TFS2010-Git\Library\SmartSchool.Common.DotNetBar.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbsenceInfo.cs" />
+    <Compile Include="AttendanceKBIn\AbsenceHelper.cs" />
+    <Compile Include="AttendanceKBIn\ClassInsertForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AttendanceKBIn\ClassInsertForm.Designer.cs">
+      <DependentUpon>ClassInsertForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompleteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompleteForm.designer.cs">
+      <DependentUpon>CompleteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config.cs" />
+    <Compile Include="DataGridViewExport.cs" />
+    <Compile Include="DataSort.cs" />
+    <Compile Include="MeritAndDemeritKBIn\PdCellHelper.cs" />
+    <Compile Include="AttendanceKBIn\PeriodDG.cs" />
+    <Compile Include="AttendanceKBIn\PeriodHelper.cs" />
+    <Compile Include="MeritAndDemeritKBIn\PdMeritDemeritKBInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MeritAndDemeritKBIn\PdMeritDemeritKBInput.Designer.cs">
+      <DependentUpon>PdMeritDemeritKBInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MeritAndDemeritKBIn\PdPeriodDG2.cs" />
+    <Compile Include="IsNew\KeyBoStudent.cs" />
+    <Compile Include="PeriodInfo.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="AttendanceKBIn\CellHelper.cs" />
+    <Compile Include="AttendanceKBIn\ErrorHelper.cs" />
+    <Compile Include="AttendanceKBIn\RtAttendanceKBInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AttendanceKBIn\RtAttendanceKBInput.Designer.cs">
+      <DependentUpon>RtAttendanceKBInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SetClassCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SetClassCode.Designer.cs">
+      <DependentUpon>SetClassCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TeacherSetDemerit.cs" />
+    <Compile Include="TeacherSetMerit.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AttendanceKBIn\ClassInsertForm.resx">
+      <DependentUpon>ClassInsertForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AttendanceKBIn\RtAttendanceKBInput.resx">
+      <DependentUpon>RtAttendanceKBInput.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompleteForm.resx">
+      <DependentUpon>CompleteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MeritAndDemeritKBIn\PdMeritDemeritKBInput.resx">
+      <DependentUpon>PdMeritDemeritKBInput.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SetClassCode.resx">
+      <DependentUpon>SetClassCode.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\star_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\polygon_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tools\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
