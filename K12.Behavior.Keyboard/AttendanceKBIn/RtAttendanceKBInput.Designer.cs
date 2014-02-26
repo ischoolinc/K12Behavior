@@ -540,10 +540,11 @@
             this.Controls.Add(this.gpAbsence);
             this.Controls.Add(this.dgv);
             this.Controls.Add(this.groupPanel1);
+            this.DoubleBuffered = true;
             this.MaximizeBox = true;
             this.MinimizeBox = true;
             this.Name = "RtAttendanceKBInput";
-            this.Text = "缺曠鍵盤登錄";
+            this.Text = "缺曠鍵盤登錄(測試版本)";
             this.Load += new System.EventHandler(this.RtAttendanceKBInput_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.gpAbsence.ResumeLayout(false);

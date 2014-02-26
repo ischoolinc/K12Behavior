@@ -45,24 +45,24 @@
             this.textBoxX3 = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.textBoxX2 = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.textBoxX1 = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.cbbReasonHotKey = new System.Windows.Forms.ComboBox();
+            this.btnInputDate = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.tbReason = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.tbDateTime = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.lbDemeritC = new DevComponents.DotNetBar.LabelX();
             this.lbDemeritB = new DevComponents.DotNetBar.LabelX();
             this.lbDemeritA = new DevComponents.DotNetBar.LabelX();
             this.lbMeritC = new DevComponents.DotNetBar.LabelX();
             this.lbMeritB = new DevComponents.DotNetBar.LabelX();
             this.lbMeritA = new DevComponents.DotNetBar.LabelX();
-            this.cbbReasonHotKey = new System.Windows.Forms.ComboBox();
             this.labelX9 = new DevComponents.DotNetBar.LabelX();
             this.labelX8 = new DevComponents.DotNetBar.LabelX();
             this.labelX5 = new DevComponents.DotNetBar.LabelX();
             this.labelX6 = new DevComponents.DotNetBar.LabelX();
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
-            this.btnInputDate = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.btnItem1Insert = new DevComponents.DotNetBar.ButtonX();
-            this.tbReason = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.tbDateTime = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.lbReason = new DevComponents.DotNetBar.LabelX();
             this.lbReasonHotKey = new DevComponents.DotNetBar.LabelX();
             this.lbDateTime = new DevComponents.DotNetBar.LabelX();
@@ -287,6 +287,57 @@
             this.textBoxX1.Size = new System.Drawing.Size(49, 25);
             this.textBoxX1.TabIndex = 6;
             // 
+            // cbbReasonHotKey
+            // 
+            this.cbbReasonHotKey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbbReasonHotKey.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbbReasonHotKey.FormattingEnabled = true;
+            this.cbbReasonHotKey.Location = new System.Drawing.Point(107, 94);
+            this.cbbReasonHotKey.Name = "cbbReasonHotKey";
+            this.cbbReasonHotKey.Size = new System.Drawing.Size(344, 25);
+            this.cbbReasonHotKey.TabIndex = 18;
+            this.cbbReasonHotKey.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cbbReasonHotKey_KeyUp_1);
+            // 
+            // btnInputDate
+            // 
+            this.btnInputDate.BackColor = System.Drawing.Color.White;
+            // 
+            // 
+            // 
+            this.btnInputDate.Border.Class = "TextBoxBorder";
+            this.btnInputDate.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.btnInputDate.Location = new System.Drawing.Point(343, 34);
+            this.btnInputDate.Name = "btnInputDate";
+            this.btnInputDate.Size = new System.Drawing.Size(140, 25);
+            this.btnInputDate.TabIndex = 3;
+            this.btnInputDate.KeyUp += new System.Windows.Forms.KeyEventHandler(this.btnInputDate_KeyUp);
+            // 
+            // tbReason
+            // 
+            // 
+            // 
+            // 
+            this.tbReason.Border.Class = "TextBoxBorder";
+            this.tbReason.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbReason.Location = new System.Drawing.Point(107, 124);
+            this.tbReason.Name = "tbReason";
+            this.tbReason.Size = new System.Drawing.Size(344, 25);
+            this.tbReason.TabIndex = 21;
+            this.tbReason.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbReason_KeyUp);
+            // 
+            // tbDateTime
+            // 
+            // 
+            // 
+            // 
+            this.tbDateTime.Border.Class = "TextBoxBorder";
+            this.tbDateTime.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tbDateTime.Location = new System.Drawing.Point(107, 34);
+            this.tbDateTime.Name = "tbDateTime";
+            this.tbDateTime.Size = new System.Drawing.Size(140, 25);
+            this.tbDateTime.TabIndex = 1;
+            this.tbDateTime.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbDateTime_KeyUp);
+            // 
             // lbDemeritC
             // 
             this.lbDemeritC.AutoSize = true;
@@ -376,17 +427,6 @@
             this.lbMeritA.Size = new System.Drawing.Size(75, 21);
             this.lbMeritA.TabIndex = 5;
             this.lbMeritA.Text = "大功：(&1)";
-            // 
-            // cbbReasonHotKey
-            // 
-            this.cbbReasonHotKey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbbReasonHotKey.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbbReasonHotKey.FormattingEnabled = true;
-            this.cbbReasonHotKey.Location = new System.Drawing.Point(107, 94);
-            this.cbbReasonHotKey.Name = "cbbReasonHotKey";
-            this.cbbReasonHotKey.Size = new System.Drawing.Size(344, 25);
-            this.cbbReasonHotKey.TabIndex = 18;
-            this.cbbReasonHotKey.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cbbReasonHotKey_KeyUp_1);
             // 
             // labelX9
             // 
@@ -482,20 +522,6 @@
             this.labelX3.TabIndex = 24;
             this.labelX3.Text = "學 年 度：(&Q)";
             // 
-            // btnInputDate
-            // 
-            this.btnInputDate.BackColor = System.Drawing.Color.White;
-            // 
-            // 
-            // 
-            this.btnInputDate.Border.Class = "TextBoxBorder";
-            this.btnInputDate.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.btnInputDate.Location = new System.Drawing.Point(343, 34);
-            this.btnInputDate.Name = "btnInputDate";
-            this.btnInputDate.Size = new System.Drawing.Size(140, 25);
-            this.btnInputDate.TabIndex = 3;
-            this.btnInputDate.KeyUp += new System.Windows.Forms.KeyEventHandler(this.btnInputDate_KeyUp);
-            // 
             // labelX1
             // 
             this.labelX1.AutoSize = true;
@@ -524,32 +550,6 @@
             this.btnItem1Insert.TabIndex = 23;
             this.btnItem1Insert.Text = "新增";
             this.btnItem1Insert.Click += new System.EventHandler(this.btnItem1Insert_Click);
-            // 
-            // tbReason
-            // 
-            // 
-            // 
-            // 
-            this.tbReason.Border.Class = "TextBoxBorder";
-            this.tbReason.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbReason.Location = new System.Drawing.Point(107, 124);
-            this.tbReason.Name = "tbReason";
-            this.tbReason.Size = new System.Drawing.Size(344, 25);
-            this.tbReason.TabIndex = 21;
-            this.tbReason.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbReason_KeyUp);
-            // 
-            // tbDateTime
-            // 
-            // 
-            // 
-            // 
-            this.tbDateTime.Border.Class = "TextBoxBorder";
-            this.tbDateTime.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tbDateTime.Location = new System.Drawing.Point(107, 34);
-            this.tbDateTime.Name = "tbDateTime";
-            this.tbDateTime.Size = new System.Drawing.Size(140, 25);
-            this.tbDateTime.TabIndex = 1;
-            this.tbDateTime.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbDateTime_KeyUp);
             // 
             // lbReason
             // 
@@ -796,10 +796,11 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.Pddgv);
             this.Controls.Add(this.gpBatchSetup);
+            this.DoubleBuffered = true;
             this.MaximizeBox = true;
             this.MinimizeBox = true;
             this.Name = "PdMeritDemeritKBInput";
-            this.Text = "獎懲鍵盤登錄";
+            this.Text = "獎懲鍵盤登錄(測試版本)";
             this.Load += new System.EventHandler(this.PdMeritDemeritKBInput_Load);
             this.gpBatchSetup.ResumeLayout(false);
             this.gpBatchSetup.PerformLayout();
