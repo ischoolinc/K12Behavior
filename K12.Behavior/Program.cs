@@ -17,12 +17,21 @@ namespace K12.Behavior
         {
             #region 毛毛蟲
 
+            FISCA.Permission.FeatureAce UserPermission;
             //缺曠記錄
-            K12.Presentation.NLDPanels.Student.AddDetailBulider(new FISCA.Presentation.DetailBulider<AttendanceItem>());
+            UserPermission = FISCA.Permission.UserAcl.Current[Permissions.缺曠記錄];
+            if (UserPermission.Editable || UserPermission.Viewable)
+                K12.Presentation.NLDPanels.Student.AddDetailBulider(new FISCA.Presentation.DetailBulider<AttendanceItem>());
+
             //獎勵記錄
-            K12.Presentation.NLDPanels.Student.AddDetailBulider(new FISCA.Presentation.DetailBulider<MeritItem>());
+            UserPermission = FISCA.Permission.UserAcl.Current[Permissions.獎勵記錄];
+            if (UserPermission.Editable || UserPermission.Viewable)
+                K12.Presentation.NLDPanels.Student.AddDetailBulider(new FISCA.Presentation.DetailBulider<MeritItem>());
+
             //懲戒記錄
-            K12.Presentation.NLDPanels.Student.AddDetailBulider(new FISCA.Presentation.DetailBulider<DemeritItem>());
+            UserPermission = FISCA.Permission.UserAcl.Current[Permissions.懲戒記錄];
+            if (UserPermission.Editable || UserPermission.Viewable)
+                K12.Presentation.NLDPanels.Student.AddDetailBulider(new FISCA.Presentation.DetailBulider<DemeritItem>());
 
             #endregion
 
@@ -96,7 +105,6 @@ namespace K12.Behavior
 
             #endregion
 
-
             #region 懲戒
 
             rbItem[txtDemerit].Image = Properties.Resources.laws_64;
@@ -151,7 +159,7 @@ namespace K12.Behavior
 
 
             #endregion
-            
+
             #region 事件
 
             K12.Presentation.NLDPanels.Student.SelectedSourceChanged += delegate
@@ -221,24 +229,6 @@ namespace K12.Behavior
                 MerDemEditForm mdef = new MerDemEditForm();
                 mdef.ShowDialog();
             };
-
-            //batchEdit["缺曠資料檢視"].Image = Properties.Resources.preview_64;
-            //batchEdit["缺曠資料檢視"].Enable = Permissions.缺曠資料檢視權限;
-            //batchEdit["缺曠資料檢視"].Click += delegate
-            //{
-            //    AttendanceEditForm adef = new AttendanceEditForm();
-            //    adef.ShowDialog();
-            //};
-
-            //2013/12/24 - dylan註解
-            //RibbonBarItem batchEdit1 = FISCA.Presentation.MotherForm.RibbonBarItems["學務作業", "資料統計"];
-            //batchEdit1["報表"].Image = Properties.Resources.paste_64;
-            //batchEdit1["報表"]["銷過記錄清單"].Enable = Permissions.銷過記錄清單權限;
-            //batchEdit1["報表"]["銷過記錄清單"].Click += delegate
-            //{
-            //    StudentDemeritClear sdc = new StudentDemeritClear();
-            //    sdc.ShowDialog();
-            //};
 
             #endregion
 
