@@ -1172,5 +1172,23 @@ namespace K12.Behavior.StuAdminExtendControls
                 FISCA.Presentation.Controls.MsgBox.Show("未修改!");
             }
         }
+
+        private void 批次增加前置詞ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<DisciplineRecord> list = new List<DisciplineRecord>();
+            foreach (DataGridViewRow row in dataGridViewX1.SelectedRows)
+            {
+                DisciplineRecord jhd = (DisciplineRecord)row.Tag;
+                list.Add(jhd);
+            }
+
+            ChangeResonBatch ssy = new ChangeResonBatch(list);
+            DialogResult dr = ssy.ShowDialog();
+
+            if (dr == System.Windows.Forms.DialogResult.Yes)
+            {
+                btnRefresh_Click(null, null); //更新畫面資料
+            }
+        }
     }
 }

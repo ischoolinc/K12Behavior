@@ -123,6 +123,8 @@
             this.txtHelpStudentCount = new DevComponents.DotNetBar.LabelX();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.picWaiting = new System.Windows.Forms.PictureBox();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.批次增加前置詞ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewX1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -289,6 +291,8 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.批次增加前置詞ToolStripMenuItem,
+            this.toolStripSeparator2,
             this.toolStripMenuItem1,
             this.修改學年度學期ToolStripMenuItem,
             this.修改獎懲ToolStripMenuItem,
@@ -296,45 +300,45 @@
             this.加入待處理ToolStripMenuItem,
             this.刪除ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(155, 142);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(159, 170);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(154, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(158, 22);
             this.toolStripMenuItem1.Text = "修改事由資料";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.修改事由資料toolStripMenuItem1_Click);
             // 
             // 修改學年度學期ToolStripMenuItem
             // 
             this.修改學年度學期ToolStripMenuItem.Name = "修改學年度學期ToolStripMenuItem";
-            this.修改學年度學期ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.修改學年度學期ToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.修改學年度學期ToolStripMenuItem.Text = "修改學年度學期";
             this.修改學年度學期ToolStripMenuItem.Click += new System.EventHandler(this.修改學年度學期ToolStripMenuItem_Click);
             // 
             // 修改獎懲ToolStripMenuItem
             // 
             this.修改獎懲ToolStripMenuItem.Name = "修改獎懲ToolStripMenuItem";
-            this.修改獎懲ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.修改獎懲ToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.修改獎懲ToolStripMenuItem.Text = "修改所有資料";
             this.修改獎懲ToolStripMenuItem.Click += new System.EventHandler(this.修改獎懲ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(151, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(155, 6);
             // 
             // 加入待處理ToolStripMenuItem
             // 
             this.加入待處理ToolStripMenuItem.Name = "加入待處理ToolStripMenuItem";
-            this.加入待處理ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.加入待處理ToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.加入待處理ToolStripMenuItem.Text = "加入待處理";
             this.加入待處理ToolStripMenuItem.Click += new System.EventHandler(this.加入待處理ToolStripMenuItem_Click);
             // 
             // 刪除ToolStripMenuItem
             // 
             this.刪除ToolStripMenuItem.Name = "刪除ToolStripMenuItem";
-            this.刪除ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.刪除ToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.刪除ToolStripMenuItem.Text = "刪除選擇項目";
             this.刪除ToolStripMenuItem.Click += new System.EventHandler(this.刪除ToolStripMenuItem_Click);
             // 
@@ -1285,6 +1289,18 @@
             this.picWaiting.TabStop = false;
             this.picWaiting.Visible = false;
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(155, 6);
+            // 
+            // 批次增加前置詞ToolStripMenuItem
+            // 
+            this.批次增加前置詞ToolStripMenuItem.Name = "批次增加前置詞ToolStripMenuItem";
+            this.批次增加前置詞ToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.批次增加前置詞ToolStripMenuItem.Text = "批次增加前置詞";
+            this.批次增加前置詞ToolStripMenuItem.Click += new System.EventHandler(this.批次增加前置詞ToolStripMenuItem_Click);
+            // 
             // MerDemEditForm
             // 
             this.ClientSize = new System.Drawing.Size(792, 546);
@@ -1303,6 +1319,7 @@
             this.Controls.Add(this.btnModify);
             this.Controls.Add(this.groupPanel1);
             this.Controls.Add(this.btnRefresh);
+            this.DoubleBuffered = true;
             this.MaximizeBox = true;
             this.MinimizeBox = true;
             this.Name = "MerDemEditForm";
@@ -1418,6 +1435,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem 修改學年度學期ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 批次增加前置詞ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

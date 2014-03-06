@@ -78,6 +78,11 @@
       <HintPath>Library\FISCA.Presentation.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="FISCA.UDT, Version=1.0.2.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\FISCA.UDT.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\Framework.dll</HintPath>
@@ -91,6 +96,11 @@
     <Reference Include="K12.Presentation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\K12.Presentation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SmartSchool.ErrorReporting, Version=1.0.2.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\SmartSchool.ErrorReporting.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -132,6 +142,12 @@
     </Compile>
     <Compile Include="StuAdminExtendControls\DisciplineControl\ResonText.designer.cs">
       <DependentUpon>ResonText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\MeritAndDemeritControl\ChangeResonBatch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\MeritAndDemeritControl\ChangeResonBatch.designer.cs">
+      <DependentUpon>ChangeResonBatch.cs</DependentUpon>
     </Compile>
     <Compile Include="StuAdminExtendControls\MeritAndDemeritControl\ChangeTextForm.cs">
       <SubType>Form</SubType>
@@ -199,6 +215,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StuAdminExtendControls\DisciplineControl\ResonText.resx">
       <DependentUpon>ResonText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StuAdminExtendControls\MeritAndDemeritControl\ChangeResonBatch.resx">
+      <DependentUpon>ChangeResonBatch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StuAdminExtendControls\MeritAndDemeritControl\ChangeTextForm.resx">
       <DependentUpon>ChangeTextForm.cs</DependentUpon>
@@ -513,12 +532,18 @@
     <Content Include="Library\FISCA.Presentation.dll" />
     <Content Include="Library\FISCA.Presentation.pdb" />
     <Content Include="Library\FISCA.Presentation.xml" />
+    <Content Include="Library\FISCA.UDT.dll" />
+    <Content Include="Library\FISCA.UDT.pdb" />
+    <Content Include="Library\FISCA.UDT.xml" />
     <Content Include="Library\Framework.dll" />
     <Content Include="Library\K12.Data.dll" />
     <Content Include="Library\K12.Data.pdb" />
     <Content Include="Library\K12.Data.xml" />
     <Content Include="Library\K12.Presentation.dll" />
     <Content Include="Library\K12.Presentation.xml" />
+    <Content Include="Library\SmartSchool.ErrorReporting.dll" />
+    <Content Include="Library\SmartSchool.ErrorReporting.pdb" />
+    <Content Include="Library\SmartSchool.ErrorReporting.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
