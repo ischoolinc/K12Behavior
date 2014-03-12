@@ -64,6 +64,32 @@ namespace K12.Behavior
             get { return FISCA.Permission.UserAcl.Current[獎懲批次修改].Executable; }
         }
 
+
+        public static string 匯出獎懲記錄 { get { return "Button0190"; } }
+        public static string 匯出缺曠記錄 { get { return "Button0180"; } }
+        public static string 匯入獎懲記錄 { get { return "Button0270"; } }
+        public static string 匯入缺曠記錄 { get { return "Button0260"; } }
+
+        public static bool 匯出獎懲記錄權限
+        {
+            get { return FISCA.Permission.UserAcl.Current[匯出獎懲記錄].Executable; }
+        }
+
+        public static bool 匯入獎懲記錄權限
+        {
+            get { return FISCA.Permission.UserAcl.Current[匯入獎懲記錄].Executable; }
+        }
+
+        public static bool 匯出缺曠記錄權限
+        {
+            get { return FISCA.Permission.UserAcl.Current[匯出缺曠記錄].Executable; }
+        }
+
+        public static bool 匯入缺曠記錄權限
+        {
+            get { return FISCA.Permission.UserAcl.Current[匯入缺曠記錄].Executable; }
+        }
+
         //public static bool 缺曠資料檢視權限
         //{
         //    get { return FISCA.Permission.UserAcl.Current[缺曠資料檢視].Executable; }

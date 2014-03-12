@@ -35,12 +35,6 @@ namespace K12.Behavior
 
             #endregion
 
-            string URL獎勵 = "ischool/高中系統/共用/學務/學生/登錄獎勵資料";
-            string URL獎勵快速登錄 = "ischool/高中系統/共用/學務/學生/獎勵快速登錄";
-            string URL懲戒 = "ischool/高中系統/共用/學務/學生/登錄學生懲戒資料";
-            string URL懲戒快速登錄 = "ischool/高中系統/共用/學務/學生/懲戒快速登錄";
-            //string URL銷過 = "ischool/高中系統/共用/學務/學生/學生銷過";
-
             string txtMerit = "獎勵";
             string txtMeritSpeed = "獎勵快速登錄";
             string txtDemerit = "懲戒";
@@ -48,6 +42,37 @@ namespace K12.Behavior
             //string txtClearDemerit = "銷過";
 
             RibbonBarItem rbItem = MotherForm.RibbonBarItems["學生", "學務"];
+
+            #region 匯出匯入
+            RibbonBarItem rbItemExport = MotherForm.RibbonBarItems["學生", "資料統計"];
+            rbItemExport["匯出"]["學務相關匯出"]["匯出缺曠紀錄"].Enable = Permissions.匯出缺曠記錄權限;
+            rbItemExport["匯出"]["學務相關匯出"]["匯出缺曠紀錄"].Click += delegate
+            {
+                new ExportStudent(new ExportAbsence()).ShowDialog();
+            };
+
+            rbItemExport["匯出"]["學務相關匯出"]["匯出獎懲紀錄"].Enable = Permissions.匯出獎懲記錄權限;
+            rbItemExport["匯出"]["學務相關匯出"]["匯出獎懲紀錄"].Click += delegate
+            {
+                new ExportStudent(new ExportDiscipline()).ShowDialog();
+            };
+
+            rbItemExport["匯入"]["學務相關匯入"]["匯入獎懲紀錄"].Enable = Permissions.匯入獎懲記錄權限;
+            rbItemExport["匯入"]["學務相關匯入"]["匯入獎懲紀錄"].Click += delegate
+            {
+                SmartSchool.API.PlugIn.Import.Importer importer = new ImportDiscipline();
+                ImportStudentV2 wizard = new ImportStudentV2(importer.Text, importer.Image);
+                importer.InitializeImport(wizard);
+                wizard.ShowDialog();
+            };
+
+            rbItemExport["匯入"]["學務相關匯入"]["匯入缺曠紀錄"].Enable = Permissions.匯入缺曠記錄權限;
+            rbItemExport["匯入"]["學務相關匯入"]["匯入缺曠紀錄"].Click += delegate
+            {
+                new ImportStudent(new ImportAbsence()).ShowDialog();
+            };
+
+            #endregion
 
             #region 獎勵
 
@@ -77,18 +102,6 @@ namespace K12.Behavior
                     editor.ShowDialog();
                 };
             }
-
-            FISCA.Features.Register(URL獎勵, arg =>
-            {
-                MeritEditForm editor = new MeritEditForm(K12.Data.Student.SelectByIDs(K12.Presentation.NLDPanels.Student.SelectedSource));
-                editor.ShowDialog();
-            });
-
-            FISCA.Features.Register(URL獎勵快速登錄, arg =>
-            {
-                MutiMeritDemerit editor = new MutiMeritDemerit("獎勵");
-                editor.ShowDialog();
-            });
 
             rbItem[txtMerit].Click += delegate
             {
@@ -132,18 +145,6 @@ namespace K12.Behavior
                 };
 
             }
-
-            FISCA.Features.Register(URL懲戒, arg =>
-            {
-                DemeritEditForm editForm = new DemeritEditForm(K12.Data.Student.SelectByIDs(K12.Presentation.NLDPanels.Student.SelectedSource));
-                editForm.ShowDialog();
-            });
-
-            FISCA.Features.Register(URL懲戒快速登錄, arg =>
-            {
-                MutiMeritDemerit editor = new MutiMeritDemerit("懲戒");
-                editor.ShowDialog();
-            });
 
             rbItem[txtDemerit].Click += delegate
             {
@@ -245,6 +246,10 @@ namespace K12.Behavior
             ribbon = RoleAclSource.Instance["學生"]["功能按鈕"];
             ribbon.Add(new RibbonFeature(Permissions.獎勵, "獎勵"));
             ribbon.Add(new RibbonFeature(Permissions.懲戒, "懲戒"));
+            ribbon.Add(new RibbonFeature(Permissions.匯出獎懲記錄, "匯出獎懲記錄"));
+            ribbon.Add(new RibbonFeature(Permissions.匯出缺曠記錄, "匯出缺曠記錄"));
+            ribbon.Add(new RibbonFeature(Permissions.匯入獎懲記錄, "匯入獎懲記錄"));
+            ribbon.Add(new RibbonFeature(Permissions.匯入缺曠記錄, "匯入缺曠記錄"));
 
             ribbon = RoleAclSource.Instance["學務作業"]["功能按鈕"];
             ribbon.Add(new RibbonFeature(Permissions.缺曠類別管理, "缺曠類別管理"));
