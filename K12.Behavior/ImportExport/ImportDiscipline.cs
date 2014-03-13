@@ -192,7 +192,10 @@ namespace K12.Behavior
                 #region 驗證可選則欄位值
                 int integer;
                 DateTime dateTime;
-                bool hasAward = false, hasFault = false, IsErrorAward = true;
+                bool hasAward = false, hasFault = false, IsErrorAward = false;
+
+                bool IsIn_School = false; //是否"是"留查資料
+
                 foreach (string field in e.SelectFields)
                 {
                     switch (field)
@@ -257,11 +260,24 @@ namespace K12.Behavior
                             }
                             break;
                         case "是否銷過":
+                            if (e.Data[field] != "" && e.Data[field] != "是" && e.Data[field] != "否")
+                            {
+                                e.ErrorFields.Add(field, "如果為是請填入\"是\"否則請保留空白或填入\"否\"");
+                                pass = false;
+                            }
+                            break;
                         case "留校察看":
                             if (e.Data[field] != "" && e.Data[field] != "是" && e.Data[field] != "否")
                             {
                                 e.ErrorFields.Add(field, "如果為是請填入\"是\"否則請保留空白或填入\"否\"");
                                 pass = false;
+                            }
+                            else
+                            {
+                                if (e.Data[field] == "是") //是留查資料
+                                {
+                                    IsIn_School = true;
+                                }
                             }
                             break;
                     }
@@ -323,26 +339,29 @@ namespace K12.Behavior
                     #endregion
                 }
 
-                if (檢查是否獎都是0 && 檢查是否懲都是0)
+                if (!IsIn_School) //留查資料,不需判斷
                 {
-                    e.ErrorMessage = "獎懲皆為0,系統無法判斷此類型資料。";
-                    pass = false;
-                }
-                else if (檢查是否獎都是0 && 檢查懲是空值)
-                {
-                    e.ErrorMessage = "獎懲皆為0,系統無法判斷此類型資料。";
-                    pass = false;
-                }
-                else if (檢查是否懲都是0 && 檢查獎是空值)
-                {
-                    e.ErrorMessage = "獎懲皆為0,系統無法判斷此類型資料。";
-                    pass = false;
-                }
+                    if (檢查是否獎都是0 && 檢查是否懲都是0)
+                    {
+                        e.ErrorMessage = "獎懲皆為0,系統無法判斷此類型資料。";
+                        pass = false;
+                    }
+                    else if (檢查是否獎都是0 && 檢查懲是空值)
+                    {
+                        e.ErrorMessage = "獎懲皆為0,系統無法判斷此類型資料。";
+                        pass = false;
+                    }
+                    else if (檢查是否懲都是0 && 檢查獎是空值)
+                    {
+                        e.ErrorMessage = "獎懲皆為0,系統無法判斷此類型資料。";
+                        pass = false;
+                    }
 
-                if (IsErrorAward)
-                {
-                    e.ErrorMessage = "獎勵與懲戒不可同時未輸入內容!!";
-                    pass = false;
+                    if (IsErrorAward)
+                    {
+                        e.ErrorMessage = "獎勵與懲戒不可同時未輸入內容!!";
+                        pass = false;
+                    }
                 }
 
                 if (hasAward && hasFault)
@@ -477,9 +496,6 @@ namespace K12.Behavior
                                 #endregion
                                 DSXmlHelper h = new DSXmlHelper("Discipline");
 
-                                //偷偷記一個studentID - 2014/3/10
-                                h.AddElement(".", "ref_student_id", row.ID);
-
                                 isAward = awardA + awardB + awardC > 0;
                                 if (isAward)
                                 {
@@ -491,12 +507,26 @@ namespace K12.Behavior
                                 else
                                 {
                                     XmlElement element = h.AddElement("Demerit");
-                                    element.SetAttribute("A", faultA.ToString());
-                                    element.SetAttribute("B", faultB.ToString());
-                                    element.SetAttribute("C", faultC.ToString());
-                                    element.SetAttribute("Cleared", cleared ? "是" : string.Empty);
-                                    element.SetAttribute("ClearDate", cleared ? cleardate.ToShortDateString() : "");
-                                    element.SetAttribute("ClearReason", clearreason);
+                                    if (!ultimateAdmonition)
+                                    {
+                                        element.SetAttribute("A", faultA.ToString());
+                                        element.SetAttribute("B", faultB.ToString());
+                                        element.SetAttribute("C", faultC.ToString());
+                                        element.SetAttribute("Cleared", cleared ? "是" : string.Empty);
+                                        element.SetAttribute("ClearDate", cleared ? cleardate.ToShortDateString() : "");
+                                        element.SetAttribute("ClearReason", clearreason);
+
+                                    }
+                                    else
+                                    {
+                                        //如果是留查資料
+                                        element.SetAttribute("A", "0");
+                                        element.SetAttribute("B", "0");
+                                        element.SetAttribute("C", "0");
+                                        element.SetAttribute("Cleared", string.Empty);
+                                        element.SetAttribute("ClearDate", string.Empty);
+                                        element.SetAttribute("ClearReason", string.Empty);
+                                    }
                                 }
                                 updateHelper.AddElement("Discipline");
                                 updateHelper.AddElement("Discipline", "Field");
@@ -523,12 +553,24 @@ namespace K12.Behavior
                             else
                             {
                                 XmlElement element = h.AddElement("Demerit");
-                                element.SetAttribute("A", faultA.ToString());
-                                element.SetAttribute("B", faultB.ToString());
-                                element.SetAttribute("C", faultC.ToString());
-                                element.SetAttribute("Cleared", cleared ? "是" : string.Empty);
-                                element.SetAttribute("ClearDate", cleared ? cleardate.ToShortDateString() : "");
-                                element.SetAttribute("ClearReason", clearreason);
+                                if (!ultimateAdmonition)
+                                {
+                                    element.SetAttribute("A", faultA.ToString());
+                                    element.SetAttribute("B", faultB.ToString());
+                                    element.SetAttribute("C", faultC.ToString());
+                                    element.SetAttribute("Cleared", cleared ? "是" : string.Empty);
+                                    element.SetAttribute("ClearDate", cleared ? cleardate.ToShortDateString() : "");
+                                    element.SetAttribute("ClearReason", clearreason);
+                                }
+                                else
+                                {
+                                    element.SetAttribute("A", "0");
+                                    element.SetAttribute("B", "0");
+                                    element.SetAttribute("C", "0");
+                                    element.SetAttribute("Cleared", string.Empty);
+                                    element.SetAttribute("ClearDate", string.Empty);
+                                    element.SetAttribute("ClearReason", string.Empty);
+                                }
                             }
                             insertHelper.AddElement("Discipline");
                             insertHelper.AddElement("Discipline", "RefStudentID", row.ID);
@@ -629,12 +671,25 @@ namespace K12.Behavior
                                 else
                                 {
                                     XmlElement element = h.AddElement("Demerit");
-                                    element.SetAttribute("A", faultA.ToString());
-                                    element.SetAttribute("B", faultB.ToString());
-                                    element.SetAttribute("C", faultC.ToString());
-                                    element.SetAttribute("Cleared", cleared ? "是" : string.Empty);
-                                    element.SetAttribute("ClearDate", cleared ? cleardate.ToShortDateString() : "");
-                                    element.SetAttribute("ClearReason", clearreason);
+                                    if (!ultimateAdmonition)
+                                    {
+                                        element.SetAttribute("A", faultA.ToString());
+                                        element.SetAttribute("B", faultB.ToString());
+                                        element.SetAttribute("C", faultC.ToString());
+                                        element.SetAttribute("Cleared", cleared ? "是" : string.Empty);
+                                        element.SetAttribute("ClearDate", cleared ? cleardate.ToShortDateString() : "");
+                                        element.SetAttribute("ClearReason", clearreason);
+                                    }
+                                    else
+                                    {
+                                        element.SetAttribute("A", "0");
+                                        element.SetAttribute("B", "0");
+                                        element.SetAttribute("C", "0");
+                                        element.SetAttribute("Cleared", string.Empty);
+                                        element.SetAttribute("ClearDate", string.Empty);
+                                        element.SetAttribute("ClearReason", string.Empty);
+                                    }
+
                                 }
                                 updateHelper.AddElement("Discipline");
                                 updateHelper.AddElement("Discipline", "Field");
@@ -662,12 +717,24 @@ namespace K12.Behavior
                             else
                             {
                                 XmlElement element = h.AddElement("Demerit");
-                                element.SetAttribute("A", faultA.ToString());
-                                element.SetAttribute("B", faultB.ToString());
-                                element.SetAttribute("C", faultC.ToString());
-                                element.SetAttribute("Cleared", cleared ? "是" : string.Empty);
-                                element.SetAttribute("ClearDate", cleared ? cleardate.ToShortDateString() : "");
-                                element.SetAttribute("ClearReason", clearreason);
+                                if (!ultimateAdmonition)
+                                {
+                                    element.SetAttribute("A", faultA.ToString());
+                                    element.SetAttribute("B", faultB.ToString());
+                                    element.SetAttribute("C", faultC.ToString());
+                                    element.SetAttribute("Cleared", cleared ? "是" : string.Empty);
+                                    element.SetAttribute("ClearDate", cleared ? cleardate.ToShortDateString() : "");
+                                    element.SetAttribute("ClearReason", clearreason);
+                                }
+                                else
+                                {
+                                    element.SetAttribute("A", "0");
+                                    element.SetAttribute("B", "0");
+                                    element.SetAttribute("C", "0");
+                                    element.SetAttribute("Cleared", string.Empty);
+                                    element.SetAttribute("ClearDate", string.Empty);
+                                    element.SetAttribute("ClearReason", string.Empty);
+                                }
                             }
                             insertHelper.AddElement("Discipline");
                             insertHelper.AddElement("Discipline", "RefStudentID", row.ID);
@@ -687,14 +754,14 @@ namespace K12.Behavior
 
                 if (hasInsert)
                 {
-                    Log_sb.AppendLine(GetInsertString(insertHelper, "新增"));
                     SmartSchool.Feature.Student.EditDiscipline.Insert(new DSRequest(insertHelper));
+                    Log_sb.AppendLine(GetInsertString(insertHelper, "新增"));
                 }
 
                 if (hasUpdate)
                 {
-                    Log_sb.AppendLine(GetUpdataString(updateHelper, "更新"));
                     SmartSchool.Feature.Student.EditDiscipline.Update(new DSRequest(updateHelper));
+                    Log_sb.AppendLine(GetUpdataString(updateHelper, "更新"));
                 }
 
                 if (hasUpdate || hasInsert)
@@ -724,6 +791,8 @@ namespace K12.Behavior
                         sb.AppendLine("獎勵：");
                     else if (MeritFlag == "0")
                         sb.AppendLine("懲戒：");
+                    else if (MeritFlag == "2")
+                        sb.AppendLine("留查：");
                     sb.Append("班級「" + class_name + "」座號「" + seat_no + "」姓名「" + name + "」");
                     sb.AppendLine("日期「" + date + "」事由「" + Reason + "」");
                 }
@@ -767,6 +836,8 @@ namespace K12.Behavior
                         sb.AppendLine("獎勵：");
                     else if (MeritFlag == "0")
                         sb.AppendLine("懲戒：");
+                    else if (MeritFlag == "2")
+                        sb.AppendLine("留查：");
                     sb.Append("班級「" + class_name + "」座號「" + seat_no + "」姓名「" + name + "」");
                     sb.AppendLine("日期「" + date + "」事由「" + Reason + "」");
                 }
