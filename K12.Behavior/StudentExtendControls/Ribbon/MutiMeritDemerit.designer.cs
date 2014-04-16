@@ -437,6 +437,8 @@
             // 
             this.comboBoxEx1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxEx1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxEx1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxEx1.DisplayMember = "Text";
             this.comboBoxEx1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxEx1.FormattingEnabled = true;
@@ -602,6 +604,7 @@
             this.Controls.Add(this.dataGridViewX1);
             this.Controls.Add(this.dateTimeInput1);
             this.Controls.Add(this.labelX1);
+            this.DoubleBuffered = true;
             this.MaximizeBox = true;
             this.Name = "MutiMeritDemerit";
             this.Text = "多人獎勵快速登錄";
