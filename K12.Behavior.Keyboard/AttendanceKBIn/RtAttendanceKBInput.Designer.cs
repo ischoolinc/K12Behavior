@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lbHelp1 = new DevComponents.DotNetBar.LabelX();
@@ -65,6 +66,7 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colweek = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -97,10 +99,10 @@
             this.lbHelp1.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
             this.lbHelp1.Location = new System.Drawing.Point(23, 465);
             this.lbHelp1.Name = "lbHelp1";
-            this.lbHelp1.Size = new System.Drawing.Size(437, 73);
-            this.lbHelp1.TabIndex = 4;
-            this.lbHelp1.Text = "1.Alt+假別熱鍵(填入熱鍵假別)，Alt+A(清空全部假別)，Alt+S(即時儲存)\r\n2.將節次內容均清空後進行儲存(Alt+S)將會刪除該筆缺曠記錄\r\n3" +
-    ".\"下\"鍵新增為<即時儲存>功能(20130925-new)\r\n4.新增一行時，會取\"批次設定\"內容為新行之預設內容";
+            this.lbHelp1.Size = new System.Drawing.Size(443, 73);
+            this.lbHelp1.TabIndex = 1;
+            this.lbHelp1.Text = "1.Alt+假別熱鍵(可填滿該假別)，Alt+A(清空全部假別)，Alt+S(即時儲存)\r\n2.如何快速儲存(a)Alt+S(b)鍵盤\"下\"鍵　(需注意當資料有誤" +
+    "時,將無法儲存)\r\n2.將節次內容均清空後進行儲存,將會刪除該筆缺曠記錄\r\n3.當第一筆資料儲存成功(班級/請假日期)將會自動帶入下一筆資料";
             // 
             // btnClose
             // 
@@ -112,7 +114,7 @@
             this.btnClose.Location = new System.Drawing.Point(675, 509);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(110, 25);
-            this.btnClose.TabIndex = 5;
+            this.btnClose.TabIndex = 2;
             this.btnClose.Text = "關閉(&X)";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
@@ -157,7 +159,7 @@
             // 
             this.gpAbsence.StyleMouseOver.Class = "";
             this.gpAbsence.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.gpAbsence.TabIndex = 3;
+            this.gpAbsence.TabIndex = 5;
             this.gpAbsence.Text = "假別熱鍵";
             // 
             // cpAbsence
@@ -186,8 +188,8 @@
             // 
             // dataGridViewTextBoxColumn4
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.LightCyan;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.LightCyan;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridViewTextBoxColumn4.HeaderText = "姓名";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
@@ -223,7 +225,7 @@
             this.lbItem1DateTime2.Location = new System.Drawing.Point(324, 37);
             this.lbItem1DateTime2.Name = "lbItem1DateTime2";
             this.lbItem1DateTime2.Size = new System.Drawing.Size(96, 21);
-            this.lbItem1DateTime2.TabIndex = 2;
+            this.lbItem1DateTime2.TabIndex = 7;
             this.lbItem1DateTime2.Text = "例：20090607";
             // 
             // lbItem1Semester
@@ -239,7 +241,7 @@
             this.lbItem1Semester.Location = new System.Drawing.Point(178, 9);
             this.lbItem1Semester.Name = "lbItem1Semester";
             this.lbItem1Semester.Size = new System.Drawing.Size(81, 21);
-            this.lbItem1Semester.TabIndex = 7;
+            this.lbItem1Semester.TabIndex = 2;
             this.lbItem1Semester.Text = "學期：(&W)";
             // 
             // txtItem1DateTime
@@ -252,7 +254,7 @@
             this.txtItem1DateTime.Location = new System.Drawing.Point(118, 35);
             this.txtItem1DateTime.Name = "txtItem1DateTime";
             this.txtItem1DateTime.Size = new System.Drawing.Size(201, 25);
-            this.txtItem1DateTime.TabIndex = 1;
+            this.txtItem1DateTime.TabIndex = 6;
             this.txtItem1DateTime.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtItem1DateTime_KeyUp);
             // 
             // lbItem1DateTime
@@ -268,7 +270,7 @@
             this.lbItem1DateTime.Location = new System.Drawing.Point(14, 37);
             this.lbItem1DateTime.Name = "lbItem1DateTime";
             this.lbItem1DateTime.Size = new System.Drawing.Size(101, 21);
-            this.lbItem1DateTime.TabIndex = 0;
+            this.lbItem1DateTime.TabIndex = 5;
             this.lbItem1DateTime.Text = "請假日期：(&E)";
             // 
             // lbItem1SchoolYear
@@ -284,7 +286,7 @@
             this.lbItem1SchoolYear.Location = new System.Drawing.Point(15, 9);
             this.lbItem1SchoolYear.Name = "lbItem1SchoolYear";
             this.lbItem1SchoolYear.Size = new System.Drawing.Size(101, 21);
-            this.lbItem1SchoolYear.TabIndex = 5;
+            this.lbItem1SchoolYear.TabIndex = 0;
             this.lbItem1SchoolYear.Text = "學 年 度 ：(&Q)";
             // 
             // btnItem1Insert
@@ -296,7 +298,7 @@
             this.btnItem1Insert.Location = new System.Drawing.Point(436, 64);
             this.btnItem1Insert.Name = "btnItem1Insert";
             this.btnItem1Insert.Size = new System.Drawing.Size(71, 23);
-            this.btnItem1Insert.TabIndex = 4;
+            this.btnItem1Insert.TabIndex = 9;
             this.btnItem1Insert.Text = "新增(&R)";
             this.btnItem1Insert.Click += new System.EventHandler(this.btnItem1Insert_Click);
             // 
@@ -351,7 +353,7 @@
             // 
             this.groupPanel1.StyleMouseOver.Class = "";
             this.groupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.groupPanel1.TabIndex = 0;
+            this.groupPanel1.TabIndex = 3;
             this.groupPanel1.Text = "批次設定";
             // 
             // cbBoxItem1Semester
@@ -368,7 +370,7 @@
             this.cbBoxItem1Semester.Name = "cbBoxItem1Semester";
             this.cbBoxItem1Semester.ShowUpDown = true;
             this.cbBoxItem1Semester.Size = new System.Drawing.Size(58, 25);
-            this.cbBoxItem1Semester.TabIndex = 8;
+            this.cbBoxItem1Semester.TabIndex = 3;
             this.cbBoxItem1Semester.Value = 1;
             this.cbBoxItem1Semester.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cbBoxItem1Semester_KeyUp);
             // 
@@ -386,7 +388,7 @@
             this.cbBoxItem1SchoolYear.Name = "cbBoxItem1SchoolYear";
             this.cbBoxItem1SchoolYear.ShowUpDown = true;
             this.cbBoxItem1SchoolYear.Size = new System.Drawing.Size(58, 25);
-            this.cbBoxItem1SchoolYear.TabIndex = 6;
+            this.cbBoxItem1SchoolYear.TabIndex = 1;
             this.cbBoxItem1SchoolYear.Value = 90;
             this.cbBoxItem1SchoolYear.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cbBoxItem1SchoolYear_KeyUp);
             // 
@@ -403,7 +405,7 @@
             this.labelX2.Location = new System.Drawing.Point(14, 65);
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(372, 21);
-            this.labelX2.TabIndex = 3;
+            this.labelX2.TabIndex = 8;
             this.labelX2.Text = "假別熱鍵：於資料欄位內鍵入Alt+假別熱鍵,即可填滿特定假別";
             // 
             // labelX1
@@ -420,7 +422,7 @@
             this.labelX1.Location = new System.Drawing.Point(321, 9);
             this.labelX1.Name = "labelX1";
             this.labelX1.Size = new System.Drawing.Size(173, 21);
-            this.labelX1.TabIndex = 9;
+            this.labelX1.TabIndex = 4;
             this.labelX1.Text = "預設為系統目前學年度/學期";
             // 
             // btnSetClassNameCode
@@ -435,7 +437,7 @@
             this.btnSetClassNameCode.Name = "btnSetClassNameCode";
             this.btnSetClassNameCode.Size = new System.Drawing.Size(107, 27);
             this.btnSetClassNameCode.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnSetClassNameCode.TabIndex = 1;
+            this.btnSetClassNameCode.TabIndex = 4;
             this.btnSetClassNameCode.Text = "班級名稱代碼表";
             this.btnSetClassNameCode.Click += new System.EventHandler(this.btnSetClassNameCode_Click);
             // 
@@ -455,16 +457,17 @@
             this.Column3,
             this.Column4,
             this.Column5,
+            this.colweek,
             this.Column8,
             this.Column9});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgv.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgv.Location = new System.Drawing.Point(8, 135);
             this.dgv.MultiSelect = false;
@@ -472,7 +475,7 @@
             this.dgv.RowHeadersWidth = 35;
             this.dgv.RowTemplate.Height = 24;
             this.dgv.Size = new System.Drawing.Size(777, 324);
-            this.dgv.TabIndex = 2;
+            this.dgv.TabIndex = 0;
             this.dgv.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellEndEdit);
             this.dgv.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dgv_KeyUp);
             // 
@@ -511,19 +514,28 @@
             this.Column5.HeaderText = "請假日期";
             this.Column5.Name = "Column5";
             // 
-            // Column8
+            // colweek
             // 
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.Column8.DefaultCellStyle = dataGridViewCellStyle3;
+            this.colweek.DefaultCellStyle = dataGridViewCellStyle3;
+            this.colweek.HeaderText = "星期";
+            this.colweek.Name = "colweek";
+            this.colweek.ReadOnly = true;
+            this.colweek.Width = 40;
+            // 
+            // Column8
+            // 
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.Column8.DefaultCellStyle = dataGridViewCellStyle4;
             this.Column8.HeaderText = "學年度";
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
-            this.Column8.Width = 70;
+            this.Column8.Width = 75;
             // 
             // Column9
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.Column9.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.Column9.DefaultCellStyle = dataGridViewCellStyle5;
             this.Column9.HeaderText = "學期";
             this.Column9.Name = "Column9";
             this.Column9.ReadOnly = true;
@@ -544,7 +556,7 @@
             this.MaximizeBox = true;
             this.MinimizeBox = true;
             this.Name = "RtAttendanceKBInput";
-            this.Text = "缺曠鍵盤登錄(測試版本)";
+            this.Text = "缺曠鍵盤登錄";
             this.Load += new System.EventHandler(this.RtAttendanceKBInput_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.gpAbsence.ResumeLayout(false);
@@ -582,15 +594,16 @@
         private DevComponents.DotNetBar.LabelX lbItem1Semester;
         private DevComponents.DotNetBar.LabelX labelX1;
         private DevComponents.DotNetBar.LabelX labelX2;
+        private DevComponents.DotNetBar.ButtonX btnSetClassNameCode;
+        private DevComponents.Editors.IntegerInput cbBoxItem1Semester;
+        private DevComponents.Editors.IntegerInput cbBoxItem1SchoolYear;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colweek;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private DevComponents.DotNetBar.ButtonX btnSetClassNameCode;
-        private DevComponents.Editors.IntegerInput cbBoxItem1Semester;
-        private DevComponents.Editors.IntegerInput cbBoxItem1SchoolYear;
     }
 }

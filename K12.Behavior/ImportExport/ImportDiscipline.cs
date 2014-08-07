@@ -41,7 +41,7 @@ namespace K12.Behavior
                     wizard.RequiredFields.AddRange("學年度", "學期", "日期", "大功", "小功", "嘉獎", "大過", "小過", "警告");
                 }
             };
-            wizard.ImportableFields.AddRange("學年度", "學期", "日期", "大功", "小功", "嘉獎", "大過", "小過", "警告", "事由", "是否銷過", "銷過日期", "銷過事由", "留校察看");
+            wizard.ImportableFields.AddRange("學年度", "學期", "日期", "大功", "小功", "嘉獎", "大過", "小過", "警告", "事由", "是否銷過", "銷過日期", "銷過事由", "留校察看", "登錄日期");
             wizard.Options.AddRange(chose1, chose2);
             chose1.Checked = true;
             wizard.PackageLimit = 400;
@@ -280,6 +280,13 @@ namespace K12.Behavior
                                 }
                             }
                             break;
+                        case "登錄日期":
+                            if (e.Data[field] != "" && !DateTime.TryParse(e.Data[field], out dateTime))
+                            {
+                                e.ErrorFields.Add(field, "輸入格式為 西元年//月//日");
+                                pass = false;
+                            }
+                            break;
                     }
                 }
 
@@ -428,12 +435,27 @@ namespace K12.Behavior
 
                 foreach (RowData row in e.Items)
                 {
+                    #region row
+
                     int schoolYear = int.Parse(row["學年度"]);
                     int semester = int.Parse(row["學期"]);
                     DateTime occurdate = DateTime.Parse(row["日期"]);
+
+                    DateTime rd = new DateTime();
+                    string register = e.ImportFields.Contains("登錄日期") ? row["登錄日期"] : "";
+                    DateTime RegisterDate = DateTime.Today;
+                    if (DateTime.TryParse(register, out rd))
+                    {
+                        RegisterDate = DateTime.Parse(register);
+                    }
+
+
                     if (chose1.Checked)
                     {
                         #region 以事由為Key更新
+
+                        #region Title
+
                         bool isAward;
                         int awardA = 0;
                         int awardB = 0;
@@ -445,6 +467,7 @@ namespace K12.Behavior
                         DateTime cleardate = DateTime.Today;
                         string clearreason = "";
                         bool ultimateAdmonition = false;
+
 
                         if (row.ContainsKey("大功"))
                             awardA = (row["大功"] == "") ? 0 : int.Parse(row["大功"]);
@@ -472,8 +495,13 @@ namespace K12.Behavior
 
                         string reason = row["事由"];
                         bool match = false;
+
+                        #endregion
+
                         foreach (RewardInfo rewardInfo in accessHelper.StudentHelper.GetStudent(row.ID).RewardList)
                         {
+                            #region RewardInfo
+
                             if (rewardInfo.SchoolYear == schoolYear && rewardInfo.Semester == semester && rewardInfo.OccurDate == occurdate && rewardInfo.OccurReason == reason)
                             {
                                 match = true;
@@ -497,7 +525,7 @@ namespace K12.Behavior
                                 DSXmlHelper h = new DSXmlHelper("Discipline");
 
                                 isAward = awardA + awardB + awardC > 0;
-                                if (isAward)
+                                if (isAward) //是否為獎懲
                                 {
                                     XmlElement element = h.AddElement("Merit");
                                     element.SetAttribute("A", awardA.ToString());
@@ -507,7 +535,8 @@ namespace K12.Behavior
                                 else
                                 {
                                     XmlElement element = h.AddElement("Demerit");
-                                    if (!ultimateAdmonition)
+
+                                    if (!ultimateAdmonition) //是否為留查資料
                                     {
                                         element.SetAttribute("A", faultA.ToString());
                                         element.SetAttribute("B", faultB.ToString());
@@ -519,7 +548,7 @@ namespace K12.Behavior
                                     }
                                     else
                                     {
-                                        //如果是留查資料
+                                        // "是" 留查資料
                                         element.SetAttribute("A", "0");
                                         element.SetAttribute("B", "0");
                                         element.SetAttribute("C", "0");
@@ -528,9 +557,11 @@ namespace K12.Behavior
                                         element.SetAttribute("ClearReason", string.Empty);
                                     }
                                 }
+
                                 updateHelper.AddElement("Discipline");
                                 updateHelper.AddElement("Discipline", "Field");
                                 updateHelper.AddElement("Discipline/Field", "MeritFlag", ultimateAdmonition ? "2" : isAward ? "1" : "0");
+                                updateHelper.AddElement("Discipline/Field", "RegisterDate", RegisterDate.ToShortDateString());
                                 updateHelper.AddElement("Discipline/Field", "Detail", h.GetRawXml(), true);
                                 updateHelper.AddElement("Discipline", "Condition");
                                 updateHelper.AddElement("Discipline/Condition", "ID", rewardInfo.Detail.GetAttribute("ID"));
@@ -538,9 +569,14 @@ namespace K12.Behavior
                                 hasUpdate = true;
                                 break;
                             }
+
+                            #endregion
                         }
+
                         if (!match)
                         {
+                            #region match
+
                             DSXmlHelper h = new DSXmlHelper("Discipline");
                             isAward = awardA + awardB + awardC > 0;
                             if (isAward)
@@ -577,18 +613,24 @@ namespace K12.Behavior
                             insertHelper.AddElement("Discipline", "SchoolYear", schoolYear.ToString());
                             insertHelper.AddElement("Discipline", "Semester", semester.ToString());
                             insertHelper.AddElement("Discipline", "OccurDate", occurdate.ToShortDateString());
+                            insertHelper.AddElement("Discipline", "RegisterDate", RegisterDate.ToShortDateString());
                             insertHelper.AddElement("Discipline", "Reason", reason);
                             insertHelper.AddElement("Discipline", "MeritFlag", ultimateAdmonition ? "2" : isAward ? "1" : "0");
                             insertHelper.AddElement("Discipline", "Type", "1");
                             insertHelper.AddElement("Discipline", "Detail", h.GetRawXml(), true);
 
                             hasInsert = true;
+
+                            #endregion
                         }
                         #endregion
                     }
                     if (chose2.Checked)
                     {
                         #region 以次數為Key更新
+
+                        #region Title
+
                         bool isAward;
                         int awardA = 0;
                         int awardB = 0;
@@ -627,17 +669,22 @@ namespace K12.Behavior
                             ((row["留校察看"] == "是") ? true : false) : false;
 
                         bool match = false;
+
+                        #endregion
+
                         foreach (RewardInfo rewardInfo in accessHelper.StudentHelper.GetStudent(row.ID).RewardList)
                         {
+                            #region RewardInfo
+
                             if (rewardInfo.SchoolYear == schoolYear &&
-                                rewardInfo.Semester == semester &&
-                                rewardInfo.OccurDate == occurdate &&
-                                rewardInfo.AwardA == awardA &&
-                                rewardInfo.AwardB == awardB &&
-                                rewardInfo.AwardC == awardC &&
-                                rewardInfo.FaultA == faultA &&
-                                rewardInfo.FaultB == faultB &&
-                                rewardInfo.FaultC == faultC)
+                                                    rewardInfo.Semester == semester &&
+                                                    rewardInfo.OccurDate == occurdate &&
+                                                    rewardInfo.AwardA == awardA &&
+                                                    rewardInfo.AwardB == awardB &&
+                                                    rewardInfo.AwardC == awardC &&
+                                                    rewardInfo.FaultA == faultA &&
+                                                    rewardInfo.FaultB == faultB &&
+                                                    rewardInfo.FaultC == faultC)
                             {
                                 match = true;
                                 #region 其他項目
@@ -694,6 +741,7 @@ namespace K12.Behavior
                                 updateHelper.AddElement("Discipline");
                                 updateHelper.AddElement("Discipline", "Field");
                                 updateHelper.AddElement("Discipline/Field", "MeritFlag", ultimateAdmonition ? "2" : isAward ? "1" : "0");
+                                updateHelper.AddElement("Discipline/Field", "RegisterDate", RegisterDate.ToShortDateString());
                                 updateHelper.AddElement("Discipline/Field", "Detail", h.GetRawXml(), true);
                                 updateHelper.AddElement("Discipline/Field", "Reason", reason);
                                 updateHelper.AddElement("Discipline", "Condition");
@@ -702,9 +750,14 @@ namespace K12.Behavior
                                 hasUpdate = true;
                                 break;
                             }
+
+                            #endregion
                         }
+
                         if (!match)
                         {
+                            #region match
+
                             DSXmlHelper h = new DSXmlHelper("Discipline");
                             isAward = awardA + awardB + awardC > 0;
                             if (isAward)
@@ -741,15 +794,20 @@ namespace K12.Behavior
                             insertHelper.AddElement("Discipline", "SchoolYear", schoolYear.ToString());
                             insertHelper.AddElement("Discipline", "Semester", semester.ToString());
                             insertHelper.AddElement("Discipline", "OccurDate", occurdate.ToShortDateString());
+                            insertHelper.AddElement("Discipline", "RegisterDate", RegisterDate.ToShortDateString());
                             insertHelper.AddElement("Discipline", "Reason", reason);
                             insertHelper.AddElement("Discipline", "MeritFlag", ultimateAdmonition ? "2" : isAward ? "1" : "0");
                             insertHelper.AddElement("Discipline", "Type", "1");
                             insertHelper.AddElement("Discipline", "Detail", h.GetRawXml(), true);
 
                             hasInsert = true;
+
+                            #endregion
                         }
                         #endregion
                     }
+
+                    #endregion
                 }
 
                 if (hasInsert)

@@ -34,6 +34,45 @@ namespace K12.Behavior.Keyboard
             return Dic;
         }
 
+        static public DateTime DateInsertSlash(string TimeString)
+        {
+            #region 將8碼之時間,插入"\"符號
+            string InsertSlash = TimeString.Insert(4, "/");
+            InsertSlash = InsertSlash.Insert(7, "/");
+            return DateTimeHelper.ParseDirect(InsertSlash);
+            #endregion
+        }
+
+        static public bool IsDateTime(string date)
+        {
+            #region 時間錯誤判斷
+            if (date == "")
+            {
+                return false;
+            }
+
+            if (date.Length == 4)
+            {
+                string[] bb = DateTime.Now.ToShortDateString().Split('/');
+                date = date.Insert(0, bb[0]);
+            }
+            else if (date.Length != 8)
+            {
+                return false;
+            }
+
+            date = date.Insert(4, "/");
+            date = date.Insert(7, "/");
+
+            DateTime try_value;
+            if (DateTime.TryParse(date, out try_value))
+            {
+                return true;
+            }
+            return false;
+            #endregion
+        }
+
         static public List<K12.Data.ClassRecord> K12Data_ClassRecord(List<K12.Data.ClassRecord> ClassList)
         {
             ClassList.Sort(SortK12Data_ClassRecord);

@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
             this.gpBatchSetup = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.cbBoxItem1Semester = new DevComponents.Editors.IntegerInput();
@@ -76,6 +77,7 @@
             this.TB3StudentNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TB4Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TB5DateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colweek = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TB6AA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TB7BB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TB8CC = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -104,7 +106,7 @@
             this.btnCancel.Location = new System.Drawing.Point(670, 509);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(110, 25);
-            this.btnCancel.TabIndex = 4;
+            this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "關閉(&X)";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -178,7 +180,7 @@
             // 
             this.gpBatchSetup.StyleMouseOver.Class = "";
             this.gpBatchSetup.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.gpBatchSetup.TabIndex = 0;
+            this.gpBatchSetup.TabIndex = 3;
             this.gpBatchSetup.Text = "批次輸入設定";
             // 
             // cbBoxItem1Semester
@@ -195,7 +197,7 @@
             this.cbBoxItem1Semester.Name = "cbBoxItem1Semester";
             this.cbBoxItem1Semester.ShowUpDown = true;
             this.cbBoxItem1Semester.Size = new System.Drawing.Size(85, 25);
-            this.cbBoxItem1Semester.TabIndex = 27;
+            this.cbBoxItem1Semester.TabIndex = 3;
             this.cbBoxItem1Semester.Value = 1;
             // 
             // cbBoxItem1SchoolYear
@@ -212,7 +214,7 @@
             this.cbBoxItem1SchoolYear.Name = "cbBoxItem1SchoolYear";
             this.cbBoxItem1SchoolYear.ShowUpDown = true;
             this.cbBoxItem1SchoolYear.Size = new System.Drawing.Size(85, 25);
-            this.cbBoxItem1SchoolYear.TabIndex = 25;
+            this.cbBoxItem1SchoolYear.TabIndex = 1;
             this.cbBoxItem1SchoolYear.Value = 90;
             // 
             // textBoxX6
@@ -225,7 +227,7 @@
             this.textBoxX6.Location = new System.Drawing.Point(676, 64);
             this.textBoxX6.Name = "textBoxX6";
             this.textBoxX6.Size = new System.Drawing.Size(49, 25);
-            this.textBoxX6.TabIndex = 16;
+            this.textBoxX6.TabIndex = 21;
             // 
             // textBoxX5
             // 
@@ -237,7 +239,7 @@
             this.textBoxX5.Location = new System.Drawing.Point(561, 64);
             this.textBoxX5.Name = "textBoxX5";
             this.textBoxX5.Size = new System.Drawing.Size(49, 25);
-            this.textBoxX5.TabIndex = 14;
+            this.textBoxX5.TabIndex = 19;
             // 
             // textBoxX4
             // 
@@ -249,7 +251,7 @@
             this.textBoxX4.Location = new System.Drawing.Point(448, 64);
             this.textBoxX4.Name = "textBoxX4";
             this.textBoxX4.Size = new System.Drawing.Size(49, 25);
-            this.textBoxX4.TabIndex = 12;
+            this.textBoxX4.TabIndex = 17;
             // 
             // textBoxX3
             // 
@@ -261,7 +263,7 @@
             this.textBoxX3.Location = new System.Drawing.Point(334, 64);
             this.textBoxX3.Name = "textBoxX3";
             this.textBoxX3.Size = new System.Drawing.Size(49, 25);
-            this.textBoxX3.TabIndex = 10;
+            this.textBoxX3.TabIndex = 15;
             // 
             // textBoxX2
             // 
@@ -273,7 +275,7 @@
             this.textBoxX2.Location = new System.Drawing.Point(220, 64);
             this.textBoxX2.Name = "textBoxX2";
             this.textBoxX2.Size = new System.Drawing.Size(49, 25);
-            this.textBoxX2.TabIndex = 8;
+            this.textBoxX2.TabIndex = 13;
             // 
             // textBoxX1
             // 
@@ -285,7 +287,7 @@
             this.textBoxX1.Location = new System.Drawing.Point(107, 64);
             this.textBoxX1.Name = "textBoxX1";
             this.textBoxX1.Size = new System.Drawing.Size(49, 25);
-            this.textBoxX1.TabIndex = 6;
+            this.textBoxX1.TabIndex = 11;
             // 
             // cbbReasonHotKey
             // 
@@ -295,7 +297,7 @@
             this.cbbReasonHotKey.Location = new System.Drawing.Point(107, 94);
             this.cbbReasonHotKey.Name = "cbbReasonHotKey";
             this.cbbReasonHotKey.Size = new System.Drawing.Size(344, 25);
-            this.cbbReasonHotKey.TabIndex = 18;
+            this.cbbReasonHotKey.TabIndex = 23;
             this.cbbReasonHotKey.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cbbReasonHotKey_KeyUp_1);
             // 
             // btnInputDate
@@ -309,7 +311,7 @@
             this.btnInputDate.Location = new System.Drawing.Point(343, 34);
             this.btnInputDate.Name = "btnInputDate";
             this.btnInputDate.Size = new System.Drawing.Size(140, 25);
-            this.btnInputDate.TabIndex = 3;
+            this.btnInputDate.TabIndex = 8;
             this.btnInputDate.KeyUp += new System.Windows.Forms.KeyEventHandler(this.btnInputDate_KeyUp);
             // 
             // tbReason
@@ -322,7 +324,7 @@
             this.tbReason.Location = new System.Drawing.Point(107, 124);
             this.tbReason.Name = "tbReason";
             this.tbReason.Size = new System.Drawing.Size(344, 25);
-            this.tbReason.TabIndex = 21;
+            this.tbReason.TabIndex = 26;
             this.tbReason.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbReason_KeyUp);
             // 
             // tbDateTime
@@ -335,7 +337,7 @@
             this.tbDateTime.Location = new System.Drawing.Point(107, 34);
             this.tbDateTime.Name = "tbDateTime";
             this.tbDateTime.Size = new System.Drawing.Size(140, 25);
-            this.tbDateTime.TabIndex = 1;
+            this.tbDateTime.TabIndex = 6;
             this.tbDateTime.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbDateTime_KeyUp);
             // 
             // lbDemeritC
@@ -350,7 +352,7 @@
             this.lbDemeritC.Location = new System.Drawing.Point(610, 66);
             this.lbDemeritC.Name = "lbDemeritC";
             this.lbDemeritC.Size = new System.Drawing.Size(75, 21);
-            this.lbDemeritC.TabIndex = 15;
+            this.lbDemeritC.TabIndex = 20;
             this.lbDemeritC.Text = "警告：(&6)";
             // 
             // lbDemeritB
@@ -365,7 +367,7 @@
             this.lbDemeritB.Location = new System.Drawing.Point(497, 66);
             this.lbDemeritB.Name = "lbDemeritB";
             this.lbDemeritB.Size = new System.Drawing.Size(75, 21);
-            this.lbDemeritB.TabIndex = 13;
+            this.lbDemeritB.TabIndex = 18;
             this.lbDemeritB.Text = "小過：(&5)";
             // 
             // lbDemeritA
@@ -380,7 +382,7 @@
             this.lbDemeritA.Location = new System.Drawing.Point(383, 66);
             this.lbDemeritA.Name = "lbDemeritA";
             this.lbDemeritA.Size = new System.Drawing.Size(75, 21);
-            this.lbDemeritA.TabIndex = 11;
+            this.lbDemeritA.TabIndex = 16;
             this.lbDemeritA.Text = "大過：(&4)";
             // 
             // lbMeritC
@@ -395,7 +397,7 @@
             this.lbMeritC.Location = new System.Drawing.Point(269, 66);
             this.lbMeritC.Name = "lbMeritC";
             this.lbMeritC.Size = new System.Drawing.Size(75, 21);
-            this.lbMeritC.TabIndex = 9;
+            this.lbMeritC.TabIndex = 14;
             this.lbMeritC.Text = "嘉獎：(&3)";
             // 
             // lbMeritB
@@ -410,7 +412,7 @@
             this.lbMeritB.Location = new System.Drawing.Point(156, 66);
             this.lbMeritB.Name = "lbMeritB";
             this.lbMeritB.Size = new System.Drawing.Size(75, 21);
-            this.lbMeritB.TabIndex = 7;
+            this.lbMeritB.TabIndex = 12;
             this.lbMeritB.Text = "小功：(&2)";
             // 
             // lbMeritA
@@ -425,7 +427,7 @@
             this.lbMeritA.Location = new System.Drawing.Point(38, 66);
             this.lbMeritA.Name = "lbMeritA";
             this.lbMeritA.Size = new System.Drawing.Size(75, 21);
-            this.lbMeritA.TabIndex = 5;
+            this.lbMeritA.TabIndex = 10;
             this.lbMeritA.Text = "大功：(&1)";
             // 
             // labelX9
@@ -441,7 +443,7 @@
             this.labelX9.Location = new System.Drawing.Point(383, 6);
             this.labelX9.Name = "labelX9";
             this.labelX9.Size = new System.Drawing.Size(173, 21);
-            this.labelX9.TabIndex = 28;
+            this.labelX9.TabIndex = 4;
             this.labelX9.Text = "預設為系統目前學年度/學期";
             // 
             // labelX8
@@ -457,7 +459,7 @@
             this.labelX8.Location = new System.Drawing.Point(461, 126);
             this.labelX8.Name = "labelX8";
             this.labelX8.Size = new System.Drawing.Size(127, 21);
-            this.labelX8.TabIndex = 22;
+            this.labelX8.TabIndex = 27;
             this.labelX8.Text = "事由內容可自行修改";
             // 
             // labelX5
@@ -473,7 +475,7 @@
             this.labelX5.Location = new System.Drawing.Point(461, 96);
             this.labelX5.Name = "labelX5";
             this.labelX5.Size = new System.Drawing.Size(133, 21);
-            this.labelX5.TabIndex = 19;
+            this.labelX5.TabIndex = 24;
             this.labelX5.Text = "輸入代碼後Enter即可";
             // 
             // labelX6
@@ -489,7 +491,7 @@
             this.labelX6.Location = new System.Drawing.Point(489, 36);
             this.labelX6.Name = "labelX6";
             this.labelX6.Size = new System.Drawing.Size(96, 21);
-            this.labelX6.TabIndex = 4;
+            this.labelX6.TabIndex = 9;
             this.labelX6.Text = "例：20110215";
             // 
             // labelX4
@@ -504,7 +506,7 @@
             this.labelX4.Location = new System.Drawing.Point(219, 6);
             this.labelX4.Name = "labelX4";
             this.labelX4.Size = new System.Drawing.Size(81, 21);
-            this.labelX4.TabIndex = 26;
+            this.labelX4.TabIndex = 2;
             this.labelX4.Text = "學期：(&W)";
             // 
             // labelX3
@@ -519,7 +521,7 @@
             this.labelX3.Location = new System.Drawing.Point(14, 6);
             this.labelX3.Name = "labelX3";
             this.labelX3.Size = new System.Drawing.Size(98, 21);
-            this.labelX3.TabIndex = 24;
+            this.labelX3.TabIndex = 0;
             this.labelX3.Text = "學 年 度：(&Q)";
             // 
             // labelX1
@@ -535,7 +537,7 @@
             this.labelX1.Location = new System.Drawing.Point(267, 36);
             this.labelX1.Name = "labelX1";
             this.labelX1.Size = new System.Drawing.Size(74, 21);
-            this.labelX1.TabIndex = 2;
+            this.labelX1.TabIndex = 7;
             this.labelX1.Text = "登錄日期：";
             // 
             // btnItem1Insert
@@ -547,7 +549,7 @@
             this.btnItem1Insert.Location = new System.Drawing.Point(673, 125);
             this.btnItem1Insert.Name = "btnItem1Insert";
             this.btnItem1Insert.Size = new System.Drawing.Size(75, 23);
-            this.btnItem1Insert.TabIndex = 23;
+            this.btnItem1Insert.TabIndex = 28;
             this.btnItem1Insert.Text = "新增";
             this.btnItem1Insert.Click += new System.EventHandler(this.btnItem1Insert_Click);
             // 
@@ -563,7 +565,7 @@
             this.lbReason.Location = new System.Drawing.Point(14, 126);
             this.lbReason.Name = "lbReason";
             this.lbReason.Size = new System.Drawing.Size(101, 21);
-            this.lbReason.TabIndex = 20;
+            this.lbReason.TabIndex = 25;
             this.lbReason.Text = "事由內容：(&T)";
             // 
             // lbReasonHotKey
@@ -578,7 +580,7 @@
             this.lbReasonHotKey.Location = new System.Drawing.Point(14, 96);
             this.lbReasonHotKey.Name = "lbReasonHotKey";
             this.lbReasonHotKey.Size = new System.Drawing.Size(102, 21);
-            this.lbReasonHotKey.TabIndex = 17;
+            this.lbReasonHotKey.TabIndex = 22;
             this.lbReasonHotKey.Text = "事由代碼：(&R)";
             // 
             // lbDateTime
@@ -593,7 +595,7 @@
             this.lbDateTime.Location = new System.Drawing.Point(11, 36);
             this.lbDateTime.Name = "lbDateTime";
             this.lbDateTime.Size = new System.Drawing.Size(101, 21);
-            this.lbDateTime.TabIndex = 0;
+            this.lbDateTime.TabIndex = 5;
             this.lbDateTime.Text = "獎懲日期：(&E)";
             // 
             // labelX2
@@ -609,9 +611,10 @@
             this.labelX2.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
             this.labelX2.Location = new System.Drawing.Point(9, 502);
             this.labelX2.Name = "labelX2";
-            this.labelX2.Size = new System.Drawing.Size(277, 39);
-            this.labelX2.TabIndex = 3;
-            this.labelX2.Text = "1.Alt+S(即時儲存 - 建議Alt+S確實按壓約1秒)\r\n2.\"下\"鍵新增為 即時儲存功能(new)";
+            this.labelX2.Size = new System.Drawing.Size(488, 39);
+            this.labelX2.TabIndex = 1;
+            this.labelX2.Text = "(1)如何快速儲存(a)Alt+S(b)鍵盤\"下\"鍵　(需注意當資料有誤時,將無法儲存)\r\n(2)當第一筆資料儲存成功,班級/獎懲日期/獎懲支數/事由,將會自動帶" +
+    "入下一筆資料";
             // 
             // errorProvider1
             // 
@@ -629,7 +632,7 @@
             this.btnSetClassNameCode.Name = "btnSetClassNameCode";
             this.btnSetClassNameCode.Size = new System.Drawing.Size(107, 27);
             this.btnSetClassNameCode.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnSetClassNameCode.TabIndex = 1;
+            this.btnSetClassNameCode.TabIndex = 4;
             this.btnSetClassNameCode.Text = "班級名稱代碼表";
             this.btnSetClassNameCode.Click += new System.EventHandler(this.btnSetClassNameCode_Click);
             // 
@@ -652,6 +655,7 @@
             this.TB3StudentNum,
             this.TB4Name,
             this.TB5DateTime,
+            this.colweek,
             this.TB6AA,
             this.TB7BB,
             this.TB8CC,
@@ -662,21 +666,21 @@
             this.TB14SchoolYear,
             this.TB15Semester,
             this.TB13InputDate});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Pddgv.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Pddgv.DefaultCellStyle = dataGridViewCellStyle7;
             this.Pddgv.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.Pddgv.Location = new System.Drawing.Point(12, 202);
             this.Pddgv.MultiSelect = false;
             this.Pddgv.Name = "Pddgv";
             this.Pddgv.RowTemplate.Height = 24;
             this.Pddgv.Size = new System.Drawing.Size(768, 296);
-            this.Pddgv.TabIndex = 2;
+            this.Pddgv.TabIndex = 0;
             this.Pddgv.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Pddgv_CellEndEdit);
             this.Pddgv.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.Pddgv_CellEnter);
             this.Pddgv.CurrentCellDirtyStateChanged += new System.EventHandler(this.Pddgv_CurrentCellDirtyStateChanged);
@@ -717,6 +721,15 @@
             this.TB5DateTime.HeaderText = "獎懲日期";
             this.TB5DateTime.Name = "TB5DateTime";
             this.TB5DateTime.Width = 85;
+            // 
+            // colweek
+            // 
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.colweek.DefaultCellStyle = dataGridViewCellStyle3;
+            this.colweek.HeaderText = "星期";
+            this.colweek.Name = "colweek";
+            this.colweek.ReadOnly = true;
+            this.colweek.Width = 40;
             // 
             // TB6AA
             // 
@@ -762,8 +775,8 @@
             // 
             // TB14SchoolYear
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.TB14SchoolYear.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.TB14SchoolYear.DefaultCellStyle = dataGridViewCellStyle4;
             this.TB14SchoolYear.HeaderText = "學年度";
             this.TB14SchoolYear.Name = "TB14SchoolYear";
             this.TB14SchoolYear.ReadOnly = true;
@@ -771,8 +784,8 @@
             // 
             // TB15Semester
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.TB15Semester.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.TB15Semester.DefaultCellStyle = dataGridViewCellStyle5;
             this.TB15Semester.HeaderText = "學期";
             this.TB15Semester.Name = "TB15Semester";
             this.TB15Semester.ReadOnly = true;
@@ -780,8 +793,8 @@
             // 
             // TB13InputDate
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.TB13InputDate.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.TB13InputDate.DefaultCellStyle = dataGridViewCellStyle6;
             this.TB13InputDate.HeaderText = "登錄日期";
             this.TB13InputDate.Name = "TB13InputDate";
             this.TB13InputDate.ReadOnly = true;
@@ -800,7 +813,7 @@
             this.MaximizeBox = true;
             this.MinimizeBox = true;
             this.Name = "PdMeritDemeritKBInput";
-            this.Text = "獎懲鍵盤登錄(測試版本)";
+            this.Text = "獎懲鍵盤登錄";
             this.Load += new System.EventHandler(this.PdMeritDemeritKBInput_Load);
             this.gpBatchSetup.ResumeLayout(false);
             this.gpBatchSetup.PerformLayout();
@@ -836,21 +849,6 @@
         private DevComponents.DotNetBar.LabelX labelX5;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.ComboBox cbbReasonHotKey;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TB1Class;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TB2SeatNO;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TB3StudentNum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TB4Name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TB5DateTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TB6AA;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TB7BB;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TB8CC;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TB9DD;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TB10EE;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TB11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TB12Reason;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TB14SchoolYear;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TB15Semester;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TB13InputDate;
         private DevComponents.DotNetBar.LabelX lbMeritB;
         private DevComponents.DotNetBar.LabelX lbMeritA;
         private DevComponents.DotNetBar.Controls.TextBoxX textBoxX6;
@@ -867,5 +865,21 @@
         private DevComponents.Editors.IntegerInput cbBoxItem1Semester;
         private DevComponents.Editors.IntegerInput cbBoxItem1SchoolYear;
         private System.Windows.Forms.ErrorProvider errorProvider2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TB1Class;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TB2SeatNO;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TB3StudentNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TB4Name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TB5DateTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colweek;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TB6AA;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TB7BB;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TB8CC;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TB9DD;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TB10EE;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TB11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TB12Reason;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TB14SchoolYear;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TB15Semester;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TB13InputDate;
     }
 }

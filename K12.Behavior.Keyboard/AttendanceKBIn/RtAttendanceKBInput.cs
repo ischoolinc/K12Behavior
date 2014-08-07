@@ -35,10 +35,13 @@ namespace K12.Behavior.Keyboard
         private const int SeatNoColumnIndex = 1;
         private const int StudentNumberColumnIndex = 2;
         private const int StudentNameColumnIndex = 3;
-        private const int DateColumnIndex = 4;
+        private const int DateColumnIndex = 4; //日期
+        private const int weekNumber = 5; //星期
         int SchoolYearIndex;
         int SemesterIndex;
         #endregion
+
+        private Dictionary<string, string> _week;
 
         public RtAttendanceKBInput()
         {
@@ -57,6 +60,15 @@ namespace K12.Behavior.Keyboard
             cbBoxItem1SchoolYear.Text = School.DefaultSchoolYear;
             cbBoxItem1Semester.Text = School.DefaultSemester;
             #endregion
+
+            _week = new Dictionary<string, string>();
+            _week.Add("Monday", "一");
+            _week.Add("Tuesday", "二");
+            _week.Add("Wednesday", "三");
+            _week.Add("Thursday", "四");
+            _week.Add("Friday", "五");
+            _week.Add("Saturday", "六");
+            _week.Add("Sunday", "日");
 
             //dgv.Columns.Add
 
@@ -113,7 +125,7 @@ namespace K12.Behavior.Keyboard
             #region 日期
             if (e.KeyCode == Keys.Enter)
             {
-                if (IsDateTime(txtItem1DateTime.Text))
+                if (DataSort.IsDateTime(txtItem1DateTime.Text))
                 {
                     if (txtItem1DateTime.Text.Length == 4)
                     {
@@ -172,6 +184,14 @@ namespace K12.Behavior.Keyboard
             dgv.Rows[InsertRow].Cells[SemesterIndex].Value = cbBoxItem1Semester.Text;
             dgv.Rows[InsertRow].Cells[DateColumnIndex].Value = txtItem1DateTime.Text;
 
+            if (DataSort.IsDateTime(txtItem1DateTime.Text)) //如果時間欄位有值,並且是正確的
+            {
+                string DateTimeName = txtItem1DateTime.Text;
+
+                //星期資料
+                DateTime dt = DataSort.DateInsertSlash(DateTimeName);
+                dgv.Rows[InsertRow].Cells[weekNumber].Value = _week[dt.DayOfWeek.ToString()];
+            }
             //if (_AbsenceHelper.AbbreviationExists(txtItem1Absence.Text))
             //{
             //    foreach (int each in PeriodDic.Values)
@@ -221,26 +241,34 @@ namespace K12.Behavior.Keyboard
             dgv.Rows[InsertRow].Cells[ClassColumnIndex].Value = ClassName.Trim();
 
             string DateTimeName = "";
+            string weekTimeName = "";
 
             if (txtItem1DateTime.Text != string.Empty)
             {
-                if (IsDateTime(txtItem1DateTime.Text)) //如果時間欄位有值,並且是正確的
+                if (DataSort.IsDateTime(txtItem1DateTime.Text)) //如果時間欄位有值,並且是正確的
                 {
                     DateTimeName = txtItem1DateTime.Text;
+
+                    //星期資料
+                    DateTime dt = DataSort.DateInsertSlash(DateTimeName);
+                    weekTimeName = _week[dt.DayOfWeek.ToString()];
                 }
             }
             else
             {
                 if (dgv.Rows.Count > 1)
                 {
-                    if (IsDateTime("" + dgv.Rows[InsertRow - 1].Cells[DateColumnIndex].Value))
+                    if (DataSort.IsDateTime("" + dgv.Rows[InsertRow - 1].Cells[DateColumnIndex].Value))
                     {
                         DateTimeName = "" + dgv.Rows[InsertRow - 1].Cells[DateColumnIndex].Value;
+
+                        DateTime dt = DataSort.DateInsertSlash(DateTimeName);
+                        weekTimeName = _week[dt.DayOfWeek.ToString()];
                     }
                 }
             }
             dgv.Rows[InsertRow].Cells[DateColumnIndex].Value = DateTimeName.Trim();
-
+            dgv.Rows[InsertRow].Cells[weekNumber].Value = weekTimeName.Trim();
             #endregion
         }
 
@@ -313,7 +341,7 @@ namespace K12.Behavior.Keyboard
                     {
                         string Date = cell.GetNumCellValue(DateColumnIndex); //將日期欄位的值取出
 
-                        if (!IsDateTime(Date)) //是否日期格式
+                        if (!DataSort.IsDateTime(Date)) //是否日期格式
                         {
                             cell.SetNumError(DateColumnIndex, "日期格式錯誤");
                             return;
@@ -333,7 +361,7 @@ namespace K12.Behavior.Keyboard
 
                         foreach (AttendanceRecord each in Attendance.SelectByStudents(new List<StudentRecord> { SR })) //取得該生的缺曠資料
                         {
-                            if (DateTime.Parse(each.OccurDate.ToString()) == DateTime.Parse(DateInsertSlash(Date))) //如果日期相同
+                            if (DateTime.Parse(each.OccurDate.ToString()) == DataSort.DateInsertSlash(Date)) //如果日期相同
                             {
                                 cell.SetRowTag(each); //記住缺曠
 
@@ -391,7 +419,7 @@ namespace K12.Behavior.Keyboard
 
                 string Date = cell.GetValue();
 
-                if (IsDateTime(Date)) //是否日期格式
+                if (DataSort.IsDateTime(Date)) //是否日期格式
                 {
                     if (Date.Length == 4)
                     {
@@ -403,7 +431,7 @@ namespace K12.Behavior.Keyboard
                     StudentRecord JR = Student.SelectByID(SR.ID); //取得ROW的TAG
                     foreach (AttendanceRecord each in Attendance.SelectByStudents(new List<StudentRecord> { JR })) //取得該生的缺曠資料
                     {
-                        if (DateTime.Parse(each.OccurDate.ToString()) == DateTime.Parse(DateInsertSlash(Date))) //如果日期相同
+                        if (DateTime.Parse(each.OccurDate.ToString()) == DataSort.DateInsertSlash(Date)) //如果日期相同
                         {
                             cell.SetRowTag(each); //記住此缺曠記錄
 
@@ -435,6 +463,9 @@ namespace K12.Behavior.Keyboard
 
                     cell.SetNumCellValue(SchoolYearIndex, cbBoxItem1SchoolYear.Text);
                     cell.SetNumCellValue(SemesterIndex, cbBoxItem1Semester.Text);
+
+                    DateTime dt = DataSort.DateInsertSlash(Date);
+                    cell.SetNumCellValue(weekNumber, _week[dt.DayOfWeek.ToString()]);
                 }
                 else
                 {
@@ -495,9 +526,9 @@ namespace K12.Behavior.Keyboard
                 AR.SchoolYear = int.Parse("" + _row.Cells[SchoolYearIndex].Value); //學年度
                 AR.Semester = int.Parse("" + _row.Cells[SemesterIndex].Value); //學期
 
-                if (IsDateTime("" + _row.Cells[DateColumnIndex].Value))
+                if (DataSort.IsDateTime("" + _row.Cells[DateColumnIndex].Value))
                 {
-                    AR.OccurDate = DateTime.Parse(DateInsertSlash("" + _row.Cells[DateColumnIndex].Value));
+                    AR.OccurDate = DataSort.DateInsertSlash("" + _row.Cells[DateColumnIndex].Value);
                 }
                 else
                 {
@@ -779,7 +810,7 @@ namespace K12.Behavior.Keyboard
                 list.Add(str);
             }
             list.Sort();
-            int insert = 5;
+            int insert = 6;
             foreach (int each in list)
             {
                 PeriodDic.Add(Pe[each], insert);
@@ -791,45 +822,6 @@ namespace K12.Behavior.Keyboard
             }
             SchoolYearIndex = insert;
             SemesterIndex = insert + 1;
-            #endregion
-        }
-
-        private bool IsDateTime(string date)
-        {
-            #region 時間錯誤判斷
-            if (date == "")
-            {
-                return false;
-            }
-
-            if (date.Length == 4)
-            {
-                string[] bb = DateTime.Now.ToShortDateString().Split('/');
-                date = date.Insert(0, bb[0]);
-            }
-            else if (date.Length != 8)
-            {
-                return false;
-            }
-
-            date = date.Insert(4, "/");
-            date = date.Insert(7, "/");
-
-            DateTime try_value;
-            if (DateTime.TryParse(date, out try_value))
-            {
-                return true;
-            }
-            return false;
-            #endregion
-        }
-
-        private string DateInsertSlash(string TimeString)
-        {
-            #region 將8碼之時間,插入"\"符號
-            string InsertSlash = TimeString.Insert(4, "/");
-            InsertSlash = InsertSlash.Insert(7, "/");
-            return InsertSlash;
             #endregion
         }
 

@@ -21,12 +21,14 @@ namespace K12.Behavior.Keyboard
         Dictionary<string, List<KeyBoStudent>> _ClassList = new Dictionary<string, List<KeyBoStudent>>();
         Dictionary<string, KeyBoStudent> _StudentList = new Dictionary<string, KeyBoStudent>();
 
-        List<int> PeriodDic1 = new List<int>() { 5, 6, 7 }; //獎勵Cell
-        List<int> PeriodDic2 = new List<int>() { 8, 9, 10 }; //懲戒Cell
+        List<int> PeriodDic1 = new List<int>() { 6, 7, 8 }; //獎勵Cell
+        List<int> PeriodDic2 = new List<int>() { 9, 10, 11 }; //懲戒Cell
         PdPeriodDG2 _PeriodDG;
         Dictionary<string, string> MeritDemeritList = new Dictionary<string, string>(); //獎懲代碼表
 
         Dictionary<string, string> ClassNameDic = new Dictionary<string, string>();
+
+        private Dictionary<string, string> _week;
 
         #region 以常數定義每個欄位的名稱
         private const int ClassColumnIndex = 0; //班級
@@ -34,16 +36,17 @@ namespace K12.Behavior.Keyboard
         private const int StudentNumberColumnIndex = 2; //學號
         private const int StudentNameColumnIndex = 3; //座號
         private const int DateColumnIndex = 4; //日期
-        private const int MeritA = 5;
-        private const int MeritB = 6;
-        private const int MeritC = 7;
-        private const int DemeritA = 8;
-        private const int DemeritB = 9;
-        private const int DemeritC = 10;
-        private const int ReasonColumnIndex = 11; //事由
-        private const int SchoolYearIndex = 12; //學年度
-        private const int SemesterIndex = 13; //學期
-        private const int DefInputDate = 14;  //輸入日期
+        private const int weekNumber = 5; //星期
+        private const int MeritA = 6;
+        private const int MeritB = 7;
+        private const int MeritC = 8;
+        private const int DemeritA = 9;
+        private const int DemeritB = 10;
+        private const int DemeritC = 11;
+        private const int ReasonColumnIndex = 12; //事由
+        private const int SchoolYearIndex = 13; //學年度
+        private const int SemesterIndex = 14; //學期
+        private const int DefInputDate = 15;  //輸入日期
         #endregion
 
         public PdMeritDemeritKBInput()
@@ -58,6 +61,15 @@ namespace K12.Behavior.Keyboard
 
             btnInputDate.Text = DateTime.Now.ToString("yyyyMMdd");
             //tbDateTime.Text = DateTime.Now.ToString("yyyyMMdd");
+
+            _week = new Dictionary<string, string>();
+            _week.Add("Monday", "一");
+            _week.Add("Tuesday", "二");
+            _week.Add("Wednesday", "三");
+            _week.Add("Thursday", "四");
+            _week.Add("Friday", "五");
+            _week.Add("Saturday", "六");
+            _week.Add("Sunday", "日");
 
             int RowsAdd = Pddgv.Rows.Add();
 
@@ -96,6 +108,7 @@ namespace K12.Behavior.Keyboard
             #region 取得並填入獎懲代碼表
 
             MeritDemeritList.Clear();
+
             DSResponse dsrsp = Config.GetDisciplineReasonList();
             foreach (XmlElement var in dsrsp.GetContent().GetElements("Reason"))
             {
@@ -156,51 +169,12 @@ namespace K12.Behavior.Keyboard
             }
         }
 
-        private bool IsDateTime(string date)
-        {
-            #region 時間錯誤判斷
-            if (date == "")
-            {
-                return false;
-            }
-
-            if (date.Length == 4)
-            {
-                string[] bb = DateTime.Now.ToShortDateString().Split('/');
-                date = date.Insert(0, bb[0]);
-            }
-            else if (date.Length != 8)
-            {
-                return false;
-            }
-
-            date = date.Insert(4, "/");
-            date = date.Insert(7, "/");
-
-            DateTime try_value;
-            if (DateTime.TryParse(date, out try_value))
-            {
-                return true;
-            }
-            return false;
-            #endregion
-        }
-
         private void TextInsertError(ErrorProvider errorProvider, TextBoxX Text, string ErrorInfo)
         {
             #region 設定Text錯誤訊息之用
             Text.SelectAll();
             errorProvider.SetError(Text, ErrorInfo);
             errorProvider.SetIconPadding(Text, -20);
-            #endregion
-        }
-
-        private DateTime DateInsertSlash(string TimeString)
-        {
-            #region 將8碼之時間,插入"\"符號
-            string InsertSlash = TimeString.Insert(4, "/");
-            InsertSlash = InsertSlash.Insert(7, "/");
-            return DateTimeHelper.ParseDirect(InsertSlash);
             #endregion
         }
 
@@ -276,24 +250,32 @@ namespace K12.Behavior.Keyboard
 
             #region 日期
             string DateTimeName = "";
+            string weekTimeName = "";
             if (tbDateTime.Text != string.Empty)
             {
-                if (IsDateTime(tbDateTime.Text)) //如果時間欄位有值,並且是正確的
+                if (DataSort.IsDateTime(tbDateTime.Text)) //如果時間欄位有值,並且是正確的
                 {
                     DateTimeName = tbDateTime.Text;
+
+                    //星期資料
+                    DateTime dt = DataSort.DateInsertSlash(DateTimeName);
+                    weekTimeName = _week[dt.DayOfWeek.ToString()];
                 }
             }
             else
             {
                 if (Pddgv.Rows.Count > 1)
                 {
-                    if (IsDateTime("" + Pddgv.Rows[InsertRow - 1].Cells[DateColumnIndex].Value)) //如果時間欄位有值,並且是正確的
+                    if (DataSort.IsDateTime("" + Pddgv.Rows[InsertRow - 1].Cells[DateColumnIndex].Value)) //如果時間欄位有值,並且是正確的
                     {
                         DateTimeName = "" + Pddgv.Rows[InsertRow - 1].Cells[DateColumnIndex].Value;
+                        DateTime dt = DataSort.DateInsertSlash(DateTimeName);
+                        weekTimeName = _week[dt.DayOfWeek.ToString()];
                     }
                 }
             }
             Pddgv.Rows[InsertRow].Cells[DateColumnIndex].Value = DateTimeName.Trim();
+            Pddgv.Rows[InsertRow].Cells[weekNumber].Value = weekTimeName.Trim();
             #endregion
 
             #region 事由
@@ -381,7 +363,7 @@ namespace K12.Behavior.Keyboard
 
 
             #region 登錄日期
-            if (IsDateTime(btnInputDate.Text) || btnInputDate.Text == string.Empty)
+            if (DataSort.IsDateTime(btnInputDate.Text) || btnInputDate.Text == string.Empty)
             {
                 Pddgv.Rows[InsertRow].Cells[DefInputDate].Value = btnInputDate.Text;
             }
@@ -433,7 +415,7 @@ namespace K12.Behavior.Keyboard
             #region 日期
             if (e.KeyCode == Keys.Enter)
             {
-                if (IsDateTime(tbDateTime.Text))
+                if (DataSort.IsDateTime(tbDateTime.Text))
                 {
                     if (tbDateTime.Text.Length == 4)
                     {
@@ -523,9 +505,20 @@ namespace K12.Behavior.Keyboard
 
             Pddgv.Rows[InsertRow].Cells[SchoolYearIndex].Value = cbBoxItem1SchoolYear.Text;
             Pddgv.Rows[InsertRow].Cells[SemesterIndex].Value = cbBoxItem1Semester.Text;
-            Pddgv.Rows[InsertRow].Cells[DateColumnIndex].Value = tbDateTime.Text;
+            Pddgv.Rows[InsertRow].Cells[DateColumnIndex].Value = tbDateTime.Text; //發生日期
+
+            if (DataSort.IsDateTime(tbDateTime.Text)) //如果時間欄位有值,並且是正確的
+            {
+                string DateTimeName = tbDateTime.Text;
+
+                //星期資料
+                DateTime dt = DataSort.DateInsertSlash(DateTimeName);
+                Pddgv.Rows[InsertRow].Cells[weekNumber].Value = _week[dt.DayOfWeek.ToString()];
+            }
+
             Pddgv.Rows[InsertRow].Cells[ReasonColumnIndex].Value = tbReason.Text;
-            Pddgv.Rows[InsertRow].Cells[DefInputDate].Value = btnInputDate.Text;
+            Pddgv.Rows[InsertRow].Cells[DefInputDate].Value = btnInputDate.Text; //輸入日期
+
             Pddgv.Rows[InsertRow].Cells[MeritA].Value = textBoxX1.Text;
             Pddgv.Rows[InsertRow].Cells[MeritB].Value = textBoxX2.Text;
             Pddgv.Rows[InsertRow].Cells[MeritC].Value = textBoxX3.Text;
@@ -638,7 +631,7 @@ namespace K12.Behavior.Keyboard
                 #region 日期
                 string Date = cell.GetValue();
 
-                if (IsDateTime(Date)) //是否日期格式
+                if (DataSort.IsDateTime(Date)) //是否日期格式
                 {
                     if (Date.Length == 4)
                     {
@@ -649,7 +642,10 @@ namespace K12.Behavior.Keyboard
 
                     cell.SetNumCellValue(SchoolYearIndex, cbBoxItem1SchoolYear.Text);
                     cell.SetNumCellValue(SemesterIndex, cbBoxItem1Semester.Text);
-                    cell.SetNumCellValue(DefInputDate, btnInputDate.Text);
+                    cell.SetNumCellValue(DefInputDate, btnInputDate.Text); //輸入日期
+
+                    DateTime dt = DataSort.DateInsertSlash(Date);
+                    cell.SetNumCellValue(weekNumber, _week[dt.DayOfWeek.ToString()]);
                 }
                 else
                 {
@@ -764,11 +760,11 @@ namespace K12.Behavior.Keyboard
                 #endregion
 
                 //InsertMerit.MeritFlag = "1"; //MeritFlag=0 銷過,  MeritFlag=1 記功,   MeritFlag=2 記過
-                InsertMerit.OccurDate = DateInsertSlash("" + _row.Cells[DateColumnIndex].Value); //日期
+                InsertMerit.OccurDate = DataSort.DateInsertSlash("" + _row.Cells[DateColumnIndex].Value); //日期
                 InsertMerit.Reason = "" + _row.Cells[ReasonColumnIndex].Value; //事由
                 InsertMerit.SchoolYear = int.Parse("" + _row.Cells[SchoolYearIndex].Value); //學年度
                 InsertMerit.Semester = int.Parse("" + _row.Cells[SemesterIndex].Value); //學期
-                InsertMerit.RegisterDate = DateInsertSlash("" + _row.Cells[DefInputDate].Value);
+                InsertMerit.RegisterDate = DataSort.DateInsertSlash("" + _row.Cells[DefInputDate].Value);
 
                 try
                 {
@@ -832,11 +828,11 @@ namespace K12.Behavior.Keyboard
                 #endregion
 
                 //InsertDemerit.MeritFlag = "0";
-                InsertDemerit.OccurDate = DateInsertSlash("" + _row.Cells[DateColumnIndex].Value);
+                InsertDemerit.OccurDate = DataSort.DateInsertSlash("" + _row.Cells[DateColumnIndex].Value);
                 InsertDemerit.Reason = "" + _row.Cells[ReasonColumnIndex].Value;
                 InsertDemerit.SchoolYear = int.Parse("" + _row.Cells[SchoolYearIndex].Value);
                 InsertDemerit.Semester = int.Parse("" + _row.Cells[SemesterIndex].Value);
-                InsertDemerit.RegisterDate = DateInsertSlash("" + _row.Cells[DefInputDate].Value);
+                InsertDemerit.RegisterDate = DataSort.DateInsertSlash("" + _row.Cells[DefInputDate].Value);
                 try
                 {
                     Demerit.Insert(InsertDemerit);
@@ -937,7 +933,7 @@ namespace K12.Behavior.Keyboard
             #region 日期
             if (e.KeyCode == Keys.Enter)
             {
-                if (IsDateTime(btnInputDate.Text))
+                if (DataSort.IsDateTime(btnInputDate.Text))
                 {
                     if (btnInputDate.Text.Length == 4)
                     {

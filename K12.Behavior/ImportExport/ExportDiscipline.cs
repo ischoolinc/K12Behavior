@@ -17,7 +17,7 @@ namespace K12.Behavior
         {
             this.Title = "匯出獎懲紀錄";
             this.Group = "缺曠獎懲";
-            foreach (string var in new string[] { "學年度", "學期", "日期", "大功", "小功", "嘉獎", "大過", "小過", "警告", "事由", "是否銷過", "銷過日期", "銷過事由", "留校察看" })
+            foreach (string var in new string[] { "學年度", "學期", "日期", "大功", "小功", "嘉獎", "大過", "小過", "警告", "事由", "是否銷過", "銷過日期", "銷過事由", "留校察看", "登錄日期" })
             {
                 this.ExportableFields.Add(var);
             }
@@ -27,115 +27,139 @@ namespace K12.Behavior
 
         private void ExportDiscipline_ExportPackage(object sender, ExportPackageEventArgs e)
         {
-            List<SmartSchool.Customization.Data.StudentRecord> students = _access_helper.StudentHelper.GetStudents(e.List);
-            _access_helper.StudentHelper.FillReward(students);
+            List<K12.Data.StudentRecord> Students = K12.Data.Student.SelectByIDs(K12.Presentation.NLDPanels.Student.SelectedSource);
+            Students = SortClassIndex.K12Data_StudentRecord(Students);
 
-            foreach (SmartSchool.Customization.Data.StudentRecord stu in students)
+            Dictionary<string, List<K12.Data.DisciplineRecord>> StudDisDic = new Dictionary<string, List<Data.DisciplineRecord>>();
+
+            List<K12.Data.DisciplineRecord> Disciplines = K12.Data.Discipline.SelectByStudentIDs(K12.Presentation.NLDPanels.Student.SelectedSource);
+            foreach (K12.Data.DisciplineRecord dis in Disciplines)
             {
-                foreach (RewardInfo var in stu.RewardList)
+                if (!StudDisDic.ContainsKey(dis.RefStudentID))
                 {
-                    int 大功 = 0;
-                    int 小功 = 0;
-                    int 嘉獎 = 0;
-                    int 大過 = 0;
-                    int 小過 = 0;
-                    int 警告 = 0;
+                    StudDisDic.Add(dis.RefStudentID, new List<Data.DisciplineRecord>());
+                }
+                StudDisDic[dis.RefStudentID].Add(dis);
+            }
 
-                    int.TryParse(var.AwardA.ToString(), out 大功);
-                    int.TryParse(var.AwardB.ToString(), out 小功);
-                    int.TryParse(var.AwardC.ToString(), out 嘉獎);
-                    int.TryParse(var.FaultA.ToString(), out 大過);
-                    int.TryParse(var.FaultB.ToString(), out 小過);
-                    int.TryParse(var.FaultC.ToString(), out 警告);
 
-                    if (大功 + 小功 + 嘉獎 != 0)
+
+            //List<SmartSchool.Customization.Data.StudentRecord> students = _access_helper.StudentHelper.GetStudents(e.List);
+            //_access_helper.StudentHelper.FillReward(students);
+
+            foreach (K12.Data.StudentRecord stu in Students)
+            {
+                if (StudDisDic.ContainsKey(stu.ID))
+                {
+                    List<K12.Data.DisciplineRecord> disList = StudDisDic[stu.ID];
+                    disList.Sort(SortDic);
+
+                    foreach (K12.Data.DisciplineRecord dis in disList)
                     {
-                        #region 獎勵
-                        RowData row = new RowData();
-                        row.ID = stu.StudentID;
-                        foreach (string field in e.ExportFields)
+                        int 大功 = dis.MeritA.HasValue ? dis.MeritA.Value : 0;
+                        int 小功 = dis.MeritB.HasValue ? dis.MeritB.Value : 0;
+                        int 嘉獎 = dis.MeritC.HasValue ? dis.MeritC.Value : 0;
+                        int 大過 = dis.DemeritA.HasValue ? dis.DemeritA.Value : 0;
+                        int 小過 = dis.DemeritB.HasValue ? dis.DemeritB.Value : 0;
+                        int 警告 = dis.DemeritC.HasValue ? dis.DemeritC.Value : 0;
+
+                        if (大功 + 小功 + 嘉獎 != 0)
                         {
-                            if (ExportableFields.Contains(field))
+                            #region 獎勵
+                            RowData row = new RowData();
+                            row.ID = stu.ID;
+                            foreach (string field in e.ExportFields)
                             {
-                                switch (field)
+                                if (ExportableFields.Contains(field))
                                 {
-                                    case "學年度": row.Add(field, var.SchoolYear.ToString()); break;
-                                    case "學期": row.Add(field, var.Semester.ToString()); break;
-                                    case "日期": row.Add(field, var.OccurDate.ToShortDateString()); break;
-                                    //case "地點": row.Add(field, var.OccurPlace); break;
-                                    case "大功": row.Add(field, 大功.ToString()); break;
-                                    case "小功": row.Add(field, 小功.ToString()); break;
-                                    case "嘉獎": row.Add(field, 嘉獎.ToString()); break;
-                                    case "事由": row.Add(field, var.OccurReason); break;
+                                    switch (field)
+                                    {
+                                        case "學年度": row.Add(field, dis.SchoolYear.ToString()); break;
+                                        case "學期": row.Add(field, dis.Semester.ToString()); break;
+                                        case "日期": row.Add(field, dis.OccurDate.ToShortDateString()); break;
+                                        //case "地點": row.Add(field, var.OccurPlace); break;
+                                        case "大功": row.Add(field, 大功.ToString()); break;
+                                        case "小功": row.Add(field, 小功.ToString()); break;
+                                        case "嘉獎": row.Add(field, 嘉獎.ToString()); break;
+                                        case "事由": row.Add(field, dis.Reason); break;
+                                        case "登錄日期": row.Add(field, dis.RegisterDate.HasValue ? dis.RegisterDate.Value.ToShortDateString() : ""); break;
+                                    }
                                 }
                             }
+                            e.Items.Add(row);
+                            #endregion
                         }
-                        e.Items.Add(row);
-                        #endregion
-                    }
-                    else if (大過 + 小過 + 警告 != 0)
-                    {
-                        #region 懲戒
-                        RowData row = new RowData();
-                        row.ID = stu.StudentID;
-                        foreach (string field in e.ExportFields)
+                        else if (大過 + 小過 + 警告 != 0)
                         {
-                            if (ExportableFields.Contains(field))
+                            #region 懲戒
+                            RowData row = new RowData();
+                            row.ID = stu.ID;
+                            foreach (string field in e.ExportFields)
                             {
-                                switch (field)
+                                if (ExportableFields.Contains(field))
                                 {
-                                    case "學年度": row.Add(field, var.SchoolYear.ToString()); break;
-                                    case "學期": row.Add(field, var.Semester.ToString()); break;
-                                    case "日期": row.Add(field, var.OccurDate.ToShortDateString()); break;
-                                    //case "地點": row.Add(field, var.OccurPlace); break;
-                                    case "大過": row.Add(field, 大過.ToString()); break;
-                                    case "小過": row.Add(field, 小過.ToString()); break;
-                                    case "警告": row.Add(field, 警告.ToString()); break;
-                                    case "事由": row.Add(field, var.OccurReason); break;
-                                    case "是否銷過": row.Add(field, (var.Cleared ? "是" : "")); break;
-                                    case "銷過日期": row.Add(field, (var.Cleared ? var.ClearDate.ToShortDateString() : "")); break;
-                                    case "銷過事由": row.Add(field, (var.Cleared ? var.ClearReason : "")); break;
-                                    case "留校察看": row.Add(field, (var.UltimateAdmonition ? "是" : "")); break;
+                                    switch (field)
+                                    {
+                                        case "學年度": row.Add(field, dis.SchoolYear.ToString()); break;
+                                        case "學期": row.Add(field, dis.Semester.ToString()); break;
+                                        case "日期": row.Add(field, dis.OccurDate.ToShortDateString()); break;
+                                        //case "地點": row.Add(field, var.OccurPlace); break;
+                                        case "大過": row.Add(field, 大過.ToString()); break;
+                                        case "小過": row.Add(field, 小過.ToString()); break;
+                                        case "警告": row.Add(field, 警告.ToString()); break;
+                                        case "事由": row.Add(field, dis.Reason); break;
+                                        case "是否銷過": row.Add(field, (dis.Cleared == "是" ? "是" : "")); break;
+                                        case "銷過日期": row.Add(field, (dis.Cleared == "是" ? (dis.ClearDate.HasValue ? dis.ClearDate.Value.ToShortDateString() : "") : "")); break;
+                                        case "銷過事由": row.Add(field, (dis.Cleared == "是" ? dis.ClearReason : "")); break;
+                                        case "留校察看": row.Add(field, (dis.MeritFlag == "2" ? "是" : "")); break;
+                                        case "登錄日期": row.Add(field, dis.RegisterDate.HasValue ? dis.RegisterDate.Value.ToShortDateString() : ""); break;
+                                    }
                                 }
                             }
+                            e.Items.Add(row);
+                            #endregion
                         }
-                        e.Items.Add(row);
-                        #endregion
-                    }
-                    else
-                    {
-                        #region 無法判斷
-                        RowData row = new RowData();
-                        row.ID = stu.StudentID;
-                        foreach (string field in e.ExportFields)
+                        else
                         {
-                            if (ExportableFields.Contains(field))
+                            #region 無法判斷
+                            RowData row = new RowData();
+                            row.ID = stu.ID;
+                            foreach (string field in e.ExportFields)
                             {
-                                switch (field)
+                                if (ExportableFields.Contains(field))
                                 {
-                                    case "學年度": row.Add(field, var.SchoolYear.ToString()); break;
-                                    case "學期": row.Add(field, var.Semester.ToString()); break;
-                                    case "日期": row.Add(field, var.OccurDate.ToShortDateString()); break;
-                                    //case "地點": row.Add(field, var.OccurPlace); break;
-                                    case "大功": row.Add(field, 大功.ToString()); break;
-                                    case "小功": row.Add(field, 小功.ToString()); break;
-                                    case "嘉獎": row.Add(field, 嘉獎.ToString()); break;
-                                    case "大過": row.Add(field, 大過.ToString()); break;
-                                    case "小過": row.Add(field, 小過.ToString()); break;
-                                    case "警告": row.Add(field, 警告.ToString()); break;
-                                    case "事由": row.Add(field, var.OccurReason); break;
-                                    case "是否銷過": row.Add(field, (var.Cleared ? "是" : "")); break;
-                                    case "銷過日期": row.Add(field, (var.Cleared ? var.ClearDate.ToShortDateString() : "")); break;
-                                    case "銷過事由": row.Add(field, (var.Cleared ? var.ClearReason : "")); break;
-                                    case "留校察看": row.Add(field, (var.UltimateAdmonition ? "是" : "")); break;
+                                    switch (field)
+                                    {
+                                        case "學年度": row.Add(field, dis.SchoolYear.ToString()); break;
+                                        case "學期": row.Add(field, dis.Semester.ToString()); break;
+                                        case "日期": row.Add(field, dis.OccurDate.ToShortDateString()); break;
+                                        //case "地點": row.Add(field, var.OccurPlace); break;
+                                        case "大功": row.Add(field, 大功.ToString()); break;
+                                        case "小功": row.Add(field, 小功.ToString()); break;
+                                        case "嘉獎": row.Add(field, 嘉獎.ToString()); break;
+                                        case "大過": row.Add(field, 大過.ToString()); break;
+                                        case "小過": row.Add(field, 小過.ToString()); break;
+                                        case "警告": row.Add(field, 警告.ToString()); break;
+                                        case "事由": row.Add(field, dis.Reason); break;
+                                        case "是否銷過": row.Add(field, (dis.Cleared == "是" ? "是" : "")); break;
+                                        case "銷過日期": row.Add(field, (dis.Cleared == "是" ? (dis.ClearDate.HasValue ? dis.ClearDate.Value.ToShortDateString() : "") : "")); break;
+                                        case "銷過事由": row.Add(field, (dis.Cleared == "是" ? dis.ClearReason : "")); break;
+                                        case "留校察看": row.Add(field, (dis.MeritFlag == "2" ? "是" : "")); break;
+                                        case "登錄日期": row.Add(field, dis.RegisterDate.HasValue ? dis.RegisterDate.Value.ToShortDateString() : ""); break;
+                                    }
                                 }
                             }
+                            e.Items.Add(row);
+                            #endregion
                         }
-                        e.Items.Add(row);
-                        #endregion
                     }
                 }
             }
+        }
+
+        public int SortDic(K12.Data.DisciplineRecord a, K12.Data.DisciplineRecord b)
+        {
+            return a.OccurDate.CompareTo(b.OccurDate);
         }
     }
 }
