@@ -27,12 +27,12 @@ namespace K12.Behavior
 
         private void ExportDiscipline_ExportPackage(object sender, ExportPackageEventArgs e)
         {
-            List<K12.Data.StudentRecord> Students = K12.Data.Student.SelectByIDs(K12.Presentation.NLDPanels.Student.SelectedSource);
+            List<K12.Data.StudentRecord> Students = K12.Data.Student.SelectByIDs(e.List);
             Students = SortClassIndex.K12Data_StudentRecord(Students);
 
             Dictionary<string, List<K12.Data.DisciplineRecord>> StudDisDic = new Dictionary<string, List<Data.DisciplineRecord>>();
 
-            List<K12.Data.DisciplineRecord> Disciplines = K12.Data.Discipline.SelectByStudentIDs(K12.Presentation.NLDPanels.Student.SelectedSource);
+            List<K12.Data.DisciplineRecord> Disciplines = K12.Data.Discipline.SelectByStudentIDs(e.List);
             foreach (K12.Data.DisciplineRecord dis in Disciplines)
             {
                 if (!StudDisDic.ContainsKey(dis.RefStudentID))
