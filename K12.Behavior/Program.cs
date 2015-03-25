@@ -214,6 +214,28 @@ namespace K12.Behavior
                 rdf.ShowDialog();
             };
 
+
+            string URL缺曠類別管理 = "ischool/國中系統/學務/管理/缺曠類別管理";
+            FISCA.Features.Register(URL缺曠類別管理, arg =>
+            {
+                AbsenceConfigForm AbsForm = new AbsenceConfigForm();
+                AbsForm.ShowDialog();
+            });
+
+            string URL每日節次管理 = "ischool/國中系統/學務/管理/每日節次管理";
+            FISCA.Features.Register(URL每日節次管理, arg =>
+            {
+                PeriodConfigForm PerForm = new PeriodConfigForm();
+                PerForm.ShowDialog();
+            });
+
+            string URL功過換算管理 = "ischool/國中系統/學務/管理/功過換算管理";
+            FISCA.Features.Register(URL功過換算管理, arg =>
+            {
+                ReduceForm RedForm = new ReduceForm();
+                RedForm.ShowDialog();
+            });
+
             Config["對照/代碼"].Image = Properties.Resources.notepad_lock_64;
             Config["對照/代碼"]["獎懲事由代碼表"].Enable = Permissions.獎懲事由管理權限;
             Config["對照/代碼"]["獎懲事由代碼表"].Click += delegate

@@ -463,7 +463,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(324, 298);
-            this.ControlBox = false;
             this.Controls.Add(this.intSemester);
             this.Controls.Add(this.intSchoolYear);
             this.Controls.Add(this.dateTimeInput2);
@@ -484,6 +483,7 @@
             this.Controls.Add(this.lbl1);
             this.Controls.Add(this.labelX2);
             this.Controls.Add(this.labelX1);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MeritEditForm";
             this.Text = "MeritEditor";

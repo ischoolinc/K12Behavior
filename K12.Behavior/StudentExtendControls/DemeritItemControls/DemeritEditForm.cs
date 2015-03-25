@@ -57,54 +57,57 @@ namespace K12.Behavior.StudentExtendControls
             #endregion
         }
 
-        public DemeritEditForm(List<StudentRecord> students, string SchoolYear, string Semester)
-        {
-            #region 新增
-            this._students = students;
+        #region 未被使用
 
-            #region 建構子
-            InitializeComponent();
+        //public DemeritEditForm(List<StudentRecord> students, string SchoolYear, string Semester)
+        //{
+        //    #region 新增
+        //    this._students = students;
 
-            _errorProvider = new ErrorProvider();
+        //    #region 建構子
+        //    InitializeComponent();
 
-            //學年度
+        //    _errorProvider = new ErrorProvider();
 
-            intSchoolYear.Text = School.DefaultSchoolYear;
-            intSemester.Text = School.DefaultSemester;
+        //    //學年度
 
-            //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) - 4);
-            //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) - 3);
-            //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) - 2);
-            //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) - 1);
-            //int SchoolYearSelectIndex = cboSchoolYear.Items.Add(SchoolYear);
-            //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) + 1);
-            //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) + 2);
-            //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) + 3);
-            //cboSchoolYear.SelectedIndex = SchoolYearSelectIndex;
-            ////學期
-            //cboSemester.Items.Add(1);
-            //cboSemester.Items.Add(2);
-            //cboSemester.SelectedIndex = Semester == "1" ? 0 : 1;
+        //    intSchoolYear.Text = School.DefaultSchoolYear;
+        //    intSemester.Text = School.DefaultSemester;
 
-            #endregion
+        //    //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) - 4);
+        //    //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) - 3);
+        //    //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) - 2);
+        //    //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) - 1);
+        //    //int SchoolYearSelectIndex = cboSchoolYear.Items.Add(SchoolYear);
+        //    //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) + 1);
+        //    //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) + 2);
+        //    //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) + 3);
+        //    //cboSchoolYear.SelectedIndex = SchoolYearSelectIndex;
+        //    ////學期
+        //    //cboSemester.Items.Add(1);
+        //    //cboSemester.Items.Add(2);
+        //    //cboSemester.SelectedIndex = Semester == "1" ? 0 : 1;
 
-            dateTimeInput1.Value = DateTime.Today;
-            dateTimeInput2.Value = DateTime.Today;
-            if (this._students.Count > 1)
-            {
-                Text = string.Format("懲戒管理 【 新增：{0} ... 等共 {1} 位 】", this._students[0].Name, this._students.Count.ToString()); ;
-            }
-            else if (this._students.Count == 1)
-            {
-                Text = string.Format("懲戒管理 【 新增：{0} 】", this._students[0].Name); ;
-            }
-            #endregion
-        }
+        //    #endregion
+
+        //    dateTimeInput1.Value = DateTime.Today;
+        //    dateTimeInput2.Value = DateTime.Today;
+        //    if (this._students.Count > 1)
+        //    {
+        //        Text = string.Format("懲戒管理 【 新增：{0} ... 等共 {1} 位 】", this._students[0].Name, this._students.Count.ToString()); ;
+        //    }
+        //    else if (this._students.Count == 1)
+        //    {
+        //        Text = string.Format("懲戒管理 【 新增：{0} 】", this._students[0].Name); ;
+        //    }
+        //    #endregion
+        //} 
+
+        #endregion
 
         /// <summary>
         /// Constructor，修改時使用
         /// </summary>
-        /// <param name="_demeritRecordEditor"></param>
         public DemeritEditForm(DemeritRecord demeritRecordEditor, FISCA.Permission.FeatureAce permission)
         {
             #region 修改
@@ -125,6 +128,7 @@ namespace K12.Behavior.StudentExtendControls
                 DicBeforeData.Add("警告", demeritRecordEditor.DemeritC.Value.ToString());
             }
             DicBeforeData.Add("事由", demeritRecordEditor.Reason);
+
             #endregion
 
             this._students = new List<StudentRecord>();
@@ -161,19 +165,6 @@ namespace K12.Behavior.StudentExtendControls
 
             intSchoolYear.Text = School.DefaultSchoolYear;
             intSemester.Text = School.DefaultSemester;
-
-            ////學年度
-            //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) - 3);
-            //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) - 2);
-            //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) - 1);
-            //int SchoolYearSelectIndex = cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear));
-            //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) + 1);
-            //cboSchoolYear.Items.Add(int.Parse(School.DefaultSchoolYear) + 2);
-            //cboSchoolYear.SelectedIndex = SchoolYearSelectIndex;
-            ////學期
-            //cboSemester.Items.Add(1);
-            //cboSemester.Items.Add(2);
-            //cboSemester.SelectedIndex = School.DefaultSemester == "1" ? 0 : 1;
 
             //判斷是國中還是高中資料庫
             //判斷是國中系統還是高中系統，若是國中系統則用Framework的權限

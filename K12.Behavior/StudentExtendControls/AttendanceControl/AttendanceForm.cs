@@ -32,140 +32,114 @@ namespace K12.Behavior.StudentExtendControls
         //之後
         private Dictionary<string, string> DicAfterLog = new Dictionary<string, string>();
 
-        public AttendanceForm(EditorStatus status, AttendanceRecord editor, List<PeriodMappingInfo> periodList, FeatureAce permission, int SchoolYear, int Semester)
-        {
-            InitializeComponent();
-
-            #region 初始化學年度學期
-
-            //學年度
-            cboSchool.Items.Add(int.Parse(School.DefaultSchoolYear) - 4);
-            cboSchool.Items.Add(int.Parse(School.DefaultSchoolYear) - 3);
-            cboSchool.Items.Add(int.Parse(School.DefaultSchoolYear) - 2);
-            cboSchool.Items.Add(int.Parse(School.DefaultSchoolYear) - 1);
-            int SchoolYearSelectIndex = cboSchool.Items.Add(SchoolYear);
-            cboSchool.Items.Add(int.Parse(School.DefaultSchoolYear) + 1);
-            cboSchool.Items.Add(int.Parse(School.DefaultSchoolYear) + 2);
-            cboSchool.Items.Add(int.Parse(School.DefaultSchoolYear) + 3);
-            cboSchool.SelectedIndex = SchoolYearSelectIndex;
-            //學期
-            cboSemester.Items.Add(1);
-            cboSemester.Items.Add(2);
-            cboSemester.SelectedIndex = Semester == 1 ? 0 : 1;
-
-            #endregion
-
-            #region 初始化缺曠類別
-
-            //初始化時,即取得最新缺曠資料
-            absenceList = K12.Data.AbsenceMapping.SelectAll();
-
-            foreach (AbsenceMappingInfo info in absenceList)
-            {
-                RadioButton rb = new RadioButton();
-                //缺曠別,縮寫,熱鍵
-                rb.Text = info.Name + "(" + info.HotKey.ToUpper() + ")";
-                rb.AutoSize = true;
-                //rb.Font = new Font(FontStyles.GeneralFontFamily, 9.25f);
-                rb.Tag = info;
-                rb.CheckedChanged += delegate(object sender, EventArgs e)
-                {
-                    if (rb.Checked)
-                    {
-                        foreach (DataGridViewCell cell in dataGridViewX1.SelectedCells)
-                        {
-                            cell.Value = (rb.Tag as AbsenceMappingInfo).Abbreviation;
-                        }
-                    }
-                };
-                flpAbsence.Controls.Add(rb);
-            }
-
-            //把第一個缺曠類別設為預設值
-            RadioButton fouse = flpAbsence.Controls[0] as RadioButton;
-            fouse.Checked = true;
-
-            #endregion
-
-            #region 初始化節次表
-            foreach (PeriodMappingInfo info in periodList)
-            {
-                //Log使用
-                DicBeforeLog.Add(info.Name, "");
-                DicAfterLog.Add(info.Name, "");
-
-                DataGridViewTextBoxColumn column = new DataGridViewTextBoxColumn();
-                column.Width = 40;
-                column.HeaderText = info.Name;
-                column.Tag = info;
-                dataGridViewX1.Columns.Add(column);
-
-                //PeriodControl pc = new PeriodControl();
-                //pc.Label.Text = info.Name;
-                //pc.Tag = info;
-                //pc.TextBox.KeyUp += delegate(object sender, KeyEventArgs e)
-                //{
-                //    var txtBox = sender as DevComponents.DotNetBar.Controls.TextBoxX;
-                //    foreach (AbsenceMappingInfo absenceInfo in absenceList)
-                //    {
-                //        if (KeyConverter.GetKeyMapping(e) == absenceInfo.HotKey || KeyConverter.GetKeyMapping(e) == absenceInfo.HotKey.ToUpper())
-                //        {
-                //            txtBox.Text = absenceInfo.Abbreviation;
-                //            if (flpPeriod.GetNextControl(pc, true) != null)
-                //                (flpPeriod.GetNextControl(pc, true) as PeriodControl).TextBox.Focus();
-                //            return;
-                //        }
-                //    }
-                //    txtBox.SelectAll();
-                //};
-                //pc.TextBox.MouseDoubleClick += new MouseEventHandler(TextBox_MouseDoubleClick);
-                //flpPeriod.Controls.Add(pc);
-            }
-            DataGridViewRow row = new DataGridViewRow();
-            row.CreateCells(dataGridViewX1);
-            dataGridViewX1.Rows.Add(row);
-            dataGridViewX1.AutoResizeColumns();
-            #endregion
-
-            dateTimeInput1.Value = DateTime.Today;
-
-            btnSave.Visible = permission.Editable;
-            cboSchool.Enabled = permission.Editable;
-            cboSemester.Enabled = permission.Editable;
-            panelAbsence.Enabled = permission.Editable;
-            //pancelAttendence.Enabled = permission.Editable;
-            dataGridViewX1.Enabled = permission.Editable;
-
-            if (status == EditorStatus.Insert)
-            {
-                Text = "管理學生缺曠紀錄【新增模式】";
-            }
-
-            _status = status;
-            _editor = editor;
-            _absenceList = absenceList;
-            _periodList = periodList;
-        }
-
-        //void TextBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        #region 無用建構式
+        /// <summary>
+        /// 新增模式
+        /// </summary>
+        //public AttendanceForm(EditorStatus status, AttendanceRecord editor, List<PeriodMappingInfo> periodList, FeatureAce permission, int SchoolYear, int Semester)
         //{
-        //    foreach (RadioButton var in flpAbsence.Controls)
-        //    {
-        //        if (var.Checked)
-        //        {
-        //            _checkedAbsence = (AbsenceMappingInfo)var.Tag;
+        //    InitializeComponent();
 
-        //            TextBox textBox = sender as TextBox;
-        //            if (textBox.Text == _checkedAbsence.Abbreviation)
+        //    #region 初始化學年度學期
+
+        //    //學年度
+        //    intSchoolYear.Value = SchoolYear;
+        //    intSemester.Value = Semester;
+
+        //    #endregion
+
+        //    #region 初始化缺曠類別
+
+        //    //初始化時,即取得最新缺曠資料
+        //    absenceList = K12.Data.AbsenceMapping.SelectAll();
+
+        //    foreach (AbsenceMappingInfo info in absenceList)
+        //    {
+        //        RadioButton rb = new RadioButton();
+        //        //缺曠別,縮寫,熱鍵
+        //        rb.Text = info.Name + "(" + info.HotKey.ToUpper() + ")";
+        //        rb.AutoSize = true;
+        //        //rb.Font = new Font(FontStyles.GeneralFontFamily, 9.25f);
+        //        rb.Tag = info;
+        //        rb.CheckedChanged += delegate(object sender, EventArgs e)
+        //        {
+        //            if (rb.Checked)
         //            {
-        //                textBox.Text = "";
-        //                textBox.Tag = null;
-        //                return;
+        //                foreach (DataGridViewCell cell in dataGridViewX1.SelectedCells)
+        //                {
+        //                    cell.Value = (rb.Tag as AbsenceMappingInfo).Abbreviation;
+        //                }
         //            }
-        //            textBox.Text = _checkedAbsence.Abbreviation;
-        //        }
+        //        };
+        //        flpAbsence.Controls.Add(rb);
         //    }
-        //}
+
+        //    //把第一個缺曠類別設為預設值
+        //    RadioButton fouse = flpAbsence.Controls[0] as RadioButton;
+        //    fouse.Checked = true;
+
+        //    #endregion
+
+        //    #region 初始化節次表
+        //    foreach (PeriodMappingInfo info in periodList)
+        //    {
+        //        //Log使用
+        //        DicBeforeLog.Add(info.Name, "");
+        //        DicAfterLog.Add(info.Name, "");
+
+        //        DataGridViewTextBoxColumn column = new DataGridViewTextBoxColumn();
+        //        column.Width = 40;
+        //        column.HeaderText = info.Name;
+        //        column.Tag = info;
+        //        dataGridViewX1.Columns.Add(column);
+
+        //        //PeriodControl pc = new PeriodControl();
+        //        //pc.Label.Text = info.Name;
+        //        //pc.Tag = info;
+        //        //pc.TextBox.KeyUp += delegate(object sender, KeyEventArgs e)
+        //        //{
+        //        //    var txtBox = sender as DevComponents.DotNetBar.Controls.TextBoxX;
+        //        //    foreach (AbsenceMappingInfo absenceInfo in absenceList)
+        //        //    {
+        //        //        if (KeyConverter.GetKeyMapping(e) == absenceInfo.HotKey || KeyConverter.GetKeyMapping(e) == absenceInfo.HotKey.ToUpper())
+        //        //        {
+        //        //            txtBox.Text = absenceInfo.Abbreviation;
+        //        //            if (flpPeriod.GetNextControl(pc, true) != null)
+        //        //                (flpPeriod.GetNextControl(pc, true) as PeriodControl).TextBox.Focus();
+        //        //            return;
+        //        //        }
+        //        //    }
+        //        //    txtBox.SelectAll();
+        //        //};
+        //        //pc.TextBox.MouseDoubleClick += new MouseEventHandler(TextBox_MouseDoubleClick);
+        //        //flpPeriod.Controls.Add(pc);
+        //    }
+        //    DataGridViewRow row = new DataGridViewRow();
+        //    row.CreateCells(dataGridViewX1);
+        //    dataGridViewX1.Rows.Add(row);
+        //    dataGridViewX1.AutoResizeColumns();
+        //    #endregion
+
+        //    dateTimeInput1.Value = DateTime.Today;
+
+        //    btnSave.Visible = permission.Editable;
+        //    intSchoolYear.Enabled = permission.Editable;
+        //    intSemester.Enabled = permission.Editable;
+        //    panelAbsence.Enabled = permission.Editable;
+        //    //pancelAttendence.Enabled = permission.Editable;
+        //    dataGridViewX1.Enabled = permission.Editable;
+
+        //    if (status == EditorStatus.Insert)
+        //    {
+        //        Text = "管理學生缺曠紀錄【新增模式】";
+        //    }
+
+        //    _status = status;
+        //    _editor = editor;
+        //    _absenceList = absenceList;
+        //    _periodList = periodList;
+        //} 
+        #endregion
 
         public AttendanceForm(EditorStatus status, AttendanceRecord editor, List<PeriodMappingInfo> periodList, FeatureAce permission)
         {
@@ -174,17 +148,8 @@ namespace K12.Behavior.StudentExtendControls
             #region 初始化學年度學期
 
             //學年度
-            cboSchool.Items.Add(int.Parse(School.DefaultSchoolYear) - 3);
-            cboSchool.Items.Add(int.Parse(School.DefaultSchoolYear) - 2);
-            cboSchool.Items.Add(int.Parse(School.DefaultSchoolYear) - 1);
-            int SchoolYearSelectIndex = cboSchool.Items.Add(int.Parse(School.DefaultSchoolYear));
-            cboSchool.Items.Add(int.Parse(School.DefaultSchoolYear) + 1);
-            cboSchool.Items.Add(int.Parse(School.DefaultSchoolYear) + 2);
-            cboSchool.SelectedIndex = SchoolYearSelectIndex;
-            //學期
-            cboSemester.Items.Add(1);
-            cboSemester.Items.Add(2);
-            cboSemester.SelectedIndex = School.DefaultSemester == "1" ? 0 : 1;
+            intSchoolYear.Value = int.Parse(K12.Data.School.DefaultSchoolYear);
+            intSemester.Value = int.Parse(K12.Data.School.DefaultSemester);
 
             #endregion
 
@@ -231,27 +196,6 @@ namespace K12.Behavior.StudentExtendControls
                 column.HeaderText = info.Name;
                 column.Tag = info;
                 dataGridViewX1.Columns.Add(column);
-
-                //PeriodControl pc = new PeriodControl();
-                //pc.Label.Text = info.Name;
-                //pc.Tag = info;
-                //pc.TextBox.KeyUp += delegate(object sender, KeyEventArgs e)
-                //{
-                //    var txtBox = sender as DevComponents.DotNetBar.Controls.TextBoxX;
-                //    foreach (AbsenceMappingInfo absenceInfo in absenceList)
-                //    {
-                //        if (KeyConverter.GetKeyMapping(e) == absenceInfo.HotKey || KeyConverter.GetKeyMapping(e) == absenceInfo.HotKey.ToUpper())
-                //        {
-                //            txtBox.Text = absenceInfo.Abbreviation;
-                //            if (flpPeriod.GetNextControl(pc, true) != null)
-                //                (flpPeriod.GetNextControl(pc, true) as PeriodControl).TextBox.Focus();
-                //            return;
-                //        }
-                //    }
-                //    txtBox.SelectAll();
-                //};
-                //pc.TextBox.MouseDoubleClick += new MouseEventHandler(TextBox_MouseDoubleClick);
-                //flpPeriod.Controls.Add(pc);
             }
             DataGridViewRow row = new DataGridViewRow();
             row.CreateCells(dataGridViewX1);
@@ -262,8 +206,8 @@ namespace K12.Behavior.StudentExtendControls
             dateTimeInput1.Value = DateTime.Today;
 
             btnSave.Visible = permission.Editable;
-            cboSchool.Enabled = permission.Editable;
-            cboSemester.Enabled = permission.Editable;
+            intSchoolYear.Enabled = permission.Editable;
+            intSemester.Enabled = permission.Editable;
             panelAbsence.Enabled = permission.Editable;
             //pancelAttendence.Enabled = permission.Editable;
 
@@ -278,8 +222,8 @@ namespace K12.Behavior.StudentExtendControls
 
                 dateTimeInput1.Value = editor.OccurDate;
                 dateTimeInput1.Enabled = false;
-                cboSchool.Text = editor.SchoolYear.ToString();
-                cboSemester.Text = editor.Semester.ToString();
+                intSchoolYear.Text = editor.SchoolYear.ToString();
+                intSemester.Text = editor.Semester.ToString();
 
                 foreach (K12.Data.AttendancePeriod period in editor.PeriodDetail)
                 {
@@ -342,8 +286,8 @@ namespace K12.Behavior.StudentExtendControls
             }
 
             _editor.OccurDate = dateTimeInput1.Value;
-            _editor.SchoolYear = int.Parse(cboSchool.Text);
-            _editor.Semester = int.Parse(cboSemester.Text);
+            _editor.SchoolYear = intSchoolYear.Value;
+            _editor.Semester = intSemester.Value;
 
             List<K12.Data.AttendancePeriod> periodDetail = new List<K12.Data.AttendancePeriod>();
 
