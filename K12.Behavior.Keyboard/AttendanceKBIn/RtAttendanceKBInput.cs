@@ -484,6 +484,7 @@ namespace K12.Behavior.Keyboard
         private void _RowSave(DataGridViewRow _row)
         {
             #region 儲存
+
             //錯誤就離開
             if (_row.Tag == null)
                 return;
@@ -495,6 +496,7 @@ namespace K12.Behavior.Keyboard
             }
 
             #region 將Row指定範圍取代為縮寫
+
             foreach (DataGridViewCell _cell in _row.Cells)
             {
                 if (PeriodDic.ContainsValue(_cell.OwningColumn.Index))
@@ -513,11 +515,13 @@ namespace K12.Behavior.Keyboard
                     }
                 }
             }
+
             #endregion
 
             if (_row.Tag is KeyBoStudent)
             {
-                #region 新增
+                #region 缺曠新增
+
                 KeyBoStudent SR = (KeyBoStudent)_row.Tag;
 
                 AttendanceRecord AR = new AttendanceRecord();
@@ -552,6 +556,10 @@ namespace K12.Behavior.Keyboard
                     }
                 }
 
+                #endregion
+
+                #region 缺曠上傳&LOG
+
                 if (AR.PeriodDetail.Count != 0)
                 {
                     try
@@ -566,10 +574,14 @@ namespace K12.Behavior.Keyboard
                     }
 
                     StringBuilder sb = new StringBuilder();
-                    sb.AppendLine("詳細資料：");
-                    sb.AppendLine("學生「" + SR.Name + "」");
+                    sb.AppendLine(string.Format("班級「{0}」座號「{1}」姓名「{2}」", SR.ClassName, SR.SeatNo, SR.Name));
                     sb.AppendLine("日期「" + AR.OccurDate.ToShortDateString() + "」");
-                    ApplicationLog.Log("缺曠鍵盤登錄", "新增", "student", SR.ID, "由「缺曠鍵盤登錄」功能，新增一筆缺曠資料。\n" + sb.ToString());
+                    sb.AppendLine("新增缺曠內容：");
+                    foreach (AttendancePeriod per in AR.PeriodDetail)
+                    {
+                        sb.AppendLine(string.Format("節次「{0}」缺曠別「{1}」", per.Period, per.AbsenceType));
+                    }
+                    ApplicationLog.Log("缺曠鍵盤登錄", "新增", "student", SR.ID, sb.ToString());
 
                     this.Text = "缺曠鍵盤登錄 - 學生「" + AR.Student.Name + "」日期「" + AR.OccurDate.ToShortDateString() + "」資料新增成功";
                 }
@@ -579,98 +591,137 @@ namespace K12.Behavior.Keyboard
                     MsgBox.Show("未輸入資料!新增資料失敗!");
                     return;
                 }
+
                 #endregion
 
             }
             else if (_row.Tag is AttendanceRecord)
             {
-                #region 更新
+                #region 缺曠更新 or 刪除
+
                 AttendanceRecord Att = (AttendanceRecord)_row.Tag;
-                Att.PeriodDetail.Clear();
-
-                //AttendancePeriod
-                //Period    <節次>
-                //AbsenceType   <假別>
-
-                //將節次欄位組成PeriodDetail內容
-                foreach (DataGridViewCell _cell in _row.Cells)
+                Dictionary<string, string> LogAtt1 = new Dictionary<string, string>();
+                Dictionary<string, string> LogAtt2 = new Dictionary<string, string>();
+                foreach (AttendancePeriod per in Att.PeriodDetail)
                 {
-                    if (PeriodDic.ContainsValue(_cell.OwningColumn.Index))
+                    if (!LogAtt1.ContainsKey(per.Period))
                     {
+                        LogAtt1.Add(per.Period, per.AbsenceType);
+                    }
+                }
 
-                        string stringValue = "" + _cell.Value;
 
-                        if (stringValue.Trim() != "")
+                //學生是系統內學生
+                if (_StudentList.ContainsKey(Att.RefStudentID))
+                {
+                    //取得學生
+                    KeyBoStudent SR = _StudentList[Att.RefStudentID];
+
+                    Att.PeriodDetail.Clear(); //清空欄位內容
+
+                    foreach (DataGridViewCell _cell in _row.Cells)
+                    {
+                        if (PeriodDic.ContainsValue(_cell.OwningColumn.Index))
                         {
 
-                            AttendancePeriod period = new AttendancePeriod();
-                            period.AbsenceType = _AbsenceHelper.GetNameByAbbreviation("" + _cell.Value);
-                            period.Period = _cell.OwningColumn.HeaderText;
+                            string stringValue = "" + _cell.Value;
 
-                            Att.PeriodDetail.Add(period);
+                            if (stringValue.Trim() != "")
+                            {
+
+                                AttendancePeriod period = new AttendancePeriod();
+                                period.AbsenceType = _AbsenceHelper.GetNameByAbbreviation("" + _cell.Value);
+                                period.Period = _cell.OwningColumn.HeaderText;
+
+                                Att.PeriodDetail.Add(period);
+                            }
                         }
                     }
-                }
 
-                //如果是空的,就刪除
-                if (Att.PeriodDetail.Count == 0)
-                {
-                    try
+                    foreach (AttendancePeriod per in Att.PeriodDetail)
                     {
-                        Attendance.Delete(Att.ID);
-                        SetReadOnlyAndColor(_row);
-                    }
-                    catch
-                    {
-                        MsgBox.Show("刪除缺曠時,發生錯誤");
-                        return;
+                        if (!LogAtt2.ContainsKey(per.Period))
+                        {
+                            LogAtt2.Add(per.Period, per.AbsenceType);
+                        }
                     }
 
-                    StringBuilder sb = new StringBuilder();
-                    sb.AppendLine("詳細資料：");
-                    sb.AppendLine("學生「" + Att.Student.Name + "」");
-                    sb.AppendLine("日期「" + Att.OccurDate.ToShortDateString() + "」");
-                    ApplicationLog.Log("缺曠鍵盤登錄", "刪除", "student", Att.Student.ID, "由「缺曠鍵盤登錄」功能，刪除一筆缺曠資料。\n" + sb.ToString());
-                    this.Text = "缺曠鍵盤登錄 - 學生「" + Att.Student.Name + "」日期「" + Att.OccurDate.ToShortDateString() + "」資料刪除成功";
-                }
-                else
-                {
-                    try
+                    if (Att.PeriodDetail.Count > 0)
                     {
-                        Attendance.Update(Att);
-                        SetReadOnlyAndColor(_row);
-                    }
-                    catch
-                    {
-                        MsgBox.Show("更新缺曠記錄,發生錯誤");
-                        return;
-                    }
-                    StringBuilder sb = new StringBuilder();
-                    sb.AppendLine("詳細資料：");
-                    sb.AppendLine("學生「" + Att.Student.Name + "」");
-                    sb.AppendLine("日期「" + Att.OccurDate.ToShortDateString() + "」");
-                    ApplicationLog.Log("缺曠鍵盤登錄", "修改", "student", Att.Student.ID, "由「缺曠鍵盤登錄」功能，修改一筆缺曠資料。\n" + sb.ToString());
+                        #region 缺曠更新
 
-                    this.Text = "缺曠鍵盤登錄 - 學生「" + Att.Student.Name + "」日期「" + Att.OccurDate.ToShortDateString() + "」資料更新成功";
+                        try
+                        {
+                            Attendance.Update(Att);
+                            SetReadOnlyAndColor(_row);
+                        }
+                        catch
+                        {
+                            MsgBox.Show("更新缺曠記錄,發生錯誤");
+                            return;
+                        }
+
+
+                        StringBuilder sb = new StringBuilder();
+                        sb.AppendLine(string.Format("班級「{0}」座號「{1}」姓名「{2}」", SR.ClassName, SR.SeatNo, SR.Name));
+                        sb.AppendLine("日期「" + Att.OccurDate.ToShortDateString() + "」");
+                        sb.AppendLine("缺曠內容：");
+                        foreach (string per in PeriodDic.Keys)
+                        {
+                            string name1 = "";
+                            string name2 = "";
+
+                            if (LogAtt1.ContainsKey(per))
+                            {
+                                name1 = LogAtt1[per];
+                            }
+
+                            if (LogAtt2.ContainsKey(per))
+                            {
+                                name2 = LogAtt2[per];
+                            }
+
+                            sb.AppendLine(string.Format("節次「{0}」由「{1}」修改為「{2}」", per, name1, name2));
+                        }
+
+                        ApplicationLog.Log("缺曠鍵盤登錄", "修改", "student", Att.Student.ID, sb.ToString());
+
+                        this.Text = "缺曠鍵盤登錄 - 學生「" + Att.Student.Name + "」日期「" + Att.OccurDate.ToShortDateString() + "」資料更新成功";
+
+                        #endregion
+
+                    }
+                    else
+                    {
+                        #region 缺曠刪除
+
+                        //如果是空的,就刪除
+                        try
+                        {
+                            Attendance.Delete(Att.ID);
+                            SetReadOnlyAndColor(_row);
+                        }
+                        catch
+                        {
+                            MsgBox.Show("刪除缺曠時,發生錯誤");
+                            return;
+                        }
+
+                        StringBuilder sb = new StringBuilder();
+                        sb.AppendLine(string.Format("班級「{0}」座號「{1}」姓名「{2}」", SR.ClassName, SR.SeatNo, SR.Name));
+                        sb.AppendLine("日期「" + Att.OccurDate.ToShortDateString() + "」");
+                        sb.AppendLine("缺曠內容已刪除");
+
+                        ApplicationLog.Log("缺曠鍵盤登錄", "刪除", "student", Att.Student.ID, sb.ToString());
+                        this.Text = "缺曠鍵盤登錄 - 學生「" + Att.Student.Name + "」日期「" + Att.OccurDate.ToShortDateString() + "」資料刪除成功";
+
+                        #endregion
+                    }
                 }
+
                 #endregion
             }
-            else if (_row.Tag is List<StudentRecord>)
-            {
-                #region 班級批次新增
-
-
-
-
-
-
-
-
-                #endregion
-            }
-
             InsertRow();
-
             #endregion
         }
 
