@@ -42,7 +42,7 @@ namespace K12.Behavior.AttendanceConfirmation
             StudentRecordList.Clear();
             studentInfoDict.Clear();
 
-            GetConfigData cd = new GetConfigData();
+            AttendanceConfigData cd = new AttendanceConfigData();
 
             selectedClass = Class.SelectByIDs(K12.Presentation.NLDPanels.Class.SelectedSource);
             selectedClass = SortClassIndex.K12Data_ClassRecord(selectedClass);
@@ -52,8 +52,6 @@ namespace K12.Behavior.AttendanceConfirmation
             List<string> allStudentID = new List<string>();
 
             //缺曠筆數
-            //int currentCount = 1;
-            int totalNumber = 0;
 
             //紀錄每一個 Column 的 Index
             Dictionary<string, int> columnTable = new Dictionary<string, int>();
@@ -82,7 +80,7 @@ namespace K12.Behavior.AttendanceConfirmation
             foreach (AttendanceRecord var in GetAttList)
             {
                 string studentID = var.RefStudentID;
-                string occurDate = HowManyWeek(var.OccurDate);
+                string occurDate = tool.HowManyWeek(var.OccurDate);
                 string classID = studentClassDict[studentID];
 
                 if (!allAbsenceDetail.ContainsKey(classID))
@@ -107,43 +105,10 @@ namespace K12.Behavior.AttendanceConfirmation
                     if (!allAbsenceDetail[classID][studentID][occurDate].ContainsKey(innertext))
                         allAbsenceDetail[classID][studentID][occurDate].Add(innertext, absence);
                 }
-
-                //累計筆數
-                totalNumber++;
             }
 
 
             #endregion
-        }
-
-        public string HowManyWeek(DateTime OccurDate)
-        {
-            string stringDate = OccurDate.ToShortDateString();
-            switch (OccurDate.DayOfWeek.ToString())
-            {
-                case "Monday":
-                    stringDate += "(一)";
-                    break;
-                case "Tuesday":
-                    stringDate += "(二)";
-                    break;
-                case "Wednesday":
-                    stringDate += "(三)";
-                    break;
-                case "Thursday":
-                    stringDate += "(四)";
-                    break;
-                case "Friday":
-                    stringDate += "(五)";
-                    break;
-                case "Saturday":
-                    stringDate += "(六)";
-                    break;
-                case "Sunday":
-                    stringDate += "(日)";
-                    break;
-            }
-            return stringDate;
         }
 
         public StudentRecord GetStudentByID(string id)

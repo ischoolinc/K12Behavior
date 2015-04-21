@@ -12,9 +12,9 @@ namespace K12.Behavior.AttendanceConfirmation
 {
     public partial class SetupForm : BaseForm
     {
-        GetConfigData _CD;
+        AttendanceConfigData _CD;
 
-        public SetupForm(GetConfigData RT)
+        public SetupForm(AttendanceConfigData RT)
         {
             InitializeComponent();
 

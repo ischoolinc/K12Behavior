@@ -26,9 +26,9 @@ namespace K12.Behavior.AttendanceConfirmation
 
 
 
-        GetConfigData _CD;
+        AttendanceConfigData _CD;
 
-        public AttendanceSetup(GetConfigData CD)
+        public AttendanceSetup(AttendanceConfigData CD)
         {
             InitializeComponent();
 
@@ -93,7 +93,7 @@ namespace K12.Behavior.AttendanceConfirmation
             //K12.Data.Configuration.ConfigData cd = K12.Data.School.Configuration[_reportName];
 
             //XmlElement config = cd.GetXml("XmlData", null);
-            
+
             ////CurrentUser.Instance.Preference[_reportName] = config;
 
             //cd.SetXml("XmlData", config);
@@ -169,11 +169,9 @@ namespace K12.Behavior.AttendanceConfirmation
                         return;
                     }
 
-                    if (Aspose.Words.Document.DetectFileFormat(new MemoryStream(_buffer)) == Aspose.Words.LoadFormat.Doc)
-                        fs.Write(_buffer, 0, _buffer.Length);
-                    else
-                        fs.Write(Properties.Resources.班級缺曠明細確認表範本, 0, Properties.Resources.班級缺曠明細確認表範本.Length);
+                    fs.Write(_buffer, 0, _buffer.Length);
                     fs.Close();
+
                     System.Diagnostics.Process.Start(sfd.FileName);
                 }
                 catch
@@ -193,21 +191,17 @@ namespace K12.Behavior.AttendanceConfirmation
             {
                 try
                 {
-                    if (Aspose.Words.Document.DetectFileFormat(ofd.FileName) == Aspose.Words.LoadFormat.Doc)
-                    {
-                        FileStream fs = new FileStream(ofd.FileName, FileMode.Open);
+                    FileStream fs = new FileStream(ofd.FileName, FileMode.Open);
 
-                        byte[] tempBuffer = new byte[fs.Length];
-                        _buffer = tempBuffer;
-                        fs.Read(tempBuffer, 0, tempBuffer.Length);
-                        base64 = Convert.ToBase64String(tempBuffer);
-                        //_isUpload = true;
-                        fs.Close();
-                        MsgBox.Show("上傳成功。");
-                        radioButton2.Checked = true;
-                    }
-                    else
-                        MsgBox.Show("上傳檔案格式不符");
+                    byte[] tempBuffer = new byte[fs.Length];
+                    _buffer = tempBuffer;
+                    fs.Read(tempBuffer, 0, tempBuffer.Length);
+                    base64 = Convert.ToBase64String(tempBuffer);
+                    //_isUpload = true;
+                    fs.Close();
+                    MsgBox.Show("上傳成功。");
+                    radioButton2.Checked = true;
+
                 }
                 catch
                 {

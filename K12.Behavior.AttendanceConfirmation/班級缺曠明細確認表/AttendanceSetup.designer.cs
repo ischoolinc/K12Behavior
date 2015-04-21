@@ -1,4 +1,4 @@
-﻿using SmartSchool.Common;
+﻿
 namespace K12.Behavior.AttendanceConfirmation
 {
     partial class AttendanceSetup
