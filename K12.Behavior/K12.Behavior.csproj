@@ -28,7 +28,11 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
+<<<<<<< HEAD
     <OutputPath>bin\Debug\</OutputPath>
+=======
+    <OutputPath>..\..\..\..\Desktop\K12.behavior\</OutputPath>
+>>>>>>> 0dc08f91d5106152fabc3a797390c539a42b72a7
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
