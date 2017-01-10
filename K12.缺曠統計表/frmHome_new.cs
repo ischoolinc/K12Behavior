@@ -15,11 +15,11 @@ using FISCA.Presentation;
 
 namespace K12.缺曠統計表
 {
-     public partial class frmHome_new : FISCA.Presentation.Controls.BaseForm
+    public partial class frmHome_new : FISCA.Presentation.Controls.BaseForm
     {
         private QueryHelper mHelper = new QueryHelper();
         private BackgroundWorker worker = new BackgroundWorker();
-
+        private Dictionary<string, string> ClassDisPlayOrderDic;
         public frmHome_new()
         {
             InitializeComponent();
@@ -119,7 +119,7 @@ namespace K12.缺曠統計表
 
                 MemoryStream templateStream = template.SaveToStream();
 
-                Workbook wb = ReportHelper.Report.Produce(vClassSat.ToReportData(dateStart.Value, dateEnd.Value, Absences), templateStream, false);
+                Workbook wb = ReportHelper.Report.Produce(vClassSat.ToReportData(dateStart.Value, dateEnd.Value, Absences, ClassDisPlayOrderDic), templateStream, false);
 
                 foreach (Worksheet sheet in wb.Worksheets)
                     sheet.PageSetup.CenterHorizontally = true;
@@ -166,7 +166,7 @@ namespace K12.缺曠統計表
                 .SelectByDate(Start, End);
 
             records = records
-                .FindAll(x=> GStudentIDs.Contains(x.RefStudentID));
+                .FindAll(x => GStudentIDs.Contains(x.RefStudentID));
 
             //找出獎懲記錄的學生系統編號
             List<string> StudentIDs = records
@@ -177,17 +177,27 @@ namespace K12.缺曠統計表
             #region 找出學生系統編號對應的班級名稱
             Dictionary<string, string> StudentClassNames = new Dictionary<string, string>();
 
+            //班級排序
+            ClassDisPlayOrderDic = new Dictionary<string, string>();
+
             if (StudentIDs.Count > 0)
             {
-                DataTable vtable = mHelper.Select("select student.id,class.class_name from student left outer join class on student.ref_class_id=class.id where student.id in (" + string.Join(",", StudentIDs.ToArray()) + ")");
+                DataTable vtable = mHelper.Select("select student.id,class.class_name,class.display_order from student left outer join class on student.ref_class_id=class.id where student.id in (" + string.Join(",", StudentIDs.ToArray()) + ")");
 
                 foreach (DataRow row in vtable.Rows)
                 {
-                    string StudentID = row.Field<string>("id");
                     string ClassName = row.Field<string>("class_name");
 
+                    string StudentID = row.Field<string>("id");
                     if (!StudentClassNames.ContainsKey(StudentID))
                         StudentClassNames.Add(StudentID, ClassName);
+
+                    string ClassDisPlayOrder = row.Field<string>("display_order");
+                    if (!string.IsNullOrEmpty(ClassDisPlayOrder))
+                    {
+                        if (!ClassDisPlayOrderDic.ContainsKey(ClassName))
+                            ClassDisPlayOrderDic.Add(ClassName, ClassDisPlayOrder);
+                    }
                 }
             }
             #endregion

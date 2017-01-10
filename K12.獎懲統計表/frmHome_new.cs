@@ -22,7 +22,7 @@ namespace K12.獎懲統計表
     {
         private QueryHelper mHelper = new QueryHelper();
         private BackgroundWorker worker = new BackgroundWorker();
-
+        private Dictionary<string, string> ClassDisPlayOrderDic;
         public frmHome_new()
         {
             InitializeComponent();
@@ -62,7 +62,7 @@ namespace K12.獎懲統計表
 
             ClassSat vClassSat = e.Result as ClassSat;
 
-            Dictionary<string, List<DataSet>> result = vClassSat.ToReportData(dateStart.Value, dateEnd.Value);
+            Dictionary<string, List<DataSet>> result = vClassSat.ToReportData(dateStart.Value, dateEnd.Value, ClassDisPlayOrderDic);
 
             try
             {
@@ -143,18 +143,29 @@ namespace K12.獎懲統計表
             #region 找出學生系統編號對應的班級名稱
             Dictionary<string, string> StudentClassNames = new Dictionary<string, string>();
 
+            //班級排序
+            ClassDisPlayOrderDic = new Dictionary<string, string>();
+
             if (StudentIDs.Count > 0)
             {
                 DataTable vtable = mHelper
-                    .Select("select student.id,class.class_name from student left outer join class on student.ref_class_id=class.id where student.id in (" + string.Join(",", StudentIDs.ToArray()) + ")");
+                    .Select("select student.id,class.class_name,class.display_order from student left outer join class on student.ref_class_id=class.id where student.id in (" + string.Join(",", StudentIDs.ToArray()) + ")");
 
                 foreach (DataRow row in vtable.Rows)
                 {
-                    string StudentID = row.Field<string>("id");
                     string ClassName = row.Field<string>("class_name");
 
+                    string StudentID = row.Field<string>("id");
                     if (!StudentClassNames.ContainsKey(StudentID))
                         StudentClassNames.Add(StudentID, ClassName);
+
+                    string ClassDisPlayOrder = row.Field<string>("display_order");
+                    if (!string.IsNullOrEmpty(ClassDisPlayOrder))
+                    {
+                        if (!ClassDisPlayOrderDic.ContainsKey(ClassName))
+                            ClassDisPlayOrderDic.Add(ClassName, ClassDisPlayOrder);
+                    }
+
                 }
             }
             #endregion

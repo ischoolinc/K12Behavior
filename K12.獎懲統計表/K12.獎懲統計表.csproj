@@ -21,7 +21,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\ischool\modules\K12BehaviorSat\</OutputPath>
+    <OutputPath>E:\MyJob\ischool\ischool 高中\addmodules\K12Behavior\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -35,49 +35,58 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Aspose.Cells, Version=4.4.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56">
+    <Reference Include="Aspose.Cells, Version=4.3.0.0, Culture=neutral, PublicKeyToken=9a40d5a4b59e5256, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\TFS2010-Git\Library\Aspose.Cells.dll</HintPath>
+      <HintPath>Library\Aspose.Cells.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Campus.Report">
-      <HintPath>..\..\..\..\..\TFS2010-Git\Library\Campus.Report.dll</HintPath>
+    <Reference Include="Campus.Report, Version=1.0.0.11, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\Campus.Report.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevComponents.DotNetBar2, Version=9.5.0.1, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\TFS2010-Git\Library\DevComponents.DotNetBar2.dll</HintPath>
+      <HintPath>Library\DevComponents.DotNetBar2.dll</HintPath>
     </Reference>
-    <Reference Include="FISCA">
-      <HintPath>..\..\..\..\..\TFS2010-Git\Library\FISCA.dll</HintPath>
+    <Reference Include="FISCA, Version=2.5.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\FISCA.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="FISCA.Data">
-      <HintPath>..\..\..\..\..\TFS2010-Git\Library\FISCA.Data.dll</HintPath>
+    <Reference Include="FISCA.Data, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\FISCA.Data.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="FISCA.Permission">
-      <HintPath>..\..\..\..\..\TFS2010-Git\Library\FISCA.Permission.dll</HintPath>
+    <Reference Include="FISCA.Permission, Version=1.2.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\FISCA.Permission.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="FISCA.Presentation">
-      <HintPath>..\..\..\..\..\TFS2010-Git\Library\FISCA.Presentation.dll</HintPath>
+    <Reference Include="FISCA.Presentation, Version=1.1.0.19, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\FISCA.Presentation.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="FISCA.UDT">
-      <HintPath>..\..\..\..\..\TFS2010-Git\Library\FISCA.UDT.dll</HintPath>
+    <Reference Include="FISCA.UDT, Version=1.0.2.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\FISCA.UDT.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="K12.Data">
-      <HintPath>..\..\..\..\..\TFS2010-Git\Library\K12.Data.dll</HintPath>
+    <Reference Include="K12.Data, Version=2.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\K12.Data.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ReportHelper">
-      <HintPath>..\..\..\..\..\TFS2010-Git\Library\ReportHelper.dll</HintPath>
+    <Reference Include="ReportHelper, Version=2012.10.25.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\ReportHelper.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SmartSchool.ErrorReporting">
-      <HintPath>..\..\..\..\..\TFS2010-Git\Library\SmartSchool.ErrorReporting.dll</HintPath>
+    <Reference Include="SmartSchool.ErrorReporting, Version=1.0.2.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\SmartSchool.ErrorReporting.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -117,7 +126,34 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Library\Aspose.Cells.dll" />
+    <Content Include="Library\Aspose.Cells.xml" />
+    <Content Include="Library\Campus.Report.dll" />
+    <Content Include="Library\Campus.Report.pdb" />
+    <Content Include="Library\DevComponents.DotNetBar2.dll" />
+    <Content Include="Library\FISCA.Data.dll" />
+    <Content Include="Library\FISCA.Data.pdb" />
+    <Content Include="Library\FISCA.Data.xml" />
+    <Content Include="Library\FISCA.dll" />
+    <Content Include="Library\FISCA.pdb" />
+    <Content Include="Library\FISCA.Permission.dll" />
+    <Content Include="Library\FISCA.Permission.pdb" />
+    <Content Include="Library\FISCA.Permission.xml" />
+    <Content Include="Library\FISCA.Presentation.dll" />
+    <Content Include="Library\FISCA.Presentation.pdb" />
+    <Content Include="Library\FISCA.Presentation.xml" />
+    <Content Include="Library\FISCA.UDT.dll" />
+    <Content Include="Library\FISCA.UDT.pdb" />
+    <Content Include="Library\FISCA.UDT.xml" />
+    <Content Include="Library\K12.Data.dll" />
+    <Content Include="Library\K12.Data.pdb" />
+    <Content Include="Library\K12.Data.xml" />
+    <Content Include="Library\ReportHelper.dll" />
+    <Content Include="Library\SmartSchool.ErrorReporting.dll" />
+    <Content Include="Library\SmartSchool.ErrorReporting.pdb" />
+    <Content Include="Library\SmartSchool.ErrorReporting.xml" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\獎懲統計報表.xls" />
   </ItemGroup>
