@@ -97,12 +97,25 @@ namespace K12.Student.SpeedAddToTemp
         private void TempSourceIpr()
         {
             FormLocked = false;
-            dataGridViewX1.Rows.Clear();
+           
 
+            List<string> RowTag_Record = new List<string>();
+
+            //2016/12/27  穎驊新增，紀錄目前已經有加入dataGridViewX1 的 Tag
+            foreach (DataGridViewRow row in dataGridViewX1.Rows) 
+            {
+                RowTag_Record.Add(""+row.Tag);                                
+            }
+
+            dataGridViewX1.Rows.Clear();
+            
             lbCount.Text = "待處理共「" + K12.Presentation.NLDPanels.Student.TempSource.Count().ToString() + "」名學生";
             //取得待處理學生
             List<StudentRecord> StudentList = K12.Data.Student.SelectByIDs(K12.Presentation.NLDPanels.Student.TempSource);
             StudentList = SortClassIndex.K12Data_StudentRecord(StudentList);
+
+            //2016/12/27  穎驊新增，由於使用者希望，能夠後加入的資料 優先顯示在dataGridViewX1，因此使用前面整理的RowTag_Record List 來做比較，可以優先排序出有無加入的資料。
+            StudentList.Sort((x, y) => { return RowTag_Record.Contains(x.ID).CompareTo(RowTag_Record.Contains(y.ID)); });
 
             foreach (StudentRecord sr in StudentList)
             {
