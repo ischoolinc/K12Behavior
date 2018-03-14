@@ -22,7 +22,7 @@ namespace K12.獎懲統計表
     {
         private QueryHelper mHelper = new QueryHelper();
         private BackgroundWorker worker = new BackgroundWorker();
-        private Dictionary<string, string> ClassDisPlayOrderDic;
+        private Dictionary<string, DisPlayOrder> ClassDisPlayOrderDic;
         public frmHome_new()
         {
             InitializeComponent();
@@ -144,12 +144,12 @@ namespace K12.獎懲統計表
             Dictionary<string, string> StudentClassNames = new Dictionary<string, string>();
 
             //班級排序
-            ClassDisPlayOrderDic = new Dictionary<string, string>();
+            ClassDisPlayOrderDic = new Dictionary<string, DisPlayOrder>();
 
             if (StudentIDs.Count > 0)
             {
                 DataTable vtable = mHelper
-                    .Select("select student.id,class.class_name,class.display_order from student left outer join class on student.ref_class_id=class.id where student.id in (" + string.Join(",", StudentIDs.ToArray()) + ")");
+                    .Select("select student.id,class.class_name,class.display_order,class.grade_year from student left outer join class on student.ref_class_id=class.id where student.id in (" + string.Join(",", StudentIDs.ToArray()) + ")");
 
                 foreach (DataRow row in vtable.Rows)
                 {
@@ -159,11 +159,15 @@ namespace K12.獎懲統計表
                     if (!StudentClassNames.ContainsKey(StudentID))
                         StudentClassNames.Add(StudentID, ClassName);
 
+                    DisPlayOrder dpo = new DisPlayOrder();
+                    dpo.display_order = row.Field<string>("display_order");
+                    dpo.grade_year = row.Field<string>("grade_year");
+
                     string ClassDisPlayOrder = row.Field<string>("display_order");
                     if (!string.IsNullOrEmpty(ClassDisPlayOrder))
                     {
                         if (!ClassDisPlayOrderDic.ContainsKey(ClassName))
-                            ClassDisPlayOrderDic.Add(ClassName, ClassDisPlayOrder);
+                            ClassDisPlayOrderDic.Add(ClassName, dpo);
                     }
 
                 }
@@ -220,5 +224,11 @@ namespace K12.獎懲統計表
         {
             this.Close();
         }
+    }
+
+    public class DisPlayOrder
+    {
+        public string display_order { get; set; }
+        public string grade_year { get; set; }
     }
 }

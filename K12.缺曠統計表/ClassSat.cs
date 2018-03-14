@@ -10,7 +10,7 @@ namespace K12.缺曠統計表
     {
         private Dictionary<string, ClassSatRecord> mRecords;
         private ClassSatRecord mTotalRecord;
-        private Dictionary<string, string> ClassDisPlayOrderDic;
+        private Dictionary<string, DisPlayOrder> ClassDisPlayOrderDic;
 
         /// <summary>
         /// 建構式
@@ -51,9 +51,10 @@ namespace K12.缺曠統計表
 
             if (ClassDisPlayOrderDic.ContainsKey(className1))
             {
-                if (!string.IsNullOrEmpty(ClassDisPlayOrderDic[className1]))
+                if (!string.IsNullOrEmpty(ClassDisPlayOrderDic[className1].display_order))
                 {
-                    name1 = ClassDisPlayOrderDic[className1].PadLeft(10, '0') + className1;
+
+                    name1 = ClassDisPlayOrderDic[className1].grade_year.PadLeft(10, '0') + ClassDisPlayOrderDic[className1].display_order.PadLeft(10, '0') + className1;
                 }
                 else
                 {
@@ -67,9 +68,9 @@ namespace K12.缺曠統計表
 
             if (ClassDisPlayOrderDic.ContainsKey(className2))
             {
-                if (!string.IsNullOrEmpty(ClassDisPlayOrderDic[className2]))
+                if (!string.IsNullOrEmpty(ClassDisPlayOrderDic[className2].display_order))
                 {
-                    name2 = ClassDisPlayOrderDic[className2].PadLeft(10, '0') + className2;
+                    name2 = ClassDisPlayOrderDic[className2].grade_year.PadLeft(10, '0') + ClassDisPlayOrderDic[className2].display_order.PadLeft(10, '0') + className2;
                 }
                 else
                 {
@@ -84,7 +85,7 @@ namespace K12.缺曠統計表
             return name1.CompareTo(name2);
         }
 
-        public Dictionary<string, List<DataSet>> ToReportData(DateTime StartDate, DateTime EndDate, List<string> Absences, Dictionary<string, string> classDisPlayOrderDic)
+        public Dictionary<string, List<DataSet>> ToReportData(DateTime StartDate, DateTime EndDate, List<string> Absences, Dictionary<string, DisPlayOrder> classDisPlayOrderDic)
         {
 
             ClassDisPlayOrderDic = classDisPlayOrderDic;
