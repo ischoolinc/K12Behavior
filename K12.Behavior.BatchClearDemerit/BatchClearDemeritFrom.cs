@@ -688,6 +688,18 @@ namespace K12.Behavior.BatchClearDemerit
                 return dt2.CompareTo(dt1);
             }
         }
+
+        private void btnReason_Click(object sender, EventArgs e)
+        {
+            frmSelectReason form = new frmSelectReason();
+
+            DialogResult result = form.ShowDialog();
+
+            if (result == DialogResult.Yes)
+            {
+                tbClearReason.Text = form._reason;
+            }
+        }
     }
 
     enum DataGetMode
