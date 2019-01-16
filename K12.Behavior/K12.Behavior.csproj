@@ -119,6 +119,13 @@
       <HintPath>Library\K12.Presentation.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="SHSchool.Behavior, Version=1.0.3.14, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\SHSchool.Behavior.dll</HintPath>
+    </Reference>
+    <Reference Include="SHSchool.Data">
+      <HintPath>Library\SHSchool.Data.dll</HintPath>
+    </Reference>
     <Reference Include="SmartSchool.AccessControl, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\SmartSchool.AccessControl.dll</HintPath>
@@ -656,6 +663,8 @@
     <Content Include="Library\K12.Data.xml" />
     <Content Include="Library\K12.Presentation.dll" />
     <Content Include="Library\K12.Presentation.xml" />
+    <Content Include="Library\SHSchool.Behavior.dll" />
+    <Content Include="Library\SHSchool.Behavior.pdb" />
     <Content Include="Library\SmartSchool.AccessControl.dll" />
     <Content Include="Library\SmartSchool.AccessControl.pdb" />
     <Content Include="Library\SmartSchool.API.PlugIn.dll" />
