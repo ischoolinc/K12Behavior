@@ -778,6 +778,10 @@ namespace K12.Behavior.AttendanceEdit
                             {
                                 ApplicationLog.Log("缺曠批次修改", "修改", "student", ar2.RefStudentID, bot.sb.ToString());
                             }
+                            //if (string.IsNullOrEmpty(bot.sb.ToString()))
+                            //{
+                            //    ApplicationLog.Log("缺曠批次修改", "修改", "student", ar2.RefStudentID, bot.sb.ToString());
+                            //}    
                         }
                     }
                 }

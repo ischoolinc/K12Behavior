@@ -73,14 +73,16 @@ namespace K12.Behavior.AttendanceEdit
                 sb.AppendLine("修改為「" + _afterar1.Semester + "」");
             }
 
-            //檢查缺曠內容是否修改
+            //檢查缺曠內容是否修改 或刪除
             foreach (AttendancePeriod beforear in _beforear2.PeriodDetail)
             {
+                string action = "delete";
                 foreach (AttendancePeriod afterar in _afterar1.PeriodDetail)
                 {
                     //當找到該節次
                     if (beforear.Period == afterar.Period)
                     {
+                        action = "update";
                         //缺曠別不一致
                         if (beforear.AbsenceType != afterar.AbsenceType)
                         {
@@ -91,6 +93,15 @@ namespace K12.Behavior.AttendanceEdit
                         break;
                     }
                 }
+                if (action == "delete")
+                {
+                    edit = true;
+                    sb.Append("節次「" + beforear.Period + "」缺曠別由「" + beforear.AbsenceType + "」");
+                    sb.AppendLine("修改為「" +" "+ "」");
+
+                }
+
+
             }
 
             //反查是否有由空值修改為特定缺曠的狀況
