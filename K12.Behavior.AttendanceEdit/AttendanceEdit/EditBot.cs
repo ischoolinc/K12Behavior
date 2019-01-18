@@ -98,10 +98,7 @@ namespace K12.Behavior.AttendanceEdit
                     edit = true;
                     sb.Append("節次「" + beforear.Period + "」缺曠別由「" + beforear.AbsenceType + "」");
                     sb.AppendLine("修改為「" +" "+ "」");
-
                 }
-
-
             }
 
             //反查是否有由空值修改為特定缺曠的狀況
