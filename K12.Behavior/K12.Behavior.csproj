@@ -665,6 +665,9 @@
     <Content Include="Library\K12.Presentation.xml" />
     <Content Include="Library\SHSchool.Behavior.dll" />
     <Content Include="Library\SHSchool.Behavior.pdb" />
+    <Content Include="Library\SHSchool.Data.dll" />
+    <Content Include="Library\SHSchool.Data.pdb" />
+    <Content Include="Library\SHSchool.Data.xml" />
     <Content Include="Library\SmartSchool.AccessControl.dll" />
     <Content Include="Library\SmartSchool.AccessControl.pdb" />
     <Content Include="Library\SmartSchool.API.PlugIn.dll" />

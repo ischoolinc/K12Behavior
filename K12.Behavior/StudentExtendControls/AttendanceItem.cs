@@ -211,10 +211,10 @@ namespace K12.Behavior.StudentExtendControls
             AttendanceRecord record = new AttendanceRecord();
             record.RefStudentID = this.PrimaryKey;
 
-            SingleEditor singleEditor = new SingleEditor(SHStudent.SelectByID(Presentation.NLDPanels.Student.SelectedSource[0]));
-            singleEditor.ShowDialog();
-            //AttendanceForm editor = new AttendanceForm(Feature.EditorStatus.Insert, record, _periodList, UserPermission);
-            //editor.ShowDialog();
+            //SingleEditor singleEditor = new SingleEditor(SHStudent.SelectByID(Presentation.NLDPanels.Student.SelectedSource[0]));
+            //singleEditor.ShowDialog();
+            AttendanceForm editor = new AttendanceForm(Feature.EditorStatus.Insert, record, _periodList, UserPermission);
+            editor.ShowDialog();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -230,10 +230,10 @@ namespace K12.Behavior.StudentExtendControls
                 return;
             }
 
-            SingleEditor singleEditor = new SingleEditor(SHStudent.SelectByID(Presentation.NLDPanels.Student.SelectedSource[0]), (listView.SelectedItems[0].Tag as AttendanceRecord).OccurDate);
-            singleEditor.ShowDialog();
-            //  AttendanceForm editor = new AttendanceForm(EditorStatus.Update, listView.SelectedItems[0].Tag as AttendanceRecord, _periodList, UserPermission);
-            //  editor.ShowDialog();
+            //SingleEditor singleEditor = new SingleEditor(SHStudent.SelectByID(Presentation.NLDPanels.Student.SelectedSource[0]), (listView.SelectedItems[0].Tag as AttendanceRecord).OccurDate);
+            //singleEditor.ShowDialog();
+            AttendanceForm editor = new AttendanceForm(Feature.EditorStatus.Update, listView.SelectedItems[0].Tag as AttendanceRecord, _periodList, UserPermission);
+            editor.ShowDialog();
         }
 
         private void btnView_Click(object sender, EventArgs e)
@@ -297,10 +297,10 @@ namespace K12.Behavior.StudentExtendControls
         {
             if (listView.SelectedItems.Count == 1)
             {
-                SingleEditor singleEditor = new SingleEditor(SHStudent.SelectByID(Presentation.NLDPanels.Student.SelectedSource[0]), (listView.SelectedItems[0].Tag as AttendanceRecord).OccurDate);
-                singleEditor.ShowDialog();
-                //AttendanceForm editor = new AttendanceForm(Feature.EditorStatus.Update, listView.SelectedItems[0].Tag as AttendanceRecord, _periodList, UserPermission);
-                //editor.ShowDialog();
+                //SingleEditor singleEditor = new SingleEditor(SHStudent.SelectByID(Presentation.NLDPanels.Student.SelectedSource[0]), (listView.SelectedItems[0].Tag as AttendanceRecord).OccurDate);
+                //singleEditor.ShowDialog();
+                AttendanceForm editor = new AttendanceForm(Feature.EditorStatus.Update, listView.SelectedItems[0].Tag as AttendanceRecord, _periodList, UserPermission);
+                editor.ShowDialog();
             }
         }
 
