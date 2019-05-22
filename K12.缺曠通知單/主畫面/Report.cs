@@ -121,7 +121,7 @@ namespace K12.缺曠通知單
             SelectedStudents.Sort(new Comparison<StudentRecord>(CommonMethods.ClassSeatNoComparer));
 
             #endregion
-            string reportName = "缺曠通知單";
+            string reportName = "缺曠通知單" + obj.StartDate.ToString("yyyy/MM/dd") + "至" + obj.EndDate.ToString("yyyy/MM/dd");
 
             #region 快取資料
 
@@ -564,6 +564,7 @@ namespace K12.缺曠通知單
                 mapping.Add("學號", StudentSuperOBJ[studentID].StudentNumber);
                 mapping.Add("導師", StudentSuperOBJ[studentID].TeacherName);
                 mapping.Add("資料期間", obj.StartDate.ToShortDateString() + " 至 " + obj.EndDate.ToShortDateString());
+                mapping.Add("系統編號", "系統編號{" + studentID + "}");
 
                 //收件人資料
                 if (obj.ReceiveName == "監護人姓名")
