@@ -90,35 +90,28 @@ namespace K12.缺曠通知單
                 }
             }
 
-            try
+            if (PrintStudetnList)
             {
-                if (PrintStudetnList)
-                {
-                    MemoryStream memoryStream = new MemoryStream();
-                    doc.Save(memoryStream, Aspose.Words.SaveFormat.Docx);
-                    ePaperCloud ePaperCloud = new ePaperCloud();
-                    ePaperCloud.upload_ePaper(Convert.ToInt32(School.DefaultSchoolYear), Convert.ToInt32(School.DefaultSemester)
-                        , reportName, "", memoryStream, ePaperCloud.ViewerType.Student, ePaperCloud.FormatType.Docx);
+                MemoryStream memoryStream = new MemoryStream();
+                doc.Save(memoryStream, Aspose.Words.SaveFormat.Docx);
+                ePaperCloud ePaperCloud = new ePaperCloud();
+                ePaperCloud.upload_ePaper(Convert.ToInt32(School.DefaultSchoolYear), Convert.ToInt32(School.DefaultSemester)
+                    , reportName, "", memoryStream, ePaperCloud.ViewerType.Student, ePaperCloud.FormatType.Docx);
 
-                    wb.Save(path2);
-                    FISCA.Presentation.MotherForm.SetStatusBarMessage(reportName + "產生完成");
-                    System.Diagnostics.Process.Start(path2);
-                }
-                else
-                {
-                    int schoolYear = Convert.ToInt32(School.DefaultSchoolYear);
-                    int semester = Convert.ToInt32(School.DefaultSemester);
-                    MemoryStream memoryStream = new MemoryStream();
-                    doc.Save(memoryStream, Aspose.Words.SaveFormat.Docx);
-                    ePaperCloud ePaperCloud = new ePaperCloud();
-                    ePaperCloud.upload_ePaper(schoolYear, semester, reportName, "", memoryStream, ePaperCloud.ViewerType.Student, ePaperCloud.FormatType.Docx);
-
-                    FISCA.Presentation.MotherForm.SetStatusBarMessage(reportName + "產生完成");
-                }
+                wb.Save(path2);
+                FISCA.Presentation.MotherForm.SetStatusBarMessage(reportName + "產生完成");
+                System.Diagnostics.Process.Start(path2);
             }
-            catch (Exception ex)
+            else
             {
-                throw new Exception("產生過程發生錯誤", ex);
+                int schoolYear = Convert.ToInt32(School.DefaultSchoolYear);
+                int semester = Convert.ToInt32(School.DefaultSemester);
+                MemoryStream memoryStream = new MemoryStream();
+                doc.Save(memoryStream, Aspose.Words.SaveFormat.Docx);
+                ePaperCloud ePaperCloud = new ePaperCloud();
+                ePaperCloud.upload_ePaper(schoolYear, semester, reportName, "", memoryStream, ePaperCloud.ViewerType.Student, ePaperCloud.FormatType.Docx);
+
+                FISCA.Presentation.MotherForm.SetStatusBarMessage(reportName + "產生完成");
             }
         }
 
