@@ -26,9 +26,17 @@ namespace K12.Student.SpeedAddToTemp
 
         string Code5 = "學號碼數";
 
+        string Code6 = "排序順序";
+
         K12.Data.Configuration.ConfigData cd;
 
+        int AllIndex = 0;
+
         Dictionary<string, string> ClassNameDic = new Dictionary<string, string>();
+
+        BackgroundWorker bgwConfig;
+
+        BackgroundWorker bgwLoad;
 
         public SpeedAddFormIs()
         {
@@ -37,14 +45,29 @@ namespace K12.Student.SpeedAddToTemp
 
         private void SpeedAddFormIs_Load(object sender, EventArgs e)
         {
-            sMag = new StudentMag();
-
             K12.Presentation.NLDPanels.Student.TempSourceChanged += new EventHandler(Student_TempSourceChanged);
 
+            bgwConfig = new BackgroundWorker();
+            bgwConfig.RunWorkerCompleted += BgwConfig_RunWorkerCompleted;
+            bgwConfig.DoWork += BgwConfig_DoWork;
+
+            bgwLoad = new BackgroundWorker();
+            bgwLoad.RunWorkerCompleted += BgwLoad_RunWorkerCompleted;
+            bgwLoad.DoWork += BgwLoad_DoWork;
+
+            bgwLoad.RunWorkerAsync();
+        }
+
+        private void BgwLoad_DoWork(object sender, DoWorkEventArgs e)
+        {
+            sMag = new StudentMag();
             ClassNameDic = DataSort.GetClassNameDic(Code);
 
             cd = School.Configuration[Code2];
+        }
 
+        private void BgwLoad_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
             //使用班級名稱代碼
             if (cd.Contains(Code3))
             {
@@ -62,11 +85,38 @@ namespace K12.Student.SpeedAddToTemp
                 integerInput1.Value = int.Parse(cd[Code5]);
             }
 
+            if (cd.Contains(Code6))
+            {
+                if (bool.Parse(cd[Code6]))
+                    checkBoxX4.Checked = true;
+                else
+                    checkBoxX3.Checked = true;
+            }
+            else
+            {
+                checkBoxX4.Checked = true;
+            }
+
             integerInput1.Enabled = checkBoxX2.Checked;
 
             TempSourceIpr();
 
             tbClassName.Focus();
+        }
+
+        private void BgwConfig_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+            SuperD s = (SuperD)e.Argument;
+
+            cd = School.Configuration[Code2];
+            cd[s.Acode] = s.Bvalue;
+            cd.Save();
+        }
+
+        private void BgwConfig_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            //儲存不會錯!!
         }
 
         void Student_TempSourceChanged(object sender, EventArgs e)
@@ -97,25 +147,48 @@ namespace K12.Student.SpeedAddToTemp
         private void TempSourceIpr()
         {
             FormLocked = false;
-           
 
-            List<string> RowTag_Record = new List<string>();
-
+            //2019/11/20 - 已不需要Dylan ==>
             //2016/12/27  穎驊新增，紀錄目前已經有加入dataGridViewX1 的 Tag
-            foreach (DataGridViewRow row in dataGridViewX1.Rows) 
-            {
-                RowTag_Record.Add(""+row.Tag);                                
-            }
+            //List<string> RowTag_Record = new List<string>();
+            //foreach (DataGridViewRow row in dataGridViewX1.Rows)
+            //{
+            //    RowTag_Record.Add("" + row.Tag);
+            //}
+            //<===
 
-            dataGridViewX1.Rows.Clear();
-            
             lbCount.Text = "待處理共「" + K12.Presentation.NLDPanels.Student.TempSource.Count().ToString() + "」名學生";
+            AllIndex = K12.Presentation.NLDPanels.Student.TempSource.Count();
+
+            RunAddData();
+
+            FormLocked = true;
+        }
+
+        private void RunAddData()
+        {
+            dataGridViewX1.Rows.Clear();
+
             //取得待處理學生
             List<StudentRecord> StudentList = K12.Data.Student.SelectByIDs(K12.Presentation.NLDPanels.Student.TempSource);
-            StudentList = SortClassIndex.K12Data_StudentRecord(StudentList);
 
-            //2016/12/27  穎驊新增，由於使用者希望，能夠後加入的資料 優先顯示在dataGridViewX1，因此使用前面整理的RowTag_Record List 來做比較，可以優先排序出有無加入的資料。
-            StudentList.Sort((x, y) => { return RowTag_Record.Contains(x.ID).CompareTo(RowTag_Record.Contains(y.ID)); });
+            //2019/11/19 - Dylan增加可選擇排序依據
+            if (checkBoxX4.Checked)
+            {
+                StudentList = SortClassIndex.K12Data_StudentRecord(StudentList);
+            }
+
+            //2019/11/19 - Dylan:穎驊邏輯錯誤,註解此內容==>
+
+            //2016/12/27  穎驊新增，由於使用者希望，
+            //能夠後加入的資料 優先顯示在dataGridViewX1，
+            //因此使用前面整理的RowTag_Record List 來做比較，
+            //可以優先排序出有無加入的資料。
+            //StudentList.Sort((x, y) => {
+            //    return RowTag_Record.Contains(x.ID).CompareTo(RowTag_Record.Contains(y.ID));
+            //});
+
+            //<=====
 
             foreach (StudentRecord sr in StudentList)
             {
@@ -131,7 +204,6 @@ namespace K12.Student.SpeedAddToTemp
                 row.Cells[3].Value = sr.StudentNumber;
                 dataGridViewX1.Rows.Add(row);
             }
-            FormLocked = true;
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -329,9 +401,12 @@ namespace K12.Student.SpeedAddToTemp
         //使用班級名稱代碼
         private void checkBoxX1_CheckedChanged(object sender, EventArgs e)
         {
-            cd = School.Configuration[Code2];
-            cd[Code3] = checkBoxX1.Checked.ToString();
-            cd.Save();
+            SuperD s = new SuperD();
+            s.Acode = Code3;
+            s.Bvalue = checkBoxX1.Checked.ToString();
+
+            if (!bgwConfig.IsBusy)
+                bgwConfig.RunWorkerAsync(s);
         }
 
         //學號判斷
@@ -339,9 +414,12 @@ namespace K12.Student.SpeedAddToTemp
         {
             integerInput1.Enabled = checkBoxX2.Checked;
 
-            cd = School.Configuration[Code2];
-            cd[Code4] = checkBoxX2.Checked.ToString();
-            cd.Save();
+            SuperD s = new SuperD();
+            s.Acode = Code4;
+            s.Bvalue = checkBoxX2.Checked.ToString();
+
+            if (!bgwConfig.IsBusy)
+                bgwConfig.RunWorkerAsync(s);
         }
 
         private void dataGridViewX2_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
@@ -352,6 +430,20 @@ namespace K12.Student.SpeedAddToTemp
         private void dataGridViewX1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             dataGridViewX1.FirstDisplayedScrollingRowIndex = dataGridViewX1.Rows.Count - 1;
+
+            //2019/11/19 - Dylan新增清楚的選擇對象
+
+            //清除選擇
+            foreach (DataGridViewRow row in dataGridViewX1.Rows)
+            {
+                row.Selected = false;
+            }
+            //增加選到最下方一筆
+            if (e.RowIndex == AllIndex - 1)
+            {
+                dataGridViewX1.Rows[dataGridViewX1.Rows.Count - 1].Selected = true;
+            }
+
         }
 
         private void tbClassName_Enter(object sender, EventArgs e)
@@ -414,9 +506,42 @@ namespace K12.Student.SpeedAddToTemp
 
         private void integerInput1_ValueChanged(object sender, EventArgs e)
         {
-            cd = School.Configuration[Code2];
-            cd[Code5] = integerInput1.Value.ToString();
-            cd.Save();
+            SuperD s = new SuperD();
+            s.Acode = Code5;
+            s.Bvalue = integerInput1.Value.ToString();
+
+            if (!bgwConfig.IsBusy)
+                bgwConfig.RunWorkerAsync(s);
         }
+
+        private void checkBoxX4_CheckedChanged(object sender, EventArgs e)
+        {
+            RunAddData();
+
+            SuperD s = new SuperD();
+            s.Acode = Code6;
+            s.Bvalue = checkBoxX4.Checked.ToString();
+
+            if (!bgwConfig.IsBusy)
+                bgwConfig.RunWorkerAsync(s);
+        }
+
+        private void checkBoxX3_CheckedChanged(object sender, EventArgs e)
+        {
+            RunAddData();
+
+            SuperD s = new SuperD();
+            s.Acode = Code6;
+            s.Bvalue = checkBoxX4.Checked.ToString();
+
+            if (!bgwConfig.IsBusy)
+                bgwConfig.RunWorkerAsync(s);
+        }
+    }
+
+    class SuperD
+    {
+        public string Acode { get; set; }
+        public string Bvalue { get; set; }
     }
 }
