@@ -7,8 +7,6 @@ using FISCA.LogAgent;
 using FISCA.Presentation.Controls;
 using K12.Behavior.Feature;
 using K12.Data;
-using SHSchool.Behavior.StudentExtendControls;
-using SHSchool.Data;
 
 namespace K12.Behavior.StudentExtendControls
 {
