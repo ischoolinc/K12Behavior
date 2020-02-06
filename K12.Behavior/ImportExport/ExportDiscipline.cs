@@ -17,7 +17,7 @@ namespace K12.Behavior
         {
             this.Title = "匯出獎懲紀錄";
             this.Group = "缺曠獎懲";
-            foreach (string var in new string[] { "學年度", "學期", "日期", "大功", "小功", "嘉獎", "大過", "小過", "警告", "事由", "是否銷過", "銷過日期", "銷過事由", "留校察看", "登錄日期" })
+            foreach (string var in new string[] { "學年度", "學期", "日期", "大功", "小功", "嘉獎", "大過", "小過", "警告", "事由", "是否銷過", "銷過日期", "銷過事由", "留校察看", "登錄日期", "備註" })
             {
                 this.ExportableFields.Add(var);
             }
@@ -83,6 +83,7 @@ namespace K12.Behavior
                                         case "嘉獎": row.Add(field, 嘉獎.ToString()); break;
                                         case "事由": row.Add(field, dis.Reason); break;
                                         case "登錄日期": row.Add(field, dis.RegisterDate.HasValue ? dis.RegisterDate.Value.ToShortDateString() : ""); break;
+                                        case "備註": row.Add(field, dis.Remark); break;
                                     }
                                 }
                             }
@@ -113,6 +114,7 @@ namespace K12.Behavior
                                         case "銷過事由": row.Add(field, (dis.Cleared == "是" ? dis.ClearReason : "")); break;
                                         case "留校察看": row.Add(field, (dis.MeritFlag == "2" ? "是" : "")); break;
                                         case "登錄日期": row.Add(field, dis.RegisterDate.HasValue ? dis.RegisterDate.Value.ToShortDateString() : ""); break;
+                                        case "備註": row.Add(field, dis.Remark); break;
                                     }
                                 }
                             }
@@ -146,6 +148,7 @@ namespace K12.Behavior
                                         case "銷過事由": row.Add(field, (dis.Cleared == "是" ? dis.ClearReason : "")); break;
                                         case "留校察看": row.Add(field, (dis.MeritFlag == "2" ? "是" : "")); break;
                                         case "登錄日期": row.Add(field, dis.RegisterDate.HasValue ? dis.RegisterDate.Value.ToShortDateString() : ""); break;
+                                        case "備註": row.Add(field, dis.Remark); break;
                                     }
                                 }
                             }

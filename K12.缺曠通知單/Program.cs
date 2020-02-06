@@ -43,16 +43,16 @@ namespace K12.缺曠通知單
 
             RibbonBarItem ClassReports = K12.Presentation.NLDPanels.Class.RibbonBarItems["資料統計"];
             //ClassReports["報表"]["新功能"].Image = Properties.Resources.boolean_field_fav_64;
-            ClassReports["報表"]["學務相關報表"]["缺曠通知單"].Enable = Permissions.班級缺曠通知單權限;
-            ClassReports["報表"]["學務相關報表"]["缺曠通知單"].Click += delegate
+            ClassReports["報表"]["學務相關報表"]["通知單"]["缺曠通知單"].Enable = Permissions.班級缺曠通知單權限;
+            ClassReports["報表"]["學務相關報表"]["通知單"]["缺曠通知單"].Click += delegate
             {
                 Features.Invoke(URL班級缺曠通知單);
             };
 
             RibbonBarItem StudentReports = K12.Presentation.NLDPanels.Student.RibbonBarItems["資料統計"];
             //StudentReports["報表"]["新功能"].Image = Properties.Resources.boolean_field_fav_64;
-            StudentReports["報表"]["學務相關報表"]["缺曠通知單"].Enable = Permissions.學生缺曠通知單權限;
-            StudentReports["報表"]["學務相關報表"]["缺曠通知單"].Click += delegate
+            StudentReports["報表"]["學務相關報表"]["通知單"]["缺曠通知單"].Enable = Permissions.學生缺曠通知單權限;
+            StudentReports["報表"]["學務相關報表"]["通知單"]["缺曠通知單"].Click += delegate
             {
                 Features.Invoke(URL學生缺曠通知單);
             };

@@ -49,5 +49,10 @@ namespace K12.懲戒通知單
         /// 是否列印學生清單
         /// </summary>
         public bool PrintStudentList { get; set; }
+
+        /// <summary>
+        /// 是否列印備註
+        /// </summary>
+        public bool PrintRemark { get; set; }
     }
 }

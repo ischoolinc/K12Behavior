@@ -86,9 +86,9 @@ namespace K12.學生獎勵懲戒明細
             //初始化
             string[] columnString;
             if (form.checkBoxX2Bool) //使用者已勾選"排除懲戒已銷過資料"
-                columnString = new string[] { "大功", "小功", "嘉獎", "大過", "小過", "警告", "留察", "登錄日期", "事由" };
+                columnString = new string[] { "大功", "小功", "嘉獎", "大過", "小過", "警告", "留察", "登錄日期", "事由", "備註" };
             else
-                columnString = new string[] { "大功", "小功", "嘉獎", "大過", "小過", "警告", "留察", "銷過", "銷過日期", "登錄日期", "事由" };
+                columnString = new string[] { "大功", "小功", "嘉獎", "大過", "小過", "警告", "留察", "銷過", "銷過日期", "登錄日期", "事由", "備註" };
 
             int i = 4;
             foreach (string s in columnString)
@@ -152,6 +152,7 @@ namespace K12.學生獎勵懲戒明細
                 string semester = each.Semester.ToString();
                 string occurDate = each.OccurDate.ToShortDateString();
                 string reason = each.Reason;
+                string remark = each.Remark;
                 string disciplineID = each.ID;
                 string sso = schoolYear + "_" + semester + "_" + occurDate + "_" + disciplineID;
 
@@ -216,11 +217,11 @@ namespace K12.學生獎勵懲戒明細
             int startPage = 1;
             int pageNumber = 1;
 
-            int columnNumber = 15;
+            int columnNumber = 16;
 
             if (form.checkBoxX2Bool)
             {
-                columnNumber = 13;
+                columnNumber = 14;
             }
 
             //合併標題列
@@ -333,6 +334,7 @@ namespace K12.學生獎勵懲戒明細
                     }
 
                     ws.Cells[dataIndex, columnTable["事由"]].PutValue(record.Reason);
+                    ws.Cells[dataIndex, columnTable["備註"]].PutValue(record.Remark);
                     ws.Cells[dataIndex, columnTable["登錄日期"]].PutValue(record.RegisterDate.HasValue ? record.RegisterDate.Value.ToShortDateString() : "");
 
                     dataIndex++;

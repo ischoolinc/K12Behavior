@@ -46,6 +46,7 @@
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnView = new DevComponents.DotNetBar.ButtonX();
+            this.colRemark = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // btnClear
@@ -112,7 +113,8 @@
             this.columnHeader6,
             this.columnHeader11,
             this.columnHeader7,
-            this.columnHeader12});
+            this.columnHeader12,
+            this.colRemark});
             this.listView.FullRowSelect = true;
             this.listView.HideSelection = false;
             this.listView.Location = new System.Drawing.Point(13, 17);
@@ -195,6 +197,11 @@
             this.btnView.Text = "檢視";
             this.btnView.Click += new System.EventHandler(this.btnView_Click);
             // 
+            // colRemark
+            // 
+            this.colRemark.Text = "備註";
+            this.colRemark.Width = 100;
+            // 
             // DemeritItem
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -231,6 +238,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private DevComponents.DotNetBar.ButtonX btnView;
         private System.Windows.Forms.ColumnHeader columnHeader12;
-
+        private System.Windows.Forms.ColumnHeader colRemark;
     }
 }

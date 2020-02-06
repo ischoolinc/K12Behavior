@@ -66,7 +66,6 @@ namespace K12.懲戒通知單
             // 
             // buttonX1
             // 
-            this.buttonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.buttonX1.Location = new System.Drawing.Point(176, 129);
             // 
             // dateTimeInput2
@@ -213,7 +212,7 @@ namespace K12.懲戒通知單
             this.buttonX2.Size = new System.Drawing.Size(70, 25);
             this.buttonX2.TabIndex = 4;
             this.buttonX2.Text = "取消";
-            this.buttonX2.Click += new System.EventHandler(this.buttonX2_Click);
+            this.buttonX2.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // radioButton1
             // 
@@ -250,6 +249,7 @@ namespace K12.懲戒通知單
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.buttonX2);
             this.Controls.Add(this.linkLabel1);
+            this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.Name = "DemeritDateRangeForm";
             this.Text = "懲戒通知單";

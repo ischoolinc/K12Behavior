@@ -19,8 +19,11 @@ namespace K12.懲戒通知單
         private bool _printHasRecordOnly;
         private DateRangeModeNew _mode = DateRangeModeNew.Month;
         private bool _printStudentList;
+        private bool _printRemark; //是否列印備註
 
-        public DemeritConfigForm(string defaultTemplate, DateRangeModeNew mode, byte[] buffer, string name, string address, string condName, string condNumber, bool printStudentList)
+        public DemeritConfigForm(string defaultTemplate, DateRangeModeNew mode, byte[] buffer,
+            string name, string address, string condName, string condNumber, bool printStudentList,
+            bool printRemark)
         {
             InitializeComponent();
 
@@ -35,6 +38,7 @@ namespace K12.懲戒通知單
             _defaultTemplate = defaultTemplate;
             _mode = mode;
             _printStudentList = printStudentList;
+            _printRemark = printRemark;
 
             if (buffer != null)
                 _buffer = buffer;
@@ -46,7 +50,8 @@ namespace K12.懲戒通知單
             else
                 rbDEF_1.Checked = true; //如果都不是就進入預設1
 
-            checkBoxX2.Checked = printStudentList;
+            cbPrintStudentList.Checked = printStudentList;
+            cbPrintRemark.Checked = printRemark;
 
             switch (mode)
             {
@@ -86,7 +91,7 @@ namespace K12.懲戒通知單
             decimal tryValue;
             if (condNumber == "0")
                 condNumber = "1";
-            numericUpDown1.Value = (decimal.TryParse(condNumber, out tryValue)) ? tryValue : 1;           
+            numericUpDown1.Value = (decimal.TryParse(condNumber, out tryValue)) ? tryValue : 1;
         }
 
         void ScoreCalcRuleEditor_ColorTableChanged(object sender, EventArgs e)
@@ -133,7 +138,7 @@ namespace K12.懲戒通知單
 
         private void checkBoxX2_CheckedChanged(object sender, EventArgs e)
         {
-            _printStudentList = checkBoxX2.Checked;
+            _printStudentList = cbPrintStudentList.Checked;
         }
 
         private void linkDef1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -239,7 +244,7 @@ namespace K12.懲戒通知單
             }
         }
 
-        private void buttonX1_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
             #region 儲存 Preference
 
@@ -260,9 +265,13 @@ namespace K12.懲戒通知單
             XmlElement receive = config.OwnerDocument.CreateElement("Receive");
             XmlElement conditions = config.OwnerDocument.CreateElement("Conditions");
             XmlElement PrintStudentList = config.OwnerDocument.CreateElement("PrintStudentList");
+            XmlElement PrintRemark = config.OwnerDocument.CreateElement("PrintRemark");
 
             PrintStudentList.SetAttribute("Checked", _printStudentList.ToString());
             config.ReplaceChild(PrintStudentList, config.SelectSingleNode("PrintStudentList"));
+
+            PrintRemark.SetAttribute("Checked", _printRemark.ToString());
+            config.ReplaceChild(PrintRemark, config.SelectSingleNode("PrintRemark"));
 
             if (_isUpload) //如果是自訂範本
             {
@@ -295,7 +304,7 @@ namespace K12.懲戒通知單
             this.DialogResult = DialogResult.OK;
         }
 
-        private void buttonX2_Click(object sender, EventArgs e)
+        private void btnExit_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
         }
@@ -341,6 +350,11 @@ namespace K12.懲戒通知單
             {
                 numericUpDown1.Enabled = true;
             }
+        }
+
+        private void cbPrintRemark_CheckedChanged(object sender, EventArgs e)
+        {
+            _printRemark = cbPrintRemark.Checked;
         }
     }
 }

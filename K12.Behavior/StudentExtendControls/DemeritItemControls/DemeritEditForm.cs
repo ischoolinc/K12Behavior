@@ -129,6 +129,8 @@ namespace K12.Behavior.StudentExtendControls
             }
             DicBeforeData.Add("事由", demeritRecordEditor.Reason);
 
+            DicBeforeData.Add("備註", demeritRecordEditor.Remark);
+
             #endregion
 
             this._students = new List<StudentRecord>();
@@ -190,6 +192,9 @@ namespace K12.Behavior.StudentExtendControls
 
         private void DemeritEditor_Load(object sender, EventArgs e)
         {
+            List<string> remarkList = tool.GerRemarkTitle("0");
+            cbRemark.Items.AddRange(remarkList.ToArray());
+
             #region Load
             //取得懲戒的代碼和原因清單，並放到 事由代碼 的下拉式方塊中。
             DSResponse dsrsp = Config.GetDisciplineReasonList();
@@ -247,6 +252,9 @@ namespace K12.Behavior.StudentExtendControls
                 {
                     dateTimeInput2.Text = "";
                 }
+
+                cbRemark.Text = _demeritRecordEditor.Remark;
+
             }
             #endregion
         }
@@ -323,7 +331,7 @@ namespace K12.Behavior.StudentExtendControls
                         sb.Append("警告「" + LogDemeritList[0].DemeritC.Value.ToString() + "」");
                     }
                     sb.Append("懲戒事由「" + LogDemeritList[0].Reason + "」");
-
+                    sb.Append("備註「" + LogDemeritList[0].Remark + "」");
                     ApplicationLog.Log("學務系統.懲戒資料", "新增學生懲戒資料", "student", _students[0].ID, sb.ToString());
                     #endregion
                     MsgBox.Show("新增懲戒資料成功!");
@@ -349,7 +357,7 @@ namespace K12.Behavior.StudentExtendControls
                         sb.Append("警告「" + LogDemeritList[0].DemeritC.Value.ToString() + "」");
                     }
                     sb.AppendLine("懲戒事由「" + LogDemeritList[0].Reason + "」");
-
+                    sb.AppendLine("備註「" + LogDemeritList[0].Remark + "」");
                     sb.AppendLine("學生詳細資料：");
                     foreach (DemeritRecord each in LogDemeritList)
                     {
@@ -400,6 +408,7 @@ namespace K12.Behavior.StudentExtendControls
                 sb.AppendLine("小過「" + DicBeforeData["小過"] + "」變更為「" + this._demeritRecordEditor.DemeritB.Value + "」");
                 sb.AppendLine("警告「" + DicBeforeData["警告"] + "」變更為「" + this._demeritRecordEditor.DemeritC.Value + "」");
                 sb.AppendLine("懲戒事由「" + DicBeforeData["事由"] + "」變更為「" + this._demeritRecordEditor.Reason + "」");
+                sb.AppendLine("備註「" + DicBeforeData["備註"] + "」變更為「" + this._demeritRecordEditor.Remark + "」");
                 ApplicationLog.Log("學務系統.懲戒資料", "修改學生懲戒資料", "student", this._demeritRecordEditor.Student.ID, sb.ToString());
                 #endregion
                 MsgBox.Show("修改懲戒資料成功!");
@@ -515,6 +524,7 @@ namespace K12.Behavior.StudentExtendControls
                     editor.DemeritB = 0;
                     editor.DemeritC = 0;
                     editor.Reason = txtReason.Text;
+                    editor.Remark = cbRemark.Text;
                     editor.MeritFlag = "2";
 
                     editor.ClearDate = null;
@@ -536,6 +546,7 @@ namespace K12.Behavior.StudentExtendControls
                     editor.DemeritC = ChangeInt(txt3.Text);
                     editor.MeritFlag = "0";
                     editor.Reason = txtReason.Text;
+                    editor.Remark = cbRemark.Text;
                     editor.OccurDate = dateTimeInput1.Value;
                     if (dateTimeInput2.Text != "")
                     {
@@ -552,6 +563,7 @@ namespace K12.Behavior.StudentExtendControls
                 editor.DemeritB = ChangeInt(txt2.Text);
                 editor.DemeritC = ChangeInt(txt3.Text);
                 editor.Reason = txtReason.Text;
+                editor.Remark = cbRemark.Text;
                 editor.OccurDate = dateTimeInput1.Value;
                 if (dateTimeInput2.Text != "")
                 {

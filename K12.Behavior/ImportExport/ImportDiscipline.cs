@@ -17,7 +17,7 @@ namespace K12.Behavior
     {
         public ImportDiscipline()
         {
-            this.Text = "匯入獎懲紀錄";
+            this.Text = "匯入獎勵懲戒記錄";
         }
 
         public override void InitializeImport(SmartSchool.API.PlugIn.Import.ImportWizard wizard)
@@ -41,19 +41,19 @@ namespace K12.Behavior
                     wizard.RequiredFields.AddRange("學年度", "學期", "日期", "大功", "小功", "嘉獎", "大過", "小過", "警告");
                 }
             };
-            wizard.ImportableFields.AddRange("學年度", "學期", "日期", "大功", "小功", "嘉獎", "大過", "小過", "警告", "事由", "是否銷過", "銷過日期", "銷過事由", "留校察看", "登錄日期");
+            wizard.ImportableFields.AddRange("學年度", "學期", "日期", "大功", "小功", "嘉獎", "大過", "小過", "警告", "事由", "是否銷過", "銷過日期", "銷過事由", "留校察看", "登錄日期", "備註");
             wizard.Options.AddRange(chose1, chose2);
             chose1.Checked = true;
             wizard.PackageLimit = 400;
             bool allPass = true;
-            wizard.ValidateStart += delegate(object sender, SmartSchool.API.PlugIn.Import.ValidateStartEventArgs e)
+            wizard.ValidateStart += delegate (object sender, SmartSchool.API.PlugIn.Import.ValidateStartEventArgs e)
             {
                 accessHelper.StudentHelper.FillReward(accessHelper.StudentHelper.GetStudents(e.List));
                 allPass = true;
             };
             int insertRecords = 0;
             int updataRecords = 0;
-            wizard.ValidateRow += delegate(object sender, SmartSchool.API.PlugIn.Import.ValidateRowEventArgs e)
+            wizard.ValidateRow += delegate (object sender, SmartSchool.API.PlugIn.Import.ValidateRowEventArgs e)
             {
                 #region 驗證資料
                 bool pass = true;
@@ -416,7 +416,7 @@ namespace K12.Behavior
                 insertRecords = 0;
                 updataRecords = 0;
             };
-            wizard.ImportPackage += delegate(object sender, SmartSchool.API.PlugIn.Import.ImportPackageEventArgs e)
+            wizard.ImportPackage += delegate (object sender, SmartSchool.API.PlugIn.Import.ImportPackageEventArgs e)
             {
                 bool hasUpdate = false, hasInsert = false;
                 DSXmlHelper updateHelper = new DSXmlHelper("UpdateRequest");
@@ -468,7 +468,6 @@ namespace K12.Behavior
                         string clearreason = "";
                         bool ultimateAdmonition = false;
 
-
                         if (row.ContainsKey("大功"))
                             awardA = (row["大功"] == "") ? 0 : int.Parse(row["大功"]);
                         if (row.ContainsKey("小功"))
@@ -493,7 +492,8 @@ namespace K12.Behavior
                         ultimateAdmonition = e.ImportFields.Contains("留校察看") ?
                             ((row["留校察看"] == "是") ? true : false) : false;
 
-                        string reason = row["事由"];
+                        string reason = row.ContainsKey("事由") ? row["事由"] : "";
+                        string remark = row.ContainsKey("備註") ? row["備註"] : "";
                         bool match = false;
 
                         #endregion
@@ -563,6 +563,7 @@ namespace K12.Behavior
                                 updateHelper.AddElement("Discipline/Field", "MeritFlag", ultimateAdmonition ? "2" : isAward ? "1" : "0");
                                 updateHelper.AddElement("Discipline/Field", "RegisterDate", RegisterDate.ToShortDateString());
                                 updateHelper.AddElement("Discipline/Field", "Detail", h.GetRawXml(), true);
+                                updateHelper.AddElement("Discipline/Field", "Remark", remark); //備註
                                 updateHelper.AddElement("Discipline", "Condition");
                                 updateHelper.AddElement("Discipline/Condition", "ID", rewardInfo.Detail.GetAttribute("ID"));
 
@@ -615,6 +616,7 @@ namespace K12.Behavior
                             insertHelper.AddElement("Discipline", "OccurDate", occurdate.ToShortDateString());
                             insertHelper.AddElement("Discipline", "RegisterDate", RegisterDate.ToShortDateString());
                             insertHelper.AddElement("Discipline", "Reason", reason);
+                            insertHelper.AddElement("Discipline", "Remark", remark);
                             insertHelper.AddElement("Discipline", "MeritFlag", ultimateAdmonition ? "2" : isAward ? "1" : "0");
                             insertHelper.AddElement("Discipline", "Type", "1");
                             insertHelper.AddElement("Discipline", "Detail", h.GetRawXml(), true);
@@ -643,6 +645,7 @@ namespace K12.Behavior
                         string clearreason = "";
                         bool ultimateAdmonition = false;
                         string reason = row.ContainsKey("事由") ? row["事由"] : "";
+                        string remark = row.ContainsKey("備註") ? row["備註"] : "";
 
                         if (row.ContainsKey("大功"))
                             awardA = (row["大功"] == "") ? 0 : int.Parse(row["大功"]);
@@ -744,6 +747,7 @@ namespace K12.Behavior
                                 updateHelper.AddElement("Discipline/Field", "RegisterDate", RegisterDate.ToShortDateString());
                                 updateHelper.AddElement("Discipline/Field", "Detail", h.GetRawXml(), true);
                                 updateHelper.AddElement("Discipline/Field", "Reason", reason);
+                                updateHelper.AddElement("Discipline/Field", "Remark", remark);
                                 updateHelper.AddElement("Discipline", "Condition");
                                 updateHelper.AddElement("Discipline/Condition", "ID", rewardInfo.Detail.GetAttribute("ID"));
 
@@ -796,6 +800,7 @@ namespace K12.Behavior
                             insertHelper.AddElement("Discipline", "OccurDate", occurdate.ToShortDateString());
                             insertHelper.AddElement("Discipline", "RegisterDate", RegisterDate.ToShortDateString());
                             insertHelper.AddElement("Discipline", "Reason", reason);
+                            insertHelper.AddElement("Discipline", "Remark", remark);
                             insertHelper.AddElement("Discipline", "MeritFlag", ultimateAdmonition ? "2" : isAward ? "1" : "0");
                             insertHelper.AddElement("Discipline", "Type", "1");
                             insertHelper.AddElement("Discipline", "Detail", h.GetRawXml(), true);
@@ -845,6 +850,7 @@ namespace K12.Behavior
 
                     string date = xml.SelectSingleNode("OccurDate").InnerText;
                     string Reason = xml.SelectSingleNode("Reason").InnerText;
+                    string Remark = xml.SelectSingleNode("Remark").InnerText;
                     if (MeritFlag == "1")
                         sb.AppendLine("獎勵：");
                     else if (MeritFlag == "0")
@@ -852,7 +858,7 @@ namespace K12.Behavior
                     else if (MeritFlag == "2")
                         sb.AppendLine("留查：");
                     sb.Append("班級「" + class_name + "」座號「" + seat_no + "」姓名「" + name + "」");
-                    sb.AppendLine("日期「" + date + "」事由「" + Reason + "」");
+                    sb.AppendLine("日期「" + date + "」事由「" + Reason + "」備註「" + Remark + "」");
                 }
             }
             return sb.ToString();
@@ -879,6 +885,7 @@ namespace K12.Behavior
                 string RefStudentID = "" + row["ref_student_id"];
                 string OccurDate = "" + row["occur_date"];
                 string Reason = "" + row["reason"];
+                string Remark = "" + row["remark"];
                 string MeritFlag = "" + row["merit_Flag"];
                 DateTime dtime = DateTime.Parse(OccurDate);
 
@@ -897,7 +904,7 @@ namespace K12.Behavior
                     else if (MeritFlag == "2")
                         sb.AppendLine("留查：");
                     sb.Append("班級「" + class_name + "」座號「" + seat_no + "」姓名「" + name + "」");
-                    sb.AppendLine("日期「" + date + "」事由「" + Reason + "」");
+                    sb.AppendLine("日期「" + date + "」事由「" + Reason + "」備註「" + Remark + "」");
                 }
             }
             return sb.ToString();

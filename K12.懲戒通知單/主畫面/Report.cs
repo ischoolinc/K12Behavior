@@ -53,6 +53,7 @@ namespace K12.懲戒通知單
                 obj.ConditionNumber = form.ConditionNumber;
                 obj.IsInsertDate = form.radioButton1.Checked;
                 obj.PrintStudentList = form.PrintStudentList;
+                obj.PrintRemark = form.PrintRemark;
                 #endregion
 
                 _BGWDisciplineNotification = new BackgroundWorker();
@@ -294,6 +295,7 @@ namespace K12.懲戒通知單
             {
                 string occurMonthDay = var.OccurDate.Month + "/" + var.OccurDate.Day;
                 string reason = var.Reason;
+                string remark = var.Remark;
 
                 if (var.MeritFlag == "1") //1是獎勵
                 {
@@ -356,6 +358,13 @@ namespace K12.懲戒通知單
                         {
                             StudentSuperOBJ[var.RefStudentID].DemeritC += var.DemeritC.Value;
                             detailString.Append("警告：" + var.DemeritC.Value.ToString() + " ");
+                        }
+
+                        //依據設定,要列印才印
+                        if (obj.PrintRemark)
+                        {
+                            if (!string.IsNullOrEmpty(remark))
+                                detailString.Append(" (" + remark + ")"); //備註
                         }
 
                         //明細資料

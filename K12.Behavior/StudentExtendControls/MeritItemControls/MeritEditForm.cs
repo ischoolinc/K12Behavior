@@ -121,6 +121,8 @@ namespace K12.Behavior.StudentExtendControls
                 DicBeforeData.Add("嘉獎", meritRecordEditor.MeritC.Value.ToString());
             }
             DicBeforeData.Add("事由", meritRecordEditor.Reason);
+
+            DicBeforeData.Add("備註", meritRecordEditor.Remark);
             #endregion
 
             this._students = new List<StudentRecord>();
@@ -174,6 +176,9 @@ namespace K12.Behavior.StudentExtendControls
 
         private void MeritEditor_Load(object sender, EventArgs e)
         {
+            List<string> remarkList = tool.GerRemarkTitle("1");
+            cbRemark.Items.AddRange(remarkList.ToArray());
+
             #region Load
             //取得獎勵的代碼和原因清單，並放到 事由代碼 的下拉式方塊中。
             DSResponse dsrsp = Config.GetDisciplineReasonList();
@@ -222,6 +227,8 @@ namespace K12.Behavior.StudentExtendControls
                 {
                     dateTimeInput2.Text = "";
                 }
+
+                cbRemark.Text = _meritRecordEditor.Remark;
             }
 
             txt3.Focus();
@@ -296,8 +303,8 @@ namespace K12.Behavior.StudentExtendControls
                     {
                         sb.Append("嘉獎「" + LogMeritList[0].MeritC.Value.ToString() + "」");
                     }
-                    sb.Append("獎勵事由「" + LogMeritList[0].Reason + "」");
-
+                    sb.AppendLine("獎勵事由「" + LogMeritList[0].Reason + "」");
+                    sb.AppendLine("備註「" + LogMeritList[0].Remark + "」");
                     ApplicationLog.Log("學務系統.獎勵資料", "新增學生獎勵資料", "student", _students[0].ID, sb.ToString());
                     #endregion
                     MsgBox.Show("新增獎勵資料成功!");
@@ -323,7 +330,7 @@ namespace K12.Behavior.StudentExtendControls
                         sb.Append("嘉獎「" + LogMeritList[0].MeritC.Value.ToString() + "」");
                     }
                     sb.AppendLine("獎勵事由「" + LogMeritList[0].Reason + "」");
-
+                    sb.AppendLine("備註「" + LogMeritList[0].Remark + "」");
                     sb.AppendLine("學生詳細資料：");
                     foreach (MeritRecord each in LogMeritList)
                     {
@@ -375,6 +382,7 @@ namespace K12.Behavior.StudentExtendControls
                 sb.AppendLine("小功「" + DicBeforeData["小功"] + "」變更為「" + this._meritRecordEditor.MeritB.Value + "」");
                 sb.AppendLine("嘉獎「" + DicBeforeData["嘉獎"] + "」變更為「" + this._meritRecordEditor.MeritC.Value + "」");
                 sb.AppendLine("獎勵事由「" + DicBeforeData["事由"] + "」變更為「" + this._meritRecordEditor.Reason + "」");
+                sb.AppendLine("備註「" + DicBeforeData["備註"] + "」變更為「" + this._meritRecordEditor.Remark + "」");
                 ApplicationLog.Log("學務系統.獎勵資料", "修改學生獎勵資料", "student", this._meritRecordEditor.Student.ID, sb.ToString());
                 #endregion
                 MsgBox.Show("修改獎勵資料成功!");
@@ -488,7 +496,7 @@ namespace K12.Behavior.StudentExtendControls
             editor.MeritB = ChangeInt(txt2.Text);
             editor.MeritC = ChangeInt(txt3.Text);
             editor.Reason = txtReason.Text;
-
+            editor.Remark = cbRemark.Text;
             editor.OccurDate = dateTimeInput1.Value;
             if (dateTimeInput2.Text != "")
             {

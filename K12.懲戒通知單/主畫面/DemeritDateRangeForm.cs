@@ -36,11 +36,11 @@ namespace K12.懲戒通知單
                 }
                 else if (_useDefaultTemplate == "預設範本2")
                 {
-                    return  _defaultTemplate = new MemoryStream(Properties.Resources.懲戒通知單);
+                    return _defaultTemplate = new MemoryStream(Properties.Resources.懲戒通知單);
                 }
                 else //預設範本1 
                 {
-                    return  _defaultTemplate = new MemoryStream(Properties.Resources.懲戒通知單_住址中間範本);
+                    return _defaultTemplate = new MemoryStream(Properties.Resources.懲戒通知單_住址中間範本);
                 }
             }
         }
@@ -59,6 +59,13 @@ namespace K12.懲戒通知單
         public bool PrintStudentList
         {
             get { return _PrintStudentList; }
+        }
+
+        //是否列印備註
+        private bool _PrintRemark = false;
+        public bool PrintRemark
+        {
+            get { return _PrintRemark; }
         }
 
         public DemeritDateRangeForm()
@@ -86,18 +93,41 @@ namespace K12.懲戒通知單
                 XmlElement receive = (XmlElement)config.SelectSingleNode("Receive");
                 XmlElement conditions = (XmlElement)config.SelectSingleNode("Conditions");
                 XmlElement PrintStudentList = (XmlElement)config.SelectSingleNode("PrintStudentList");
+                XmlElement PrintRemark = (XmlElement)config.SelectSingleNode("PrintRemark");
 
                 //列印學生清單
                 if (PrintStudentList != null)
                 {
                     if (PrintStudentList.HasAttribute("Checked"))
                     {
-                        _PrintStudentList = bool.Parse(PrintStudentList.GetAttribute("Checked"));
+                        if (PrintStudentList.GetAttribute("Checked") != "")
+                        {
+                            _PrintStudentList = bool.Parse(PrintStudentList.GetAttribute("Checked"));
+                        }
                     }
                 }
                 else
                 {
                     XmlElement newPrintStudentList = config.OwnerDocument.CreateElement("PrintStudentList");
+                    newPrintStudentList.SetAttribute("Checked", "False");
+                    config.AppendChild(newPrintStudentList);
+                    cd.SetXml("XmlData", config);
+                }
+
+                //列印備註
+                if (PrintRemark != null)
+                {
+                    if (PrintRemark.HasAttribute("Checked"))
+                    {
+                        if (PrintRemark.GetAttribute("Checked") != "")
+                        {
+                            _PrintRemark = bool.Parse(PrintRemark.GetAttribute("Checked"));
+                        }
+                    }
+                }
+                else
+                {
+                    XmlElement newPrintStudentList = config.OwnerDocument.CreateElement("PrintRemark");
                     newPrintStudentList.SetAttribute("Checked", "False");
                     config.AppendChild(newPrintStudentList);
                     cd.SetXml("XmlData", config);
@@ -172,6 +202,7 @@ namespace K12.懲戒通知單
                 XmlElement receive = config.OwnerDocument.CreateElement("Receive");
                 XmlElement conditions = config.OwnerDocument.CreateElement("Conditions");
                 XmlElement printStudentList = config.OwnerDocument.CreateElement("PrintStudentList");
+                XmlElement printRemark = config.OwnerDocument.CreateElement("PrintRemark");
 
                 dateRangeMode.InnerText = ((int)_mode).ToString();
                 receive.SetAttribute("Name", "");
@@ -179,12 +210,14 @@ namespace K12.懲戒通知單
                 conditions.SetAttribute("ConditionName", "");
                 conditions.SetAttribute("ConditionNumber", "1");
                 printStudentList.SetAttribute("Checked", "false");
+                printRemark.SetAttribute("Checked", "false"); //2019/1/21 - 備註欄位
 
                 config.AppendChild(customize);
                 config.AppendChild(dateRangeMode);
                 config.AppendChild(receive);
                 config.AppendChild(conditions);
                 config.AppendChild(printStudentList);
+                config.AppendChild(printRemark);
 
                 cd.SetXml("XmlData", config);
                 //CurrentUser.Instance.Preference["懲戒通知單"] = config;
@@ -192,7 +225,7 @@ namespace K12.懲戒通知單
                 _useDefaultTemplate = "預設範本1";
                 //_printHasRecordOnly = true;
                 _PrintStudentList = false;
-
+                _PrintRemark = false;
                 #endregion
             }
 
@@ -207,7 +240,8 @@ namespace K12.懲戒通知單
         {
             //傳入True是因為不影響程式結構
             DemeritConfigForm configForm = new DemeritConfigForm(
-                _useDefaultTemplate, _mode, _buffer, _receiveName, _receiveAddress, _conditionName, _conditionNumber, _PrintStudentList);
+                _useDefaultTemplate, _mode, _buffer, _receiveName, _receiveAddress, _conditionName,
+                _conditionNumber, _PrintStudentList, _PrintRemark);
 
             if (configForm.ShowDialog() == DialogResult.OK)
             {
@@ -283,7 +317,7 @@ namespace K12.懲戒通知單
             //timer1.Stop();
         }
 
-        private void buttonX2_Click(object sender, EventArgs e)
+        private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }

@@ -48,6 +48,9 @@ namespace K12.Behavior.StudentExtendControls
 
             if (_DemeritOrMerit == "獎勵")
             {
+                List<string> remarkList = tool.GerRemarkTitle("1");
+                cbRemark.Items.AddRange(remarkList.ToArray());
+
                 #region 獎勵
                 DSResponse dsrsp = Config.GetDisciplineReasonList();
                 foreach (XmlElement element in dsrsp.GetContent().GetElements("Reason"))
@@ -69,6 +72,9 @@ namespace K12.Behavior.StudentExtendControls
             }
             else //獎勵是預設動作
             {
+                List<string> remarkList = tool.GerRemarkTitle("0");
+                cbRemark.Items.AddRange(remarkList.ToArray());
+
                 #region 懲戒
                 labelX1.Text = "懲戒日期";
                 labelX6.Text = "大過";
@@ -202,15 +208,16 @@ namespace K12.Behavior.StudentExtendControls
                 mr.SchoolYear = integerInput1.Value; //學年度
                 mr.Semester = integerInput2.Value; //學期
 
-                mr.MeritA = int.Parse(string.IsNullOrEmpty("" + row.Cells[4].Value) ? "0":"" + row.Cells[4].Value); //大功
-                mr.MeritB = int.Parse(string.IsNullOrEmpty("" + row.Cells[5].Value) ? "0":"" + row.Cells[5].Value);  //小功
-                mr.MeritC = int.Parse(string.IsNullOrEmpty("" + row.Cells[6].Value) ? "0":"" + row.Cells[6].Value);  //嘉獎
+                mr.MeritA = int.Parse(string.IsNullOrEmpty("" + row.Cells[4].Value) ? "0" : "" + row.Cells[4].Value); //大功
+                mr.MeritB = int.Parse(string.IsNullOrEmpty("" + row.Cells[5].Value) ? "0" : "" + row.Cells[5].Value);  //小功
+                mr.MeritC = int.Parse(string.IsNullOrEmpty("" + row.Cells[6].Value) ? "0" : "" + row.Cells[6].Value);  //嘉獎
                 if (mr.MeritA + mr.MeritB + mr.MeritC <= 0)
                 {
                     continue;
                 }
-                
-                mr.Reason = "" + row.Cells[7].Value;
+
+                mr.Remark = "" + row.Cells[7].Value; //備註 2019/12/24新增
+                mr.Reason = "" + row.Cells[8].Value;
 
                 mr.OccurDate = dateTimeInput1.Value; //獎勵日期
                 mr.RegisterDate = dateTimeInput2.Value; //登錄日期
@@ -221,7 +228,8 @@ namespace K12.Behavior.StudentExtendControls
                 + "大功「" + row.Cells[4].Value + "」"
                 + "小功「" + row.Cells[5].Value + "」"
                 + "嘉獎「" + row.Cells[6].Value + "」"
-                + "事由「" + row.Cells[7].Value + "」");
+                + "備註「" + row.Cells[7].Value + "」"
+                + "事由「" + row.Cells[8].Value + "」");
             }
 
             return MeritList;
@@ -254,7 +262,8 @@ namespace K12.Behavior.StudentExtendControls
                 {
                     continue;
                 }
-                mr.Reason = "" + row.Cells[7].Value;
+                mr.Remark = "" + row.Cells[7].Value;
+                mr.Reason = "" + row.Cells[8].Value;
 
                 mr.OccurDate = dateTimeInput1.Value; //懲戒日期
                 mr.RegisterDate = dateTimeInput2.Value; //登錄日期
@@ -265,7 +274,8 @@ namespace K12.Behavior.StudentExtendControls
                 + "大過「" + row.Cells[4].Value + "」"
                 + "小過「" + row.Cells[5].Value + "」"
                 + "警告「" + row.Cells[6].Value + "」"
-                + "事由「" + row.Cells[7].Value + "」");
+                + "備註「" + row.Cells[7].Value + "」"
+                + "事由「" + row.Cells[8].Value + "」");
             }
 
             return DemeritList;
@@ -281,7 +291,7 @@ namespace K12.Behavior.StudentExtendControls
 
             foreach (DataGridViewRow row in dataGridViewX1.Rows)
             {
-                if (("" + row.Cells[7].Value).Trim() == "")
+                if (("" + row.Cells[8].Value).Trim() == "")
                 {
                     returnTrue = true;
                 }
@@ -326,7 +336,7 @@ namespace K12.Behavior.StudentExtendControls
             KeyValuePair<string, string> kvp = (KeyValuePair<string, string>)comboBoxEx1.SelectedItem;
             foreach (DataGridViewRow row in dataGridViewX1.Rows)
             {
-                row.Cells[7].Value = kvp.Value;
+                row.Cells[8].Value = kvp.Value;
             }
         }
 
@@ -342,7 +352,7 @@ namespace K12.Behavior.StudentExtendControls
 
                 foreach (DataGridViewRow row in dataGridViewX1.Rows)
                 {
-                    row.Cells[7].Value = reasonValue;
+                    row.Cells[8].Value = reasonValue;
                 }
             }
         }
@@ -356,7 +366,7 @@ namespace K12.Behavior.StudentExtendControls
 
             foreach (DataGridViewRow row in dataGridViewX1.Rows)
             {
-                row.Cells[7].Value = reasonValue;
+                row.Cells[8].Value = reasonValue;
             }
         }
 
@@ -429,7 +439,7 @@ namespace K12.Behavior.StudentExtendControls
             {
                 errorProvider3.SetError(textBoxX3, "輸入內容非數字!!");
             }
-        } 
+        }
 
         #endregion
 
@@ -476,7 +486,7 @@ namespace K12.Behavior.StudentExtendControls
                     }
                 }
                 //事由替換
-                if (e.ColumnIndex == 7)
+                if (e.ColumnIndex == 8)
                 {
                     DataGridViewCell cell = dataGridViewX1.Rows[e.RowIndex].Cells[e.ColumnIndex];
                     cell.Value = GetReason("" + cell.Value);
@@ -494,6 +504,14 @@ namespace K12.Behavior.StudentExtendControls
             else
             {
                 return false;
+            }
+        }
+
+        private void cbRemark_TextChanged(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridViewX1.Rows)
+            {
+                row.Cells[7].Value = cbRemark.Text;
             }
         }
     }

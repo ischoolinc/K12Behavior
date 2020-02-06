@@ -140,6 +140,7 @@ namespace K12.Behavior.StudentExtendControls
                 {
                     #region 填值
 
+
                     ListViewItem itm = new ListViewItem(item.SchoolYear.ToString());
                     itm.SubItems.Add(item.Semester.ToString());
                     itm.SubItems.Add(item.OccurDate.ToShortDateString());
@@ -148,7 +149,7 @@ namespace K12.Behavior.StudentExtendControls
                     itm.SubItems.Add(item.MeritC.ToString());
                     itm.SubItems.Add(item.Reason);
                     itm.SubItems.Add(item.RegisterDate.HasValue ? item.RegisterDate.Value.ToShortDateString() : "");
-
+                    itm.SubItems.Add(item.Remark);
 
                     //將資料加入ListView
                     itm.Tag = item;

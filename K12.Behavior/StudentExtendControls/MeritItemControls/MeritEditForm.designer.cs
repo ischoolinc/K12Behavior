@@ -48,6 +48,8 @@
             this.dateTimeInput2 = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.intSchoolYear = new DevComponents.Editors.IntegerInput();
             this.intSemester = new DevComponents.Editors.IntegerInput();
+            this.cbRemark = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.labelX5 = new DevComponents.DotNetBar.LabelX();
             ((System.ComponentModel.ISupportInitialize)(this.dateTimeInput1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateTimeInput2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.intSchoolYear)).BeginInit();
@@ -63,7 +65,7 @@
             this.cboReasonRef.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
             this.cboReasonRef.FormattingEnabled = true;
             this.cboReasonRef.ItemHeight = 19;
-            this.cboReasonRef.Location = new System.Drawing.Point(89, 103);
+            this.cboReasonRef.Location = new System.Drawing.Point(89, 105);
             this.cboReasonRef.Name = "cboReasonRef";
             this.cboReasonRef.Size = new System.Drawing.Size(215, 25);
             this.cboReasonRef.TabIndex = 54;
@@ -80,7 +82,7 @@
             this.labelX3.BackgroundStyle.Class = "";
             this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX3.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
-            this.labelX3.Location = new System.Drawing.Point(21, 104);
+            this.labelX3.Location = new System.Drawing.Point(21, 107);
             this.labelX3.Name = "labelX3";
             this.labelX3.Size = new System.Drawing.Size(60, 21);
             this.labelX3.TabIndex = 53;
@@ -92,7 +94,7 @@
             this.btnExit.BackColor = System.Drawing.Color.Transparent;
             this.btnExit.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnExit.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
-            this.btnExit.Location = new System.Drawing.Point(247, 263);
+            this.btnExit.Location = new System.Drawing.Point(247, 309);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(57, 23);
             this.btnExit.TabIndex = 52;
@@ -105,7 +107,7 @@
             this.btnSave.BackColor = System.Drawing.Color.Transparent;
             this.btnSave.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnSave.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
-            this.btnSave.Location = new System.Drawing.Point(184, 263);
+            this.btnSave.Location = new System.Drawing.Point(184, 309);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(57, 23);
             this.btnSave.TabIndex = 51;
@@ -120,7 +122,7 @@
             this.txtReason.Border.Class = "TextBoxBorder";
             this.txtReason.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.txtReason.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
-            this.txtReason.Location = new System.Drawing.Point(89, 133);
+            this.txtReason.Location = new System.Drawing.Point(89, 136);
             this.txtReason.MaxLength = 100;
             this.txtReason.Multiline = true;
             this.txtReason.Name = "txtReason";
@@ -180,7 +182,7 @@
             this.labelX7.BackgroundStyle.Class = "";
             this.labelX7.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX7.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
-            this.labelX7.Location = new System.Drawing.Point(47, 133);
+            this.labelX7.Location = new System.Drawing.Point(47, 136);
             this.labelX7.Name = "labelX7";
             this.labelX7.Size = new System.Drawing.Size(34, 21);
             this.labelX7.TabIndex = 43;
@@ -196,7 +198,7 @@
             this.labelX6.BackgroundStyle.Class = "";
             this.labelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX6.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
-            this.labelX6.Location = new System.Drawing.Point(21, 74);
+            this.labelX6.Location = new System.Drawing.Point(21, 76);
             this.labelX6.Name = "labelX6";
             this.labelX6.Size = new System.Drawing.Size(60, 21);
             this.labelX6.TabIndex = 42;
@@ -290,7 +292,7 @@
             this.labelX4.BackgroundStyle.Class = "";
             this.labelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX4.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
-            this.labelX4.Location = new System.Drawing.Point(21, 235);
+            this.labelX4.Location = new System.Drawing.Point(21, 270);
             this.labelX4.Name = "labelX4";
             this.labelX4.Size = new System.Drawing.Size(60, 21);
             this.labelX4.TabIndex = 59;
@@ -310,7 +312,7 @@
             this.dateTimeInput1.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
             this.dateTimeInput1.FreeTextEntryMode = true;
             this.dateTimeInput1.IsPopupCalendarOpen = false;
-            this.dateTimeInput1.Location = new System.Drawing.Point(89, 72);
+            this.dateTimeInput1.Location = new System.Drawing.Point(89, 74);
             // 
             // 
             // 
@@ -372,7 +374,7 @@
             this.dateTimeInput2.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
             this.dateTimeInput2.FreeTextEntryMode = true;
             this.dateTimeInput2.IsPopupCalendarOpen = false;
-            this.dateTimeInput2.Location = new System.Drawing.Point(89, 233);
+            this.dateTimeInput2.Location = new System.Drawing.Point(89, 268);
             // 
             // 
             // 
@@ -458,11 +460,43 @@
             this.intSemester.TabIndex = 63;
             this.intSemester.Value = 1;
             // 
+            // cbRemark
+            // 
+            this.cbRemark.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbRemark.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbRemark.DisplayMember = "Text";
+            this.cbRemark.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbRemark.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
+            this.cbRemark.FormattingEnabled = true;
+            this.cbRemark.ItemHeight = 19;
+            this.cbRemark.Location = new System.Drawing.Point(89, 237);
+            this.cbRemark.Name = "cbRemark";
+            this.cbRemark.Size = new System.Drawing.Size(215, 25);
+            this.cbRemark.TabIndex = 65;
+            // 
+            // labelX5
+            // 
+            this.labelX5.AutoSize = true;
+            this.labelX5.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX5.BackgroundStyle.Class = "";
+            this.labelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX5.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
+            this.labelX5.Location = new System.Drawing.Point(47, 239);
+            this.labelX5.Name = "labelX5";
+            this.labelX5.Size = new System.Drawing.Size(34, 21);
+            this.labelX5.TabIndex = 64;
+            this.labelX5.Text = "備註";
+            // 
             // MeritEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(324, 298);
+            this.ClientSize = new System.Drawing.Size(324, 344);
+            this.Controls.Add(this.cbRemark);
+            this.Controls.Add(this.labelX5);
             this.Controls.Add(this.intSemester);
             this.Controls.Add(this.intSchoolYear);
             this.Controls.Add(this.dateTimeInput2);
@@ -519,5 +553,7 @@
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dateTimeInput2;
         private DevComponents.Editors.IntegerInput intSchoolYear;
         private DevComponents.Editors.IntegerInput intSemester;
+        private DevComponents.DotNetBar.Controls.ComboBoxEx cbRemark;
+        private DevComponents.DotNetBar.LabelX labelX5;
     }
 }

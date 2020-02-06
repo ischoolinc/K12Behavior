@@ -184,7 +184,7 @@ namespace K12.Behavior.StudentExtendControls
                     itm.SubItems.Add(item.ClearDate.HasValue ? item.ClearDate.Value.ToShortDateString() : "");
                     itm.SubItems.Add(item.ClearReason);     //銷過事由
                     itm.SubItems.Add(item.RegisterDate.HasValue ? item.RegisterDate.Value.ToShortDateString() : ""); //登錄日期
-
+                    itm.SubItems.Add(item.Remark);
                     //將資料加入ListView
                     itm.Tag = item;          //把 DemeritRecord 物件塞到 ListViewItem 物件的 Tag 屬性中，方便日後取出。
                     listView.Items.Add(itm);

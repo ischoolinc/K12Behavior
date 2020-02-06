@@ -34,8 +34,8 @@ namespace K12.懲戒通知單
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.linkViewGeDin = new System.Windows.Forms.LinkLabel();
             this.linkUpData = new System.Windows.Forms.LinkLabel();
-            this.buttonX1 = new DevComponents.DotNetBar.ButtonX();
-            this.buttonX2 = new DevComponents.DotNetBar.ButtonX();
+            this.btnSave = new DevComponents.DotNetBar.ButtonX();
+            this.btnExit = new DevComponents.DotNetBar.ButtonX();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
@@ -63,7 +63,8 @@ namespace K12.懲戒通知單
             this.comboItem9 = new DevComponents.Editors.ComboItem();
             this.comboItem10 = new DevComponents.Editors.ComboItem();
             this.comboItem11 = new DevComponents.Editors.ComboItem();
-            this.checkBoxX2 = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbPrintStudentList = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.cbPrintRemark = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.groupPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupPanel2.SuspendLayout();
@@ -136,29 +137,29 @@ namespace K12.懲戒通知單
             this.linkUpData.Text = "上傳";
             this.linkUpData.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkUpData_LinkClicked);
             // 
-            // buttonX1
+            // btnSave
             // 
-            this.buttonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.buttonX1.BackColor = System.Drawing.Color.Transparent;
-            this.buttonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonX1.Location = new System.Drawing.Point(281, 210);
-            this.buttonX1.Name = "buttonX1";
-            this.buttonX1.Size = new System.Drawing.Size(64, 23);
-            this.buttonX1.TabIndex = 4;
-            this.buttonX1.Text = "儲存設定";
-            this.buttonX1.Click += new System.EventHandler(this.buttonX1_Click);
+            this.btnSave.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSave.BackColor = System.Drawing.Color.Transparent;
+            this.btnSave.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSave.Location = new System.Drawing.Point(281, 241);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(64, 23);
+            this.btnSave.TabIndex = 4;
+            this.btnSave.Text = "儲存設定";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // buttonX2
+            // btnExit
             // 
-            this.buttonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.buttonX2.BackColor = System.Drawing.Color.Transparent;
-            this.buttonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonX2.Location = new System.Drawing.Point(354, 210);
-            this.buttonX2.Name = "buttonX2";
-            this.buttonX2.Size = new System.Drawing.Size(64, 23);
-            this.buttonX2.TabIndex = 6;
-            this.buttonX2.Text = "取消";
-            this.buttonX2.Click += new System.EventHandler(this.buttonX2_Click);
+            this.btnExit.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnExit.BackColor = System.Drawing.Color.Transparent;
+            this.btnExit.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnExit.Location = new System.Drawing.Point(354, 241);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(64, 23);
+            this.btnExit.TabIndex = 6;
+            this.btnExit.Text = "取消";
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // radioButton3
             // 
@@ -554,35 +555,54 @@ namespace K12.懲戒通知單
             // 
             this.comboItem11.Text = "警告";
             // 
-            // checkBoxX2
+            // cbPrintStudentList
             // 
-            this.checkBoxX2.AutoSize = true;
-            this.checkBoxX2.BackColor = System.Drawing.Color.Transparent;
+            this.cbPrintStudentList.AutoSize = true;
+            this.cbPrintStudentList.BackColor = System.Drawing.Color.Transparent;
             // 
             // 
             // 
-            this.checkBoxX2.BackgroundStyle.Class = "";
-            this.checkBoxX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.checkBoxX2.Location = new System.Drawing.Point(10, 212);
-            this.checkBoxX2.Name = "checkBoxX2";
-            this.checkBoxX2.Size = new System.Drawing.Size(147, 21);
-            this.checkBoxX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.checkBoxX2.TabIndex = 20;
-            this.checkBoxX2.Text = "另存學生清單(Excel)";
-            this.checkBoxX2.CheckedChanged += new System.EventHandler(this.checkBoxX2_CheckedChanged);
+            this.cbPrintStudentList.BackgroundStyle.Class = "";
+            this.cbPrintStudentList.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbPrintStudentList.Location = new System.Drawing.Point(21, 246);
+            this.cbPrintStudentList.Name = "cbPrintStudentList";
+            this.cbPrintStudentList.Size = new System.Drawing.Size(147, 21);
+            this.cbPrintStudentList.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbPrintStudentList.TabIndex = 20;
+            this.cbPrintStudentList.Text = "另存學生清單(Excel)";
+            this.cbPrintStudentList.CheckedChanged += new System.EventHandler(this.checkBoxX2_CheckedChanged);
+            // 
+            // cbPrintRemark
+            // 
+            this.cbPrintRemark.AutoSize = true;
+            this.cbPrintRemark.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.cbPrintRemark.BackgroundStyle.Class = "";
+            this.cbPrintRemark.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.cbPrintRemark.Location = new System.Drawing.Point(21, 217);
+            this.cbPrintRemark.Name = "cbPrintRemark";
+            this.cbPrintRemark.Size = new System.Drawing.Size(80, 21);
+            this.cbPrintRemark.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbPrintRemark.TabIndex = 21;
+            this.cbPrintRemark.Text = "列印備註";
+            this.cbPrintRemark.CheckedChanged += new System.EventHandler(this.cbPrintRemark_CheckedChanged);
             // 
             // DemeritConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(429, 248);
-            this.Controls.Add(this.checkBoxX2);
+            this.ClientSize = new System.Drawing.Size(429, 276);
+            this.Controls.Add(this.cbPrintRemark);
+            this.Controls.Add(this.cbPrintStudentList);
             this.Controls.Add(this.groupPanel4);
             this.Controls.Add(this.groupPanel3);
             this.Controls.Add(this.groupPanel2);
             this.Controls.Add(this.groupPanel1);
-            this.Controls.Add(this.buttonX2);
-            this.Controls.Add(this.buttonX1);
+            this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.btnSave);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "DemeritConfigForm";
@@ -606,8 +626,8 @@ namespace K12.懲戒通知單
         private System.Windows.Forms.LinkLabel linkDef1;
         private System.Windows.Forms.LinkLabel linkViewGeDin;
         private System.Windows.Forms.LinkLabel linkUpData;
-        private DevComponents.DotNetBar.ButtonX buttonX1;
-        private DevComponents.DotNetBar.ButtonX buttonX2;
+        private DevComponents.DotNetBar.ButtonX btnSave;
+        private DevComponents.DotNetBar.ButtonX btnExit;
         private System.Windows.Forms.RadioButton rbDEF_1;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton3;
@@ -637,6 +657,7 @@ namespace K12.懲戒通知單
         private System.Windows.Forms.RadioButton rbDEF_2;
         private System.Windows.Forms.LinkLabel linkDef2;
         private DevComponents.DotNetBar.LabelX labelX3;
-        private DevComponents.DotNetBar.Controls.CheckBoxX checkBoxX2;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbPrintStudentList;
+        private DevComponents.DotNetBar.Controls.CheckBoxX cbPrintRemark;
     }
 }

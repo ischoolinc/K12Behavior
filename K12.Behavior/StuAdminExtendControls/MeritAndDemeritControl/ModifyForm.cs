@@ -31,17 +31,39 @@ namespace K12.Behavior.StuAdminExtendControls
 
             _merit_flag = helper[0].MeritFlag;
 
+            List<string> remarkList = tool.GerRemarkTitle(_merit_flag);
+            cbRemark.Items.AddRange(remarkList.ToArray());
+
             intSchoolYear.Value = helper[0].SchoolYear;
             intSemester.Value = helper[0].Semester;
             txtNewReason.Text = helper[0].Reason;
+            cbRemark.Text = helper[0].Remark;
 
-            sb.AppendLine("已進行批次修改獎懲資料");
-            sb.AppendLine("依據第一筆資料狀態：");
-            sb.AppendLine("學年度「" + helper[0].SchoolYear + "」學期「" + helper[0].Semester + "」");
+            sb.AppendLine("獎懲批次修改\n所選獎懲資料：");
+
+            foreach (DisciplineRecord discipline in helper)
+            {
+                sb.AppendLine("學年度「" + discipline.SchoolYear + "」學期「" + discipline.Semester + "」");
+
+                if (discipline.MeritFlag == "1")
+                {
+                    sb.AppendLine("大功「" + discipline.MeritA.Value + "」小功「" + discipline.MeritB.Value + "」嘉獎「" + discipline.MeritC.Value + "」");
+                }
+                else if (discipline.MeritFlag == "0")
+                {
+                    sb.AppendLine("大過「" + discipline.DemeritA.Value + "」小過「" + discipline.DemeritB.Value + "」警告「" + discipline.DemeritC.Value + "」");
+                }
+                else if (discipline.MeritFlag == "2")
+                {
+                    sb.AppendLine("「留校察看」資料");
+                }
+                sb.AppendLine("事由「" + discipline.Reason + "」");
+                sb.AppendLine("備註「" + discipline.Remark + "」\n");
+            }
 
             if (_merit_flag == "1")
             {
-                sb.AppendLine("大功「" + helper[0].MeritA.Value + "」小功「" + helper[0].MeritB.Value + "」嘉獎「" + helper[0].MeritC.Value + "」");
+
                 lblA.Text = "大功";
                 lblB.Text = "小功";
                 lblC.Text = "嘉獎";
@@ -51,7 +73,6 @@ namespace K12.Behavior.StuAdminExtendControls
             }
             else if (_merit_flag == "0")
             {
-                sb.AppendLine("大過「" + helper[0].DemeritA.Value + "」小過「" + helper[0].DemeritB.Value + "」警告「" + helper[0].DemeritC.Value + "」");
                 lblA.Text = "大過";
                 lblB.Text = "小過";
                 lblC.Text = "警告";
@@ -64,7 +85,6 @@ namespace K12.Behavior.StuAdminExtendControls
                 lblA.Enabled = lblB.Enabled = lblC.Enabled = false;
                 txtA.Enabled = txtB.Enabled = txtC.Enabled = false;
             }
-            sb.AppendLine("事由「" + txtNewReason.Text);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -89,7 +109,7 @@ namespace K12.Behavior.StuAdminExtendControls
 
             if (KJ == DialogResult.Yes)
             {
-                sb.AppendLine("\n已批次修改為：");
+                sb.AppendLine("\n以上資料已批次修改為：");
                 sb.AppendLine("學年度「" + intSchoolYear.Value + "」學期「" + intSemester.Value + "」");
                 if (_merit_flag == "1")
                 {
@@ -99,15 +119,17 @@ namespace K12.Behavior.StuAdminExtendControls
                 {
                     sb.AppendLine("大過「" + txtA.Text + "」小過「" + txtB.Text + "」警告「" + txtC.Text + "」");
                 }
-                sb.AppendLine("事由「" + txtNewReason.Text + "\n");
+                sb.AppendLine("事由「" + txtNewReason.Text + "」");
+                sb.AppendLine("備註「" + cbRemark.Text + "」\n");
 
+                sb.AppendLine("學生清單：");
                 foreach (DisciplineRecord each in _helper)
                 {
-                    sb.AppendLine("學生「" + each.Student.Name + "」班級「" + (each.Student.Class != null ? each.Student.Class.Name : "") + "」座號「" + (each.Student.SeatNo.HasValue ? each.Student.SeatNo.Value.ToString() : "") + "」");
+                    sb.AppendLine("姓名「" + each.Student.Name + "」班級「" + (each.Student.Class != null ? each.Student.Class.Name : "") + "」座號「" + (each.Student.SeatNo.HasValue ? each.Student.SeatNo.Value.ToString() : "") + "」");
                     each.Reason = txtNewReason.Text;
                     each.SchoolYear = intSchoolYear.Value;
                     each.Semester = intSemester.Value;
-
+                    each.Remark = cbRemark.Text;
                     if (_merit_flag == "1")
                     {
                         each.MeritA = int.Parse(txtA.Text);
@@ -131,7 +153,8 @@ namespace K12.Behavior.StuAdminExtendControls
                     return;
                 }
 
-                ApplicationLog.Log("學務模組.獎懲批次修改", "獎懲批次修改", sb.ToString() + "\n批次修改共「" + _helper.Count + "」筆。");
+                sb.AppendLine("批次修改共「" + _helper.Count + "」筆。");
+                ApplicationLog.Log("獎懲批次修改", "修改", sb.ToString());
             }
 
             this.DialogResult = DialogResult.OK;

@@ -109,7 +109,7 @@
       <HintPath>Library\IntelliSchool.DSA.ClientFramework.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="K12.Data, Version=2.0.0.5, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="K12.Data, Version=2.0.0.9, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\K12.Data.dll</HintPath>
       <Private>False</Private>
@@ -238,6 +238,12 @@
     <Compile Include="StuAdminExtendControls\DisciplineControl\ResonText.designer.cs">
       <DependentUpon>ResonText.cs</DependentUpon>
     </Compile>
+    <Compile Include="StuAdminExtendControls\MeritAndDemeritControl\ChangeRemarkForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StuAdminExtendControls\MeritAndDemeritControl\ChangeRemarkForm.Designer.cs">
+      <DependentUpon>ChangeRemarkForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="StuAdminExtendControls\MeritAndDemeritControl\ChangeResonBatch.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -257,6 +263,7 @@
       <DependentUpon>SetValueSchoolYearSemester.cs</DependentUpon>
     </Compile>
     <Compile Include="StudentSortObj.cs" />
+    <Compile Include="tool.cs" />
     <EmbeddedResource Include="ImportExport\ExportStudent.resx">
       <DependentUpon>ExportStudent.cs</DependentUpon>
     </EmbeddedResource>
@@ -319,6 +326,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StuAdminExtendControls\DisciplineControl\ResonText.resx">
       <DependentUpon>ResonText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StuAdminExtendControls\MeritAndDemeritControl\ChangeRemarkForm.resx">
+      <DependentUpon>ChangeRemarkForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StuAdminExtendControls\MeritAndDemeritControl\ChangeResonBatch.resx">
       <DependentUpon>ChangeResonBatch.cs</DependentUpon>
@@ -597,9 +607,7 @@
   <ItemGroup>
     <None Include="Resources\notepad_lock_64.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ClassExtendControls\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\laws_ok_64.png" />
   </ItemGroup>

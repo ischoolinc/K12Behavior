@@ -50,8 +50,8 @@ namespace K12.銷過通知單
 
             //學生
             RibbonBarItem StudentReports = K12.Presentation.NLDPanels.Student.RibbonBarItems["資料統計"];
-            StudentReports["報表"]["學務相關報表"]["銷過通知單"].Enable = false;
-            StudentReports["報表"]["學務相關報表"]["銷過通知單"].Click += delegate
+            StudentReports["報表"]["學務相關報表"]["通知單"]["銷過通知單"].Enable = false;
+            StudentReports["報表"]["學務相關報表"]["通知單"]["銷過通知單"].Click += delegate
             {
                 Features.Invoke(URL學生銷過通知單);
             };
@@ -60,18 +60,18 @@ namespace K12.銷過通知單
             {
                 if (K12.Presentation.NLDPanels.Student.SelectedSource.Count <= 0)
                 {
-                    StudentReports["報表"]["學務相關報表"]["銷過通知單"].Enable = false;
+                    StudentReports["報表"]["學務相關報表"]["通知單"]["銷過通知單"].Enable = false;
                 }
                 else
                 {
-                    StudentReports["報表"]["學務相關報表"]["銷過通知單"].Enable = Permissions.學生銷過通知單權限;
+                    StudentReports["報表"]["學務相關報表"]["通知單"]["銷過通知單"].Enable = Permissions.學生銷過通知單權限;
                 }
             };
 
             //班級
             RibbonBarItem ClassReports = K12.Presentation.NLDPanels.Class.RibbonBarItems["資料統計"];
-            ClassReports["報表"]["學務相關報表"]["銷過通知單"].Enable = false;
-            ClassReports["報表"]["學務相關報表"]["銷過通知單"].Click += delegate
+            ClassReports["報表"]["學務相關報表"]["通知單"]["銷過通知單"].Enable = false;
+            ClassReports["報表"]["學務相關報表"]["通知單"]["銷過通知單"].Click += delegate
             {
                 Features.Invoke(URL班級銷過通知單);
             };
@@ -80,11 +80,11 @@ namespace K12.銷過通知單
             {
                 if (K12.Presentation.NLDPanels.Class.SelectedSource.Count <= 0)
                 {
-                    ClassReports["報表"]["學務相關報表"]["銷過通知單"].Enable = false;
+                    ClassReports["報表"]["學務相關報表"]["通知單"]["銷過通知單"].Enable = false;
                 }
                 else
                 {
-                    ClassReports["報表"]["學務相關報表"]["銷過通知單"].Enable = Permissions.班級銷過通知單權限;
+                    ClassReports["報表"]["學務相關報表"]["通知單"]["銷過通知單"].Enable = Permissions.班級銷過通知單權限;
                 }
             };
 

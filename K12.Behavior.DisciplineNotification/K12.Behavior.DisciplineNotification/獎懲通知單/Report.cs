@@ -23,6 +23,7 @@ namespace K12.Behavior.DisciplineNotification
         private int MaxMerit;
 
         string MeritDemerit = "";
+        bool _printRemark = false;
 
 
         private BackgroundWorker _BGWDisciplineNotification;
@@ -58,7 +59,11 @@ namespace K12.Behavior.DisciplineNotification
             {
                 FISCA.Presentation.MotherForm.SetStatusBarMessage("正在初始化獎懲通知單...");
 
-                object[] args = new object[] { form.StartDate, form.EndDate, form.PrintHasRecordOnly, form.Template, form.ReceiveName, form.ReceiveAddress, form.ConditionName, form.ConditionNumber, form.radioButton1.Checked, form.PrintStudentList };
+                object[] args = new object[] { form.StartDate, form.EndDate, form.PrintHasRecordOnly,
+                    form.Template, form.ReceiveName, form.ReceiveAddress, form.ConditionName,
+                    form.ConditionNumber, form.radioButton1.Checked,
+                    form.PrintStudentList, form.PrintRemark };
+                _printRemark = form.PrintRemark;
 
                 _BGWDisciplineNotification = new BackgroundWorker();
                 _BGWDisciplineNotification.DoWork += new DoWorkEventHandler(_BGWDisciplineNotification_DoWork);
@@ -312,7 +317,7 @@ namespace K12.Behavior.DisciplineNotification
 
                 studentInfo[aStudentID].Add("Name", aStudent.Name);
                 studentInfo[aStudentID].Add("ClassName", aStudent.Class == null ? "" : aStudent.Class.Name);
-                
+
                 if (aStudent.SeatNo.HasValue)
                     studentInfo[aStudentID].Add("SeatNo", aStudent.SeatNo.Value.ToString());
                 else
@@ -363,7 +368,7 @@ namespace K12.Behavior.DisciplineNotification
                 DateTime occurDate = DateTime.Parse(var.SelectSingleNode("OccurDate").InnerText);
                 string occurMonthDay = occurDate.Month + "/" + occurDate.Day;
                 string reason = var.SelectSingleNode("Reason").InnerText;
-
+                string remark = var.SelectSingleNode("Remark").InnerText;
                 if (!studentDisciplineDetail.ContainsKey(studentID))
                     studentDisciplineDetail.Add(studentID, new List<string>());
 
@@ -403,6 +408,12 @@ namespace K12.Behavior.DisciplineNotification
                             detailString.Append(merit + times + "次");
                             comma = true;
                         }
+                    }
+
+                    if (_printRemark)
+                    {
+                        if (!string.IsNullOrEmpty(remark))
+                            detailString.Append(" (" + remark + ")");
                     }
 
                     studentDisciplineDetail[studentID].Add(detailString.ToString());
@@ -452,6 +463,12 @@ namespace K12.Behavior.DisciplineNotification
                                 comma = true;
                             }
                         }
+                    }
+
+                    if (_printRemark)
+                    {
+                        if (!string.IsNullOrEmpty(remark))
+                            detailString.Append(" (" + remark + ")");
                     }
 
                     if (!cleared)

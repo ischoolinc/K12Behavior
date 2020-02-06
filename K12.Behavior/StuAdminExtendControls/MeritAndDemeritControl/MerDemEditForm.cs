@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using FISCA.LogAgent;
 using K12.Data;
 using System.Text;
+using System.Data;
 
 namespace K12.Behavior.StuAdminExtendControls
 {
@@ -20,14 +21,12 @@ namespace K12.Behavior.StuAdminExtendControls
         //private List<string> students = new List<string>(); //待處理使用
         //private List<string> studentsList = new List<string>(); //待處理使用
 
-        Dictionary<string, List<StudentRecord>> classList; //班級名稱,學生List
+        Dictionary<string, List<StRecord>> classList; //班級名稱,學生List
         List<ClassRecord> Classes; //全校班級
-        List<StudentRecord> Students; //全校學生
+        List<StRecord> Students; //全校學生
 
         List<DisciplineRecord> DisciplineList = new List<DisciplineRecord>();
-
-        List<StudentRecord> studList = new List<StudentRecord>();
-
+        Dictionary<string, StRecord> studDic;
         List<string> DelRowIdList = new List<string>();
 
         List<DisciplineRecord> DelRowRecordList = new List<DisciplineRecord>();
@@ -37,6 +36,8 @@ namespace K12.Behavior.StuAdminExtendControls
         private string _startDate;
         private string _endDate;
         private string _txtReason;
+
+        List<string> DicDisciplineStudList = new List<string>(); //列印清單
 
         private bool Waiting
         {
@@ -100,30 +101,45 @@ namespace K12.Behavior.StuAdminExtendControls
         {
             #region 建立班級資訊
 
-            classList = new Dictionary<string, List<StudentRecord>>();
-            classList.Clear();
+            classList = new Dictionary<string, List<StRecord>>();
+            Classes = K12.Data.Class.SelectAll();
+            Students = GetStudent();
 
-            Classes = new List<ClassRecord>();
-            Classes.Clear();
-            Students = new List<StudentRecord>();
-            Students.Clear();
-
-            Classes = Class.SelectAll();
-            Students = Student.SelectAll();
-
-            Students.Sort(new Comparison<StudentRecord>(SortComparerInStudent));
-
-            foreach (StudentRecord eachstudent in Students)
+            foreach (StRecord eachstudent in Students)
             {
                 if (!string.IsNullOrEmpty(eachstudent.RefClassID))
                 {
-                    if (!classList.ContainsKey(eachstudent.Class.Name))
-                        classList.Add(eachstudent.Class.Name, new List<StudentRecord>());
+                    if (!classList.ContainsKey(eachstudent.ClassName))
+                        classList.Add(eachstudent.ClassName, new List<StRecord>());
 
-                    classList[eachstudent.Class.Name].Add(eachstudent);
+                    classList[eachstudent.ClassName].Add(eachstudent);
                 }
             }
             #endregion
+        }
+
+        private List<StRecord> GetStudent()
+        {
+            studDic = new Dictionary<string, StRecord>();
+            List<StRecord> list = new List<StRecord>();
+            DataTable dt = tool._Q.Select(@"select student.id as student_id,student.name as student_name,
+student.student_number,student.gender,student.seat_no,
+class.id as class_id,class.class_name
+from student 
+left join class on class.id=student.ref_class_id");
+            foreach (DataRow row in dt.Rows)
+            {
+                StRecord st = new StRecord(row);
+                list.Add(st);
+
+                if (!studDic.ContainsKey(st.StudentID))
+                {
+                    studDic.Add(st.StudentID, st);
+                }
+            }
+
+            list.Sort(new Comparison<StRecord>(SortComparerInStudent));
+            return list;
         }
 
         private void InitialBackgroundWorker()
@@ -231,8 +247,7 @@ namespace K12.Behavior.StuAdminExtendControls
                 txtSeatNo.Visible = false; //隱藏座號控制
                 txtSeatNo.Text = ""; //清空座號內容
 
-                Students.Clear();
-                Students = Student.SelectAll();
+                Students = GetStudent();
 
             }
             #endregion
@@ -308,10 +323,10 @@ namespace K12.Behavior.StuAdminExtendControls
             return xx.CompareTo(yy);
         }
 
-        private int SortComparerInStudent(StudentRecord x, StudentRecord y)
+        private int SortComparerInStudent(StRecord x, StRecord y)
         {
             #region 排序學生
-            if (x.Class == null || y.Class == null)
+            if (x.RefClassID == "" || y.RefClassID == "")
             {
                 string xx = "" + x.StudentNumber;
                 string yy = "" + y.StudentNumber;
@@ -319,8 +334,8 @@ namespace K12.Behavior.StuAdminExtendControls
             }
             else
             {
-                string xx = "" + x.Class.Name + x.SeatNo;
-                string yy = "" + y.Class.Name + y.SeatNo;
+                string xx = "" + x.ClassName + x.SeatNo;
+                string yy = "" + y.ClassName + y.SeatNo;
                 return xx.CompareTo(yy);
             }
             #endregion
@@ -340,25 +355,29 @@ namespace K12.Behavior.StuAdminExtendControls
             {
                 #region 班級座號
                 KeyValuePair<string, ClassRecord> item = (KeyValuePair<string, ClassRecord>)cbClass.SelectedItem;
-                List<StudentRecord> stulist = item.Value.Students;
+                ClassRecord classR = item.Value;
+                StRecord SeleteStud = null;
 
-                StudentRecord SeleteStud = new StudentRecord();
-
-                foreach (StudentRecord stud in stulist)
+                if (classList.ContainsKey(classR.Name))
                 {
-                    if (stud.SeatNo == null)
-                    {
-                        continue;
-                    }
+                    List<StRecord> stulist = classList[classR.Name];
 
-                    if ("" + stud.SeatNo == txtSeatNo.Text)
+                    foreach (StRecord stud in stulist)
                     {
-                        SeleteStud = stud;
-                        break;
+                        if (stud.SeatNo == null)
+                        {
+                            continue;
+                        }
+
+                        if ("" + stud.SeatNo == txtSeatNo.Text)
+                        {
+                            SeleteStud = stud;
+                            break;
+                        }
                     }
                 }
 
-                if (SeleteStud.ID == null)
+                if (SeleteStud == null)
                 {
                     FISCA.Presentation.Controls.MsgBox.Show("查無此座號,請重新輸入");
                     btnRefresh.Enabled = true;
@@ -368,7 +387,7 @@ namespace K12.Behavior.StuAdminExtendControls
                 }
                 else
                 {
-                    List<StudentRecord> NowList = new List<StudentRecord>();
+                    List<StRecord> NowList = new List<StRecord>();
                     NowList.Add(SeleteStud);
                     _loader.RunWorkerAsync(NowList);
                 }
@@ -377,18 +396,18 @@ namespace K12.Behavior.StuAdminExtendControls
             else if (cbRange.SelectedIndex == 1)
             {
                 #region 學號
-                StudentRecord SeleteStud = new StudentRecord();
+                StRecord SeleteStud = null;
 
-                foreach (StudentRecord stud in Students)
+                foreach (StRecord stud in Students)
                 {
-                    if (stud.StudentNumber == txtClass.Text)
+                    if (stud.StudentNumber.ToLower() == txtClass.Text.Trim().ToLower())
                     {
                         SeleteStud = stud;
                         break;
                     }
                 }
 
-                if (SeleteStud.ID == null)
+                if (SeleteStud == null)
                 {
                     FISCA.Presentation.Controls.MsgBox.Show("查無此學號,請重新輸入");
                     btnRefresh.Enabled = true;
@@ -397,7 +416,7 @@ namespace K12.Behavior.StuAdminExtendControls
                 }
                 else
                 {
-                    List<StudentRecord> NowList = new List<StudentRecord>();
+                    List<StRecord> NowList = new List<StRecord>();
                     NowList.Add(SeleteStud);
                     _loader.RunWorkerAsync(NowList);
                 }
@@ -416,20 +435,32 @@ namespace K12.Behavior.StuAdminExtendControls
                     return;
                 }
 
-                _loader.RunWorkerAsync(item.Value.Students);
+                if (classList.ContainsKey(item.Value.Name))
+                {
+                    List<StRecord> stud = classList[item.Value.Name];
+                    _loader.RunWorkerAsync(stud);
+                }
+
                 #endregion
             }
             else if (cbRange.SelectedIndex == 3)
             {
                 #region 年級
                 KeyValuePair<string, List<ClassRecord>> item = (KeyValuePair<string, List<ClassRecord>>)cbClass.SelectedItem;
+                List<ClassRecord> classRList = item.Value;
+                List<StRecord> stud = new List<StRecord>();
+                //
+                //ClassRecord classR = item.Value;
+                //StRecord SeleteStud = null;
 
-                List<StudentRecord> stud = new List<StudentRecord>();
-
-                foreach (ClassRecord STUD in item.Value)
+                foreach (ClassRecord cr in classRList)
                 {
-                    stud.AddRange(STUD.Students);
+                    if (classList.ContainsKey(cr.Name))
+                    {
+                        stud.AddRange(classList[cr.Name]);
+                    }
                 }
+
                 _loader.RunWorkerAsync(stud);
                 #endregion
             }
@@ -447,15 +478,15 @@ namespace K12.Behavior.StuAdminExtendControls
         {
             #region 開始執行背景作業
 
-            List<StudentRecord> studList = (List<StudentRecord>)e.Argument;
+            List<StRecord> studList = (List<StRecord>)e.Argument;
 
             List<string> list = new List<string>();
 
-            foreach (StudentRecord each in studList)
+            foreach (StRecord each in studList)
             {
-                if (!list.Contains(each.ID))
+                if (!list.Contains(each.StudentID))
                 {
-                    list.Add(each.ID);
+                    list.Add(each.StudentID);
                 }
             }
 
@@ -463,22 +494,22 @@ namespace K12.Behavior.StuAdminExtendControls
 
             try
             {
-                if (ConBoxIndex == 0) //缺曠日期
+                if (ConBoxIndex == 0)
                 {
                     foreach (DisciplineRecord each in Discipline.SelectByOccurDate(list, dateTimeInput1.Value, dateTimeInput2.Value))
                     {
-                        if (each.Reason.Contains(_txtReason))
+                        if (each.Reason.ToLower().Contains(_txtReason.ToLower()) || each.Remark.ToLower().Contains(_txtReason.ToLower()))
                         {
                             DisciplineList.Add(each);
                         }
                     }
                     //DisciplineList = Discipline.SelectByOccurDate(list, dateTimeInput1.Value, dateTimeInput2.Value);
                 }
-                else if (ConBoxIndex == 1) //登錄日期
+                else if (ConBoxIndex == 1)
                 {
                     foreach (DisciplineRecord each in Discipline.SelectByRegisterDate(list, dateTimeInput1.Value, dateTimeInput2.Value))
                     {
-                        if (each.Reason.Contains(_txtReason))
+                        if (each.Reason.ToLower().Contains(_txtReason.ToLower()) || each.Remark.ToLower().Contains(_txtReason.ToLower()))
                         {
                             DisciplineList.Add(each);
                         }
@@ -494,35 +525,9 @@ namespace K12.Behavior.StuAdminExtendControls
             }
 
             DisciplineList.Sort(SortByClassAndSeatNo); //排序
-            //DicDiscipline = new Dictionary<string, List<DisciplineRecord>>();
-            //DicDiscipline.Clear();
-
-            //List<string> studSortList = new List<string>();
-
-            //foreach (DisciplineRecord each in DisciplineList)
-            //{
-            //    if (!DicDiscipline.ContainsKey(each.RefStudentID))
-            //    {
-            //        studSortList.Add(each.RefStudentID);
-            //        DicDiscipline.Add(each.RefStudentID, new List<DisciplineRecord>());
-            //    }
-            //    DicDiscipline[each.RefStudentID].Add(each);
-            //}
-
-            //List<StudentRecord> JKlist = JHStudent.SelectByIDs(studSortList);
-            //JKlist.Sort(new Comparison<StudentRecord>(SchoolYearComparer)); //排序
-
-            //DicDisciplineStudList.Clear();
-            //foreach (StudentRecord each in JKlist)
-            //{
-            //    DicDisciplineStudList.Add(each.ID);
-            //}
 
             #endregion
         }
-
-        List<string> DicDisciplineStudList = new List<string>(); //列印清單
-
 
         private void _loader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -613,65 +618,70 @@ namespace K12.Behavior.StuAdminExtendControls
 
             foreach (DisciplineRecord eachDis in DisciplineList)
             {
-                StudentRecord SR = Student.SelectByID(eachDis.RefStudentID); //取得學生
-
-                string discipline = GetDisciplineString(eachDis);
-
-                if (discipline == "")
-                    continue;
-
-                if (eachDis.MeritFlag == "0") //是懲戒
+                //取得學生
+                if (studDic.ContainsKey(eachDis.RefStudentID))
                 {
-                    if (eachDis.Cleared == "是") //已消過就離開
-                    {
+                    StRecord SR = studDic[eachDis.RefStudentID];
+
+                    string discipline = GetDisciplineString(eachDis);
+
+                    if (discipline == "")
                         continue;
+
+                    if (eachDis.MeritFlag == "0") //是懲戒
+                    {
+                        if (eachDis.Cleared == "是") //已消過就離開
+                        {
+                            continue;
+                        }
                     }
+
+                    if (CheckMerit(eachDis, jone)) //如果不是CheckBox所勾選內容
+                        continue;
+
+                    if (!StudentCount.Contains(eachDis.RefStudentID))
+                    {
+                        StudentCount.Add(eachDis.RefStudentID); //學生人數統計
+                    }
+
+                    DataGridViewRow _row = new DataGridViewRow();
+                    _row.CreateCells(dataGridViewX1);
+
+                    _row.Cells[0].Value = eachDis.ID; //獎懲編號
+                    _row.Cells[1].Value = eachDis.RefStudentID; //系統編號
+                    _row.Cells[2].Value = eachDis.OccurDate.ToShortDateString(); //獎懲日期
+                    if (SR.ClassName != "")
+                    {
+                        _row.Cells[3].Value = SR.ClassName; //班級
+                    }
+                    _row.Cells[4].Value = SR.SeatNo; //座號
+                    _row.Cells[5].Value = SR.StudentNumber; //學號
+                    _row.Cells[6].Value = SR.StudentName; //姓名
+                    _row.Cells[7].Value = SR.Gender; //性別
+                    _row.Cells[8].Value = discipline; //獎懲次數
+                    _row.Cells[9].Value = eachDis.Reason; //事由
+                    _row.Cells[10].Value = eachDis.Remark; //備註 2019/12/24 新增
+                    _row.Cells[11].Value = eachDis.SchoolYear; //學年度
+                    _row.Cells[12].Value = eachDis.Semester; //學期
+                    if (eachDis.RegisterDate.HasValue)
+                    {
+                        _row.Cells[13].Value = eachDis.RegisterDate.Value.ToShortDateString(); //學期
+                    }
+                    _row.Cells[14].Value = eachDis.MeritFlag; //獎懲區分
+
+                    dataGridViewX1.Rows.Add(_row);
+
+                    _row.Tag = eachDis;
                 }
 
-                if (CheckMerit(eachDis, jone)) //如果不是CheckBox所勾選內容
-                    continue;
+                txtHelpStudentCount.Text = "學生人數：" + StudentCount.Count;
 
-                if (!StudentCount.Contains(eachDis.RefStudentID))
-                {
-                    StudentCount.Add(eachDis.RefStudentID); //學生人數統計
-                }
+                dataGridViewX1.ResumeLayout();
 
-                DataGridViewRow _row = new DataGridViewRow();
-                _row.CreateCells(dataGridViewX1);
-
-                _row.Cells[0].Value = eachDis.ID; //獎懲編號
-                _row.Cells[1].Value = eachDis.RefStudentID; //系統編號
-                _row.Cells[2].Value = eachDis.OccurDate.ToShortDateString(); //獎懲日期
-                if (SR.Class != null)
-                {
-                    _row.Cells[3].Value = SR.Class.Name; //班級
-                }
-                _row.Cells[4].Value = SR.SeatNo; //座號
-                _row.Cells[5].Value = SR.StudentNumber; //學號
-                _row.Cells[6].Value = SR.Name; //姓名
-                _row.Cells[7].Value = SR.Gender; //性別
-                _row.Cells[8].Value = discipline; //獎懲次數
-                _row.Cells[9].Value = eachDis.Reason; //事由
-                _row.Cells[10].Value = eachDis.SchoolYear; //學年度
-                _row.Cells[11].Value = eachDis.Semester; //學期
-                if (eachDis.RegisterDate.HasValue)
-                {
-                    _row.Cells[12].Value = eachDis.RegisterDate.Value.ToShortDateString(); //學期
-                }
-                _row.Cells[13].Value = eachDis.MeritFlag; //獎懲區分
-
-                dataGridViewX1.Rows.Add(_row);
-
-                _row.Tag = eachDis;
+                if (dataGridViewX1.Rows.Count > 0)
+                    dataGridViewX1.Rows[0].Selected = false;
+                #endregion
             }
-
-            txtHelpStudentCount.Text = "學生人數：" + StudentCount.Count;
-
-            dataGridViewX1.ResumeLayout();
-
-            if (dataGridViewX1.Rows.Count > 0)
-                dataGridViewX1.Rows[0].Selected = false;
-            #endregion
         }
 
         #region 時間判斷
@@ -893,16 +903,7 @@ namespace K12.Behavior.StuAdminExtendControls
             ModifyForm form = new ModifyForm(helper);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                dataGridViewX1.SuspendLayout();
-                string reason = form.NewReason;
-                string discipline = GetDisciplineString(form.Helper[0]);
-
-                foreach (DataGridViewRow row in dataGridViewX1.SelectedRows)
-                {
-                    row.Cells[colReason.Index].Value = reason;
-                    row.Cells[colDisciplineCount.Index].Value = discipline;
-                }
-                dataGridViewX1.ResumeLayout();
+                btnRefresh_Click(null, null); //更新畫面資料
             }
             #endregion
         }
@@ -1190,5 +1191,56 @@ namespace K12.Behavior.StuAdminExtendControls
                 btnRefresh_Click(null, null); //更新畫面資料
             }
         }
+
+        private void 修改備註資料ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            #region 批次修改獎懲備註
+            if (dataGridViewX1.SelectedRows.Count <= 0) return;
+
+            List<DisciplineRecord> helper = new List<DisciplineRecord>();
+            foreach (DataGridViewRow each in dataGridViewX1.SelectedRows)
+            {
+                helper.Add((DisciplineRecord)each.Tag);
+            }
+
+            ChangeRemarkForm ctf = new ChangeRemarkForm(helper);
+            DialogResult dr = ctf.ShowDialog();
+
+            if (dr == System.Windows.Forms.DialogResult.Yes)
+            {
+                btnRefresh_Click(null, null); //更新畫面資料
+            }
+            #endregion
+        }
+    }
+
+    class StRecord
+    {
+        public StRecord(DataRow row)
+        {
+            StudentID = "" + row["student_id"];
+            StudentName = "" + row["student_name"];
+            StudentNumber = "" + row["student_number"];
+            if ("" + row["gender"] == "0")
+                Gender = "女";
+            else if ("" + row["gender"] == "1")
+                Gender = "男";
+            else
+                Gender = "";
+
+            SeatNo = "" + row["seat_no"];
+            ClassName = "" + row["class_name"];
+            RefClassID = "" + row["class_id"];
+        }
+
+        public string StudentID { get; set; }
+        public string StudentName { get; set; }
+        public string StudentNumber { get; set; }
+        public string Gender { get; set; }
+        public string SeatNo { get; set; }
+        public string ClassName { get; set; }
+        public string RefClassID { get; set; }
+
+
     }
 }

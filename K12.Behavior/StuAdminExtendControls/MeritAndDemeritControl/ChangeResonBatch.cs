@@ -47,18 +47,33 @@ namespace K12.Behavior.StuAdminExtendControls
             if (dr == System.Windows.Forms.DialogResult.Yes)
             {
                 ChangeText = textBoxX1.Text.Trim();
+                StringBuilder sb_log = new StringBuilder();
 
                 foreach (DisciplineRecord each in _helper)
                 {
+                    string ClassName = each.Student.Class != null ? each.Student.Class.Name : "";
+                    string SeatNo = each.Student.SeatNo.HasValue ? each.Student.SeatNo.Value.ToString() : "";
+                    sb_log.Append(string.Format("班級「{0}」學生「{1}」座號「{2}」", ClassName, each.Student.Name, SeatNo));
+
+                    string name = "";
+                    if (each.MeritFlag == "1")
+                        name = "獎勵";
+                    else if (each.MeritFlag == "0")
+                        name = "懲戒";
+                    else
+                        name = "留查";
+
+                    sb_log.AppendLine(string.Format("{0}日期「{1}」事由增加前置詞「{2}」修改為「{3}」", name, each.OccurDate.ToShortDateString(), each.Reason, ChangeText + each.Reason));
+
                     each.Reason = ChangeText + each.Reason;
                 }
 
                 try
                 {
                     Discipline.Update(_helper);
-
+                    sb_log.AppendLine("\n共" + _helper.Count + "筆資料");
                     MsgBox.Show("資料儲存完成");
-                    ApplicationLog.Log("獎懲批次修改", "修改", "批次增加事由前置詞「" + ChangeText + "」\n" + "共" + _helper.Count + "筆資料");
+                    ApplicationLog.Log("獎懲批次修改", "修改", sb_log.ToString());
                     this.DialogResult = System.Windows.Forms.DialogResult.Yes;
                 }
                 catch (Exception ex)
