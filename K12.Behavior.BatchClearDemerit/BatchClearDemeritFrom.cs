@@ -61,7 +61,7 @@ namespace K12.Behavior.BatchClearDemerit
         {
             if (dataGridViewX1.SelectedRows.Count == 0)
             {
-                MsgBox.Show("請選擇要[銷過]的懲戒資料!!");
+                MsgBox.Show("請選擇要「銷過」的懲戒資料!!");
                 return;
             }
 
@@ -442,7 +442,7 @@ namespace K12.Behavior.BatchClearDemerit
             row.Cells[10].Value = each.ClearDate.HasValue ? each.ClearDate.Value.ToShortDateString() : "";
             row.Cells[11].Value = each.ClearReason;
             row.Cells[12].Value = each.RegisterDate.HasValue ? each.RegisterDate.Value.ToShortDateString() : "";
-
+            row.Cells[13].Value = each.Remark;
             dgv.Rows.Add(row);
         }
 

@@ -53,7 +53,7 @@ namespace K12.Behavior.StudentExtendControls
             else if (this._students.Count == 1)
             {
                 Text = string.Format("懲戒管理 【 新增：{0} 】", this._students[0].Name); ;
-            } 
+            }
             #endregion
         }
 
@@ -154,7 +154,7 @@ namespace K12.Behavior.StudentExtendControls
             {
                 if (each is DevComponents.DotNetBar.Controls.TextBoxX)
                     (each as DevComponents.DotNetBar.Controls.TextBoxX).ReadOnly = !permission.Editable;
-            } 
+            }
             #endregion
         }
 
@@ -277,7 +277,8 @@ namespace K12.Behavior.StudentExtendControls
 
             int sum = int.Parse(GetTextValue(txt1.Text)) + int.Parse(GetTextValue(txt2.Text)) + int.Parse(GetTextValue(txt3.Text));
             //留察資料 
-            if (cbMeritFlag.Checked == false)
+            bool MeritFlag = cbMeritFlag.Checked;
+            if (MeritFlag == false)
             {
                 //未輸入值
                 if (sum <= 0)
@@ -328,10 +329,17 @@ namespace K12.Behavior.StudentExtendControls
                     }
                     if (LogDemeritList[0].DemeritC.HasValue)
                     {
-                        sb.Append("警告「" + LogDemeritList[0].DemeritC.Value.ToString() + "」");
+                        sb.AppendLine("警告「" + LogDemeritList[0].DemeritC.Value.ToString() + "」");
                     }
-                    sb.Append("懲戒事由「" + LogDemeritList[0].Reason + "」");
-                    sb.Append("備註「" + LogDemeritList[0].Remark + "」");
+                    sb.AppendLine("懲戒事由「" + LogDemeritList[0].Reason + "」");
+                    sb.AppendLine("備註「" + LogDemeritList[0].Remark + "」");
+
+                    if (MeritFlag)
+                    {
+                        sb.AppendLine("");
+                        sb.AppendLine("＊「此筆為留察紀錄」");
+                    }
+
                     ApplicationLog.Log("學務系統.懲戒資料", "新增學生懲戒資料", "student", _students[0].ID, sb.ToString());
                     #endregion
                     MsgBox.Show("新增懲戒資料成功!");
@@ -341,7 +349,7 @@ namespace K12.Behavior.StudentExtendControls
                     #region 批次新增Log
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine("批次新增懲戒資料");
-                    sb.Append("日期「" + LogDemeritList[0].OccurDate.ToShortDateString() + "」");
+                    sb.AppendLine("日期「" + LogDemeritList[0].OccurDate.ToShortDateString() + "」");
                     sb.AppendLine("共「" + LogDemeritList.Count + "」名學生，");
                     sb.AppendLine("詳細資料：");
                     if (LogDemeritList[0].DemeritA.HasValue)
@@ -354,7 +362,7 @@ namespace K12.Behavior.StudentExtendControls
                     }
                     if (LogDemeritList[0].DemeritC.HasValue)
                     {
-                        sb.Append("警告「" + LogDemeritList[0].DemeritC.Value.ToString() + "」");
+                        sb.AppendLine("警告「" + LogDemeritList[0].DemeritC.Value.ToString() + "」");
                     }
                     sb.AppendLine("懲戒事由「" + LogDemeritList[0].Reason + "」");
                     sb.AppendLine("備註「" + LogDemeritList[0].Remark + "」");
@@ -382,6 +390,11 @@ namespace K12.Behavior.StudentExtendControls
                         }
                     }
 
+                    if (MeritFlag)
+                    {
+                        sb.AppendLine("");
+                        sb.AppendLine("＊「此筆為留察紀錄」");
+                    }
                     ApplicationLog.Log("學務系統.懲戒資料", "批次新增學生懲戒資料", sb.ToString());
                     #endregion
                     MsgBox.Show("批次新增懲戒資料成功!");

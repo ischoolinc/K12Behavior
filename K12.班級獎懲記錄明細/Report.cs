@@ -171,6 +171,7 @@ namespace K12.ClassMeritDemerit.Detail
                 string disciplineID = var.GetAttribute("ID");
                 string occurDateID = occurDate.ToShortDateString() + "_" + disciplineID;
                 string reason = var.SelectSingleNode("Reason").InnerText;
+                string remark = var.SelectSingleNode("Remark").InnerText;
                 string classID = studentClassDict[studentID];
 
                 //string registerDate = var.SelectSingleNode("RegisterDate").InnerText;
@@ -187,6 +188,9 @@ namespace K12.ClassMeritDemerit.Detail
                 //加入事由
                 if (!allDisciplineDetail[classID][studentID][occurDateID].ContainsKey("事由"))
                     allDisciplineDetail[classID][studentID][occurDateID].Add("事由", reason);
+
+                if (!allDisciplineDetail[classID][studentID][occurDateID].ContainsKey("備註"))
+                    allDisciplineDetail[classID][studentID][occurDateID].Add("備註", remark);
 
                 //if (!allDisciplineDetail[classID][studentID][occurDateID].ContainsKey("登錄日期"))
                 //    allDisciplineDetail[classID][studentID][occurDateID].Add("登錄日期", registerDate);
@@ -280,6 +284,7 @@ namespace K12.ClassMeritDemerit.Detail
             columnTable.Add("銷過日期", colIndex++);
             columnTable.Add("銷過事由", colIndex++);
             columnTable.Add("事由", colIndex++);
+            columnTable.Add("備註", colIndex++); //2020/2/21 - Dylan 測試1-後補欄位
             //columnTable.Add("登錄日期", colIndex++);
             endIndex = colIndex;
 
@@ -452,7 +457,7 @@ namespace K12.ClassMeritDemerit.Detail
             string path = Path.Combine(Application.StartupPath, "Reports");
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
-            path = Path.Combine(path, reportName + ".xlt");
+            path = Path.Combine(path, reportName + ".xls");
             e.Result = new object[] { reportName, path, wb };
         }
         #endregion

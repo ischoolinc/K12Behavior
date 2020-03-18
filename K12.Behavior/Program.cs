@@ -45,20 +45,20 @@ namespace K12.Behavior
 
             #region 匯出匯入
             RibbonBarItem rbItemExport = MotherForm.RibbonBarItems["學生", "資料統計"];
-            rbItemExport["匯出"]["學務相關匯出"]["匯出缺曠紀錄"].Enable = Permissions.匯出缺曠記錄權限;
-            rbItemExport["匯出"]["學務相關匯出"]["匯出缺曠紀錄"].Click += delegate
+            rbItemExport["匯出"]["學務相關匯出"]["匯出缺曠記錄"].Enable = Permissions.匯出缺曠記錄權限;
+            rbItemExport["匯出"]["學務相關匯出"]["匯出缺曠記錄"].Click += delegate
             {
                 new ExportStudent(new ExportAbsence()).ShowDialog();
             };
 
-            rbItemExport["匯出"]["學務相關匯出"]["匯出獎懲紀錄"].Enable = Permissions.匯出獎懲記錄權限;
-            rbItemExport["匯出"]["學務相關匯出"]["匯出獎懲紀錄"].Click += delegate
+            rbItemExport["匯出"]["學務相關匯出"]["匯出獎懲記錄"].Enable = Permissions.匯出獎懲記錄權限;
+            rbItemExport["匯出"]["學務相關匯出"]["匯出獎懲記錄"].Click += delegate
             {
                 new ExportStudent(new ExportDiscipline()).ShowDialog();
             };
 
-            rbItemExport["匯入"]["學務相關匯入"]["匯入獎懲紀錄"].Enable = Permissions.匯入獎懲記錄權限;
-            rbItemExport["匯入"]["學務相關匯入"]["匯入獎懲紀錄"].Click += delegate
+            rbItemExport["匯入"]["學務相關匯入"]["匯入獎懲記錄"].Enable = Permissions.匯入獎懲記錄權限;
+            rbItemExport["匯入"]["學務相關匯入"]["匯入獎懲記錄"].Click += delegate
             {
                 SmartSchool.API.PlugIn.Import.Importer importer = new ImportDiscipline();
                 ImportStudentV2 wizard = new ImportStudentV2(importer.Text, importer.Image);
@@ -66,8 +66,8 @@ namespace K12.Behavior
                 wizard.ShowDialog();
             };
 
-            rbItemExport["匯入"]["學務相關匯入"]["匯入缺曠紀錄"].Enable = Permissions.匯入缺曠記錄權限;
-            rbItemExport["匯入"]["學務相關匯入"]["匯入缺曠紀錄"].Click += delegate
+            rbItemExport["匯入"]["學務相關匯入"]["匯入缺曠記錄"].Enable = Permissions.匯入缺曠記錄權限;
+            rbItemExport["匯入"]["學務相關匯入"]["匯入缺曠記錄"].Click += delegate
             {
                 new ImportStudent(new ImportAbsence()).ShowDialog();
             };
@@ -260,7 +260,7 @@ namespace K12.Behavior
             Catalog ribbon = RoleAclSource.Instance["學生"]["資料項目"];
             ribbon.Add(new FISCA.Permission.DetailItemFeature(Permissions.獎勵記錄, "獎勵記錄"));
             ribbon.Add(new FISCA.Permission.DetailItemFeature(Permissions.懲戒記錄, "懲戒記錄"));
-            ribbon.Add(new FISCA.Permission.DetailItemFeature(Permissions.缺曠記錄, "缺曠紀錄"));
+            ribbon.Add(new FISCA.Permission.DetailItemFeature(Permissions.缺曠記錄, "缺曠記錄"));
 
             //Catalog studentRibbon = RoleAclSource.Instance["學生"]["功能按鈕"];
             //studentRibbon.Add(new RibbonFeature(Permissions.缺曠, "缺曠"));

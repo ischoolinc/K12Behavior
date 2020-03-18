@@ -197,7 +197,7 @@ namespace K12.Behavior.StudentExtendControls
             }
 
             MeritRecord record = (MeritRecord)this.listView.SelectedItems[0].Tag;
-            MeritEditForm editForm = new MeritEditForm(record, UserPermission); 
+            MeritEditForm editForm = new MeritEditForm(record, UserPermission);
             //此編輯表單在修改模式下，一次只能對一位學生的某一筆懲戒記錄進行修改，所以 Constructor 就傳入一個 Editor 物件。
             editForm.ShowDialog();
         }
@@ -238,7 +238,7 @@ namespace K12.Behavior.StudentExtendControls
             {
                 MeritRecord record = item.Tag as MeritRecord;
                 MeritList.Add(record);
-            }     
+            }
 
             try
             {
@@ -254,12 +254,22 @@ namespace K12.Behavior.StudentExtendControls
             sb.AppendLine("學生「" + K12.Data.Student.SelectByID(this.PrimaryKey).Name + "」");
             foreach (MeritRecord merit in MeritList)
             {
+                sb.AppendLine("學年度「" + merit.SchoolYear + "」");
+                sb.AppendLine("學期「" + merit.Semester + "」");
                 sb.AppendLine("日期「" + merit.OccurDate.ToShortDateString() + "」");
+
+                int a = merit.MeritA.HasValue ? merit.MeritA.Value : 0;
+                int b = merit.MeritB.HasValue ? merit.MeritB.Value : 0;
+                int c = merit.MeritC.HasValue ? merit.MeritC.Value : 0;
+                sb.AppendLine(string.Format("支數「大功：{0} 小功：{1} 嘉獎：{2}」", a, b, c));
+
+                sb.AppendLine("事由「" + merit.Reason + "」");
+                sb.AppendLine("備註「" + merit.Remark + "」");
             }
             sb.AppendLine("獎勵資料已被刪除。");
 
             ApplicationLog.Log("學務系統.獎勵資料", "刪除學生獎勵資料", "student", this.PrimaryKey, sb.ToString());
-            
+
             MsgBox.Show("刪除獎勵資料成功");
         }
 

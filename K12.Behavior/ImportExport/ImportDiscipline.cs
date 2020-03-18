@@ -17,7 +17,7 @@ namespace K12.Behavior
     {
         public ImportDiscipline()
         {
-            this.Text = "匯入獎勵懲戒記錄";
+            this.Text = "匯入獎懲記錄";
         }
 
         public override void InitializeImport(SmartSchool.API.PlugIn.Import.ImportWizard wizard)
@@ -422,15 +422,17 @@ namespace K12.Behavior
                 DSXmlHelper updateHelper = new DSXmlHelper("UpdateRequest");
                 DSXmlHelper insertHelper = new DSXmlHelper("InsertRequest");
 
-                //2014/3/6 新增Log記錄
+                //2014/3/6 新增Log記錄「" + name + "」
                 StringBuilder Log_sb = new StringBuilder();
                 if (chose1.Checked)
                 {
-                    Log_sb.AppendLine("以事由更新獎懲記錄：");
+                    Log_sb.AppendLine("「以事由為鍵值匯入」");
+                    Log_sb.AppendLine("");
                 }
                 if (chose2.Checked)
                 {
-                    Log_sb.AppendLine("以次數更新獎懲記錄：");
+                    Log_sb.AppendLine("「以支數為鍵值匯入」");
+                    Log_sb.AppendLine("");
                 }
 
                 foreach (RowData row in e.Items)
@@ -834,10 +836,13 @@ namespace K12.Behavior
             };
         }
 
+        /// <summary>
+        /// 取得新增Log
+        /// </summary>
         string GetInsertString(DSXmlHelper helper, string state)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(state + "「" + helper.GetElements("Discipline").Length + "」筆資料");
+            int count = 0;
             foreach (XmlElement xml in helper.GetElements("Discipline"))
             {
                 K12.Data.StudentRecord sr = K12.Data.Student.SelectByID(xml.SelectSingleNode("RefStudentID").InnerText);
@@ -848,26 +853,74 @@ namespace K12.Behavior
                     string class_name = sr.Class != null ? sr.Class.Name : "";
                     string seat_no = sr.SeatNo.HasValue ? sr.SeatNo.Value.ToString() : "";
 
-                    string date = xml.SelectSingleNode("OccurDate").InnerText;
+                    string OccurDate = xml.SelectSingleNode("OccurDate").InnerText;
+                    DateTime dtime = DateTime.Parse(OccurDate);
+
                     string Reason = xml.SelectSingleNode("Reason").InnerText;
                     string Remark = xml.SelectSingleNode("Remark").InnerText;
+
+                    string MeritA = "0";
+                    string MeritB = "0";
+                    string MeritC = "0";
+                    string DemeritA = "0";
+                    string DemeritB = "0";
+                    string DemeritC = "0";
+
+                    XmlElement Merit = (XmlElement)xml.SelectSingleNode("Detail//Discipline//Merit");
+                    if (Merit != null)
+                    {
+                        MeritA = Merit.GetAttribute("A");
+                        MeritB = Merit.GetAttribute("B");
+                        MeritC = Merit.GetAttribute("C");
+                    }
+
+                    XmlElement Demerit = (XmlElement)xml.SelectSingleNode("Detail//Discipline//Demerit");
+                    if (Demerit != null)
+                    {
+                        DemeritA = Demerit.GetAttribute("A");
+                        DemeritB = Demerit.GetAttribute("B");
+                        DemeritC = Demerit.GetAttribute("C");
+                    }
+
                     if (MeritFlag == "1")
+                    {
                         sb.AppendLine("獎勵：");
+                        sb.AppendLine("班級「" + class_name + "」座號「" + seat_no + "」姓名「" + name + "」");
+                        sb.AppendLine("日期「" + dtime.ToShortDateString() + "」");
+                        sb.AppendLine("大功「" + MeritA + "」小功「" + MeritB + "」嘉獎「" + MeritC + "」");
+                    }
                     else if (MeritFlag == "0")
+                    {
                         sb.AppendLine("懲戒：");
+                        sb.AppendLine("班級「" + class_name + "」座號「" + seat_no + "」姓名「" + name + "」");
+                        sb.AppendLine("日期「" + dtime.ToShortDateString() + "」");
+                        sb.AppendLine("大過「" + DemeritA + "」小過「" + DemeritB + "」警告「" + DemeritC + "」");
+                    }
                     else if (MeritFlag == "2")
+                    {
                         sb.AppendLine("留查：");
-                    sb.Append("班級「" + class_name + "」座號「" + seat_no + "」姓名「" + name + "」");
-                    sb.AppendLine("日期「" + date + "」事由「" + Reason + "」備註「" + Remark + "」");
+                        sb.AppendLine("班級「" + class_name + "」座號「" + seat_no + "」姓名「" + name + "」");
+                        sb.AppendLine("日期「" + dtime.ToShortDateString() + "」");
+                        sb.AppendLine("「留察資料支數為0」");
+                    }
+
+                    sb.AppendLine("事由「" + Reason + "」");
+                    sb.AppendLine("備註「" + Remark + "」");
+                    sb.AppendLine("");
+                    count++;
                 }
             }
+            sb.AppendLine(state + "「" + count + "」筆資料");
             return sb.ToString();
         }
 
+        /// <summary>
+        /// 取得更新Log
+        /// </summary>
         string GetUpdataString(DSXmlHelper helper, string state)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(state + "「" + helper.GetElements("Discipline").Length + "」筆資料");
+            int count = 0;
             FISCA.Data.QueryHelper _q = new FISCA.Data.QueryHelper();
 
             List<string> disList = new List<string>();
@@ -876,6 +929,7 @@ namespace K12.Behavior
                 if (!disList.Contains(each.InnerText))
                 {
                     disList.Add(each.InnerText);
+                    count++;
                 }
             }
 
@@ -884,10 +938,36 @@ namespace K12.Behavior
             {
                 string RefStudentID = "" + row["ref_student_id"];
                 string OccurDate = "" + row["occur_date"];
+                DateTime dtime = DateTime.Parse(OccurDate);
+
                 string Reason = "" + row["reason"];
                 string Remark = "" + row["remark"];
                 string MeritFlag = "" + row["merit_Flag"];
-                DateTime dtime = DateTime.Parse(OccurDate);
+
+                XmlElement xml = XmlHelper.LoadXml("" + row["detail"]);
+
+                string MeritA = "0";
+                string MeritB = "0";
+                string MeritC = "0";
+                string DemeritA = "0";
+                string DemeritB = "0";
+                string DemeritC = "0";
+
+                XmlElement Merit = (XmlElement)xml.SelectSingleNode("Merit");
+                if (Merit != null)
+                {
+                    MeritA = Merit.GetAttribute("A");
+                    MeritB = Merit.GetAttribute("B");
+                    MeritC = Merit.GetAttribute("C");
+                }
+
+                XmlElement Demerit = (XmlElement)xml.SelectSingleNode("Demerit");
+                if (Demerit != null)
+                {
+                    DemeritA = Demerit.GetAttribute("A");
+                    DemeritB = Demerit.GetAttribute("B");
+                    DemeritC = Demerit.GetAttribute("C");
+                }
 
                 K12.Data.StudentRecord sr = K12.Data.Student.SelectByID(RefStudentID);
                 if (sr != null)
@@ -898,15 +978,32 @@ namespace K12.Behavior
                     string date = dtime.ToShortDateString();
 
                     if (MeritFlag == "1")
+                    {
                         sb.AppendLine("獎勵：");
+                        sb.AppendLine("班級「" + class_name + "」座號「" + seat_no + "」姓名「" + name + "」");
+                        sb.AppendLine("日期「" + dtime.ToShortDateString() + "」");
+                        sb.AppendLine("大功「" + MeritA + "」小功「" + MeritB + "」嘉獎「" + MeritC + "」");
+                    }
                     else if (MeritFlag == "0")
+                    {
                         sb.AppendLine("懲戒：");
+                        sb.AppendLine("班級「" + class_name + "」座號「" + seat_no + "」姓名「" + name + "」");
+                        sb.AppendLine("日期「" + dtime.ToShortDateString() + "」");
+                        sb.AppendLine("大過「" + DemeritA + "」小過「" + DemeritB + "」警告「" + DemeritC + "」");
+                    }
                     else if (MeritFlag == "2")
+                    {
                         sb.AppendLine("留查：");
-                    sb.Append("班級「" + class_name + "」座號「" + seat_no + "」姓名「" + name + "」");
-                    sb.AppendLine("日期「" + date + "」事由「" + Reason + "」備註「" + Remark + "」");
+                        sb.AppendLine("班級「" + class_name + "」座號「" + seat_no + "」姓名「" + name + "」");
+                        sb.AppendLine("日期「" + dtime.ToShortDateString() + "」");
+                        sb.AppendLine("「留察資料支數為0」");
+                    }
+                    sb.AppendLine("事由「" + Reason + "」");
+                    sb.AppendLine("備註「" + Remark + "」");
+                    sb.AppendLine("");
                 }
             }
+            sb.AppendLine(state + "「" + count + "」筆資料");
             return sb.ToString();
         }
     }

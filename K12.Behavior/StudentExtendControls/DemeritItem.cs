@@ -292,7 +292,17 @@ namespace K12.Behavior.StudentExtendControls
             sb.AppendLine("學生「" + K12.Data.Student.SelectByID(this.PrimaryKey).Name + "」");
             foreach (DemeritRecord demerit in DemeritList)
             {
+                sb.AppendLine("學年度「" + demerit.SchoolYear + "」");
+                sb.AppendLine("學期「" + demerit.Semester + "」");
                 sb.AppendLine("日期「" + demerit.OccurDate.ToShortDateString() + "」");
+
+                int a = demerit.DemeritA.HasValue ? demerit.DemeritA.Value : 0;
+                int b = demerit.DemeritB.HasValue ? demerit.DemeritB.Value : 0;
+                int c = demerit.DemeritC.HasValue ? demerit.DemeritC.Value : 0;
+                sb.AppendLine(string.Format("支數「大過：{0} 小過：{1} 警告：{2}」", a, b, c));
+
+                sb.AppendLine("事由「" + demerit.Reason + "」");
+                sb.AppendLine("備註「" + demerit.Remark + "」");
             }
             sb.AppendLine("懲戒資料已被刪除。");
 
