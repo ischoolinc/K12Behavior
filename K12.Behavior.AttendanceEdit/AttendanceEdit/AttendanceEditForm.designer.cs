@@ -117,6 +117,7 @@
             this.dataGridViewX1.Size = new System.Drawing.Size(780, 342);
             this.dataGridViewX1.TabIndex = 9;
             this.dataGridViewX1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewX1_CellEndEdit);
+            this.dataGridViewX1.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewX1_CellEnter);
             this.dataGridViewX1.SelectionChanged += new System.EventHandler(this.dataGridViewX1_SelectionChanged);
             this.dataGridViewX1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewX1_KeyDown);
             // 
@@ -127,26 +128,26 @@
             this.加入待處理ToolStripMenuItem,
             this.ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(167, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(171, 70);
             // 
             // 批次輸入學年期ToolStripMenuItem
             // 
             this.批次輸入學年期ToolStripMenuItem.Name = "批次輸入學年期ToolStripMenuItem";
-            this.批次輸入學年期ToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.批次輸入學年期ToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.批次輸入學年期ToolStripMenuItem.Text = "批次調整學年期";
             this.批次輸入學年期ToolStripMenuItem.Click += new System.EventHandler(this.批次輸入學年期ToolStripMenuItem_Click);
             // 
             // 加入待處理ToolStripMenuItem
             // 
             this.加入待處理ToolStripMenuItem.Name = "加入待處理ToolStripMenuItem";
-            this.加入待處理ToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.加入待處理ToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.加入待處理ToolStripMenuItem.Text = "加入待處理";
             this.加入待處理ToolStripMenuItem.Click += new System.EventHandler(this.加入待處理ToolStripMenuItem_Click);
             // 
             // ToolStripMenuItem
             // 
             this.ToolStripMenuItem.Name = "ToolStripMenuItem";
-            this.ToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.ToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.ToolStripMenuItem.Text = "刪除選擇缺曠資料";
             this.ToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
@@ -835,6 +836,7 @@
             this.Controls.Add(this.groupPanel2);
             this.Controls.Add(this.groupPanel3);
             this.Controls.Add(this.btnRefresh);
+            this.DoubleBuffered = true;
             this.MaximizeBox = true;
             this.MinimizeBox = true;
             this.Name = "AttendanceEditForm";

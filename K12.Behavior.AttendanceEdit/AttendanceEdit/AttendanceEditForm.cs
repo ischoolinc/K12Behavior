@@ -1386,5 +1386,15 @@ namespace K12.Behavior.AttendanceEdit
             }
 
         }
+
+        private void dataGridViewX1_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == P_index["日期"] || 
+                e.ColumnIndex == P_index["學年度"] || 
+                e.ColumnIndex == P_index["學期"])
+            {
+                dataGridViewX1.ImeMode = ImeMode.Off;
+            }
+        }
     }
 }

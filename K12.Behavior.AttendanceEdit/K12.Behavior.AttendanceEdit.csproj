@@ -44,62 +44,59 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Aspose.Cells, Version=4.4.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56">
+    <Reference Include="Aspose.Cells, Version=4.3.0.0, Culture=neutral, PublicKeyToken=9a40d5a4b59e5256, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ischool_Elementary\FiscaRuntime\modules\LIB_ASPOSE\Aspose.Cells.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Aspose.Words, Version=4.4.1.0, Culture=neutral, PublicKeyToken=716fcc553a201e56">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ischool_Elementary\FiscaRuntime\modules\LIB_ASPOSE\Aspose.Words.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Campus">
-      <HintPath>..\..\..\ischool_Elementary\FiscaRuntime\modules\LIB_Campus\Campus.dll</HintPath>
+      <HintPath>Library\Aspose.Cells.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevComponents.DotNetBar2, Version=9.5.0.1, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ischool_Elementary\FiscaRuntime\components\DevComponents.DotNetBar2.dll</HintPath>
-    </Reference>
-    <Reference Include="FISCA">
-      <HintPath>..\..\..\ischool_Elementary\FiscaRuntime\kernel\FISCA.dll</HintPath>
+      <HintPath>Library\DevComponents.DotNetBar2.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="FISCA.Data">
-      <HintPath>..\..\..\ischool_Elementary\FiscaRuntime\kernel\FISCA.Data.dll</HintPath>
+    <Reference Include="FISCA, Version=2.1.4.8, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\FISCA.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="FISCA.DSAUtil">
-      <HintPath>..\..\..\ischool_Elementary\FiscaRuntime\kernel\FISCA.DSAUtil.dll</HintPath>
+    <Reference Include="FISCA.Data, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\FISCA.Data.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="FISCA.LogAgent">
-      <HintPath>..\..\..\ischool_Elementary\FiscaRuntime\kernel\FISCA.LogAgent.dll</HintPath>
+    <Reference Include="FISCA.DSAUtil, Version=3.9.0.10, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\FISCA.DSAUtil.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="FISCA.Permission">
-      <HintPath>..\..\..\ischool_Elementary\FiscaRuntime\kernel\FISCA.Permission.dll</HintPath>
+    <Reference Include="FISCA.LogAgent, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\FISCA.LogAgent.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="FISCA.Presentation">
-      <HintPath>..\..\..\ischool_Elementary\FiscaRuntime\kernel\FISCA.Presentation.dll</HintPath>
+    <Reference Include="FISCA.Permission, Version=1.2.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\FISCA.Permission.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="FISCA.UDT">
-      <HintPath>..\..\..\ischool_Elementary\FiscaRuntime\kernel\FISCA.UDT.dll</HintPath>
+    <Reference Include="FISCA.Presentation, Version=1.1.0.19, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\FISCA.Presentation.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="K12.Data">
-      <HintPath>..\..\..\ischool_Elementary\FiscaRuntime\modules\LIB_K12DAL\K12.Data.dll</HintPath>
+    <Reference Include="K12.Data, Version=2.0.0.10, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\K12.Data.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="K12.Presentation">
-      <HintPath>..\..\..\ischool_Elementary\FiscaRuntime\modules\LIB_Campus\K12.Presentation.dll</HintPath>
+    <Reference Include="K12.Presentation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\K12.Presentation.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SmartSchool.ErrorReporting">
-      <HintPath>..\..\..\ischool_Elementary\FiscaRuntime\modules\LIB_Legacy\SmartSchool.ErrorReporting.dll</HintPath>
+    <Reference Include="SmartSchool.ErrorReporting, Version=1.0.2.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\SmartSchool.ErrorReporting.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -192,25 +189,54 @@
     <Content Include="Library\Aspose.Cells.dll" />
     <Content Include="Library\Aspose.Cells.xml" />
     <Content Include="Library\Campus.dll" />
+    <Content Include="Library\DevComponents.DotNetBar2.dll" />
+    <Content Include="Library\FISCA.Authentication.dll" />
+    <Content Include="Library\FISCA.Authentication.xml" />
     <Content Include="Library\FISCA.Data.dll" />
     <Content Include="Library\FISCA.Data.pdb" />
+    <Content Include="Library\FISCA.Data.xml" />
     <Content Include="Library\FISCA.dll" />
+    <Content Include="Library\FISCA.DSAClient.dll" />
+    <Content Include="Library\FISCA.DSAClient.xml" />
     <Content Include="Library\FISCA.DSAUtil.dll" />
     <Content Include="Library\FISCA.DSAUtil.pdb" />
+    <Content Include="Library\FISCA.DSAUtil.xml" />
     <Content Include="Library\FISCA.LogAgent.dll" />
     <Content Include="Library\FISCA.LogAgent.pdb" />
+    <Content Include="Library\FISCA.LogAgent.xml" />
     <Content Include="Library\FISCA.Permission.dll" />
     <Content Include="Library\FISCA.Permission.pdb" />
+    <Content Include="Library\FISCA.Permission.xml" />
     <Content Include="Library\FISCA.Presentation.dll" />
     <Content Include="Library\FISCA.Presentation.pdb" />
+    <Content Include="Library\FISCA.Presentation.xml" />
     <Content Include="Library\FISCA.UDT.dll" />
     <Content Include="Library\FISCA.UDT.pdb" />
+    <Content Include="Library\FISCA.UDT.xml" />
+    <Content Include="Library\Framework.dll" />
+    <Content Include="Library\IntelliSchool.DSA.ClientFramework.dll" />
+    <Content Include="Library\IntelliSchool.DSA.ClientFramework.xml" />
     <Content Include="Library\K12.Data.dll" />
     <Content Include="Library\K12.Data.pdb" />
+    <Content Include="Library\K12.Data.xml" />
     <Content Include="Library\K12.Presentation.dll" />
     <Content Include="Library\K12.Presentation.pdb" />
+    <Content Include="Library\K12.Presentation.xml" />
+    <Content Include="Library\SmartSchool.AccessControl.dll" />
+    <Content Include="Library\SmartSchool.API.PlugIn.dll" />
+    <Content Include="Library\SmartSchool.Common.dll" />
+    <Content Include="Library\SmartSchool.Common.DotNetBar.dll" />
+    <Content Include="Library\SmartSchool.Common.DotNetBar.xml" />
+    <Content Include="Library\SmartSchool.Core.dll" />
+    <Content Include="Library\SmartSchool.Core.General.dll" />
+    <Content Include="Library\SmartSchool.Customization.Data.dll" />
+    <Content Include="Library\SmartSchool.Customization.Data.xml" />
+    <Content Include="Library\SmartSchool.Customization.PlugIn.dll" />
+    <Content Include="Library\SmartSchool.Customization.PlugIn.xml" />
     <Content Include="Library\SmartSchool.ErrorReporting.dll" />
     <Content Include="Library\SmartSchool.ErrorReporting.pdb" />
+    <Content Include="Library\SmartSchool.ErrorReporting.xml" />
+    <Content Include="Library\SmartSchool.ExceptionHandler.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
