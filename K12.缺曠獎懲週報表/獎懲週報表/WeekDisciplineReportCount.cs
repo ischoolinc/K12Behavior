@@ -9,7 +9,7 @@ namespace K12.缺曠獎懲週報表
         private int _sizeIndex = 0;
         private bool _classcix;
         private bool _weekcix;
-
+        private string _remarkcix;
         public int PaperSize
         {
             get { return _sizeIndex; }
@@ -23,6 +23,11 @@ namespace K12.缺曠獎懲週報表
         public bool Weekcix
         {
             get { return _weekcix; }
+        }
+
+        public string Remarkcix
+        {
+            get { return _remarkcix; }
         }
 
         public WeekDisciplineReportCount()
@@ -87,6 +92,21 @@ namespace K12.缺曠獎懲週報表
                     config.AppendChild(newCheckWeek);
                     cd.SetXml("XmlData", config);
                 }
+
+                XmlElement TextRemark = (XmlElement)config.SelectSingleNode("TextRemark");
+
+                if (TextRemark != null)
+                {
+                    if (TextRemark.HasAttribute("Remark"))
+                        _remarkcix = TextRemark.GetAttribute("Remark");
+                }
+                else
+                {
+                    XmlElement newTextRemark = config.OwnerDocument.CreateElement("TextRemark");
+                    newTextRemark.SetAttribute("Remark", "false");
+                    config.AppendChild(newTextRemark);
+                    cd.SetXml("XmlData", config);
+                }
             }
             else
             {
@@ -104,6 +124,10 @@ namespace K12.缺曠獎懲週報表
                 WeekSetup.SetAttribute("Week", "false");
                 config.AppendChild(WeekSetup);
 
+                XmlElement Remark = config.OwnerDocument.CreateElement("TextRemark");
+                Remark.SetAttribute("Remark", "");
+                config.AppendChild(Remark);
+
                 //CurrentUser.Instance.Preference["獎懲週報表_列印設定"] = config;
                 cd.SetXml("XmlData", config);
                 #endregion
@@ -116,7 +140,7 @@ namespace K12.缺曠獎懲週報表
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            WeekAbsenceReportConfig config = new WeekAbsenceReportConfig("獎懲週報表_列印設定", _sizeIndex, _classcix, _weekcix);
+            WeekAbsenceReportConfig config = new WeekAbsenceReportConfig("獎懲週報表_列印設定", _sizeIndex, _classcix, _weekcix, _remarkcix);
             if (config.ShowDialog() == DialogResult.OK)
             {
                 LoadPreference();

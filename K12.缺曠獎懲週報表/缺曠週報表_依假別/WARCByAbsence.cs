@@ -9,6 +9,7 @@ namespace K12.缺曠獎懲週報表
         private int _sizeIndex;
         private bool _classcix;
         private bool _weekcix;
+        private string _remarkcix;
 
         public int PaperSize
         {
@@ -23,6 +24,11 @@ namespace K12.缺曠獎懲週報表
         public bool WeekCix
         {
             get { return _weekcix; }
+        }
+
+        public string RemarkCix
+        {
+            get { return _remarkcix; }
         }
 
         public WARCByAbsence()
@@ -98,6 +104,23 @@ namespace K12.缺曠獎懲週報表
                     cd.SetXml("XmlData", config);
                 }
 
+                XmlElement TextRemark = (XmlElement)config.SelectSingleNode("TextRemark");
+
+                if (TextRemark != null)
+                {
+                    if (TextRemark.HasAttribute("Remark"))
+                        _remarkcix = TextRemark.GetAttribute("Remark");
+                }
+                else
+                {
+                    XmlElement newTextRemark = config.OwnerDocument.CreateElement("TextRemark");
+                    newTextRemark.SetAttribute("Remark", "");
+                    config.AppendChild(newTextRemark);
+
+                    //CurrentUser.Instance.Preference["缺曠週報表_依缺曠別統計_列印設定"] = config;
+                    cd.SetXml("XmlData", config);
+                }
+
             }
             else
             {
@@ -115,6 +138,10 @@ namespace K12.缺曠獎懲週報表
                 WeekSetup.SetAttribute("Week", "false");
                 config.AppendChild(WeekSetup);
 
+                XmlElement RemarkSetup = config.OwnerDocument.CreateElement("TextRemark");
+                RemarkSetup.SetAttribute("Remark", "");
+                config.AppendChild(RemarkSetup);
+
                 //CurrentUser.Instance.Preference["缺曠週報表_依缺曠別統計_列印設定"] = config;
                 cd.SetXml("XmlData", config);
                 #endregion
@@ -125,7 +152,7 @@ namespace K12.缺曠獎懲週報表
 
         private void linkLabel2_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            WeekAbsenceReportConfig config = new WeekAbsenceReportConfig("缺曠週報表_依缺曠別統計_列印設定", _sizeIndex, _classcix, _weekcix);
+            WeekAbsenceReportConfig config = new WeekAbsenceReportConfig("缺曠週報表_依缺曠別統計_列印設定", _sizeIndex, _classcix, _weekcix, _remarkcix);
             if (config.ShowDialog() == DialogResult.OK)
             {
                 LoadPreference();

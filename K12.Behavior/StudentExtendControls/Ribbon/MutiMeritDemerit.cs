@@ -12,6 +12,7 @@ using System.Xml;
 using Framework.Feature;
 using K12.Data;
 using FISCA.LogAgent;
+using Campus.Windows;
 
 namespace K12.Behavior.StudentExtendControls
 {
@@ -37,6 +38,9 @@ namespace K12.Behavior.StudentExtendControls
         //Load
         private void MutiMeritDemerit_Load(object sender, EventArgs e)
         {
+            List<string> cols = new List<string>() { "大功", "小功", "嘉獎", "大過", "小過", "警告" };
+            DataGridViewImeDecorator dec = new DataGridViewImeDecorator(this.dataGridViewX1, cols);
+
             comboBoxEx1.DisplayMember = "Key";
             comboBoxEx1.ValueMember = "Value";
             integerInput1.Text = School.DefaultSchoolYear;
@@ -140,13 +144,13 @@ namespace K12.Behavior.StudentExtendControls
         {
             if (CheckIntError())
             {
-                MsgBox.Show("輸入獎懲隻數型態錯誤,請重新修正後再儲存!!");
+                FISCA.Presentation.Controls.MsgBox.Show("輸入獎懲隻數型態錯誤,請重新修正後再儲存!!");
                 return;
             }
 
             if (CheckReasonError())
             {
-                DialogResult dr = MsgBox.Show("部份學生資料未輸入事由,是否繼續儲存作業?", MessageBoxButtons.YesNo, MessageBoxDefaultButton.Button1);
+                DialogResult dr = FISCA.Presentation.Controls.MsgBox.Show("部份學生資料未輸入事由,是否繼續儲存作業?", MessageBoxButtons.YesNo, MessageBoxDefaultButton.Button1);
 
                 if (dr == System.Windows.Forms.DialogResult.No)
                 {
@@ -163,11 +167,11 @@ namespace K12.Behavior.StudentExtendControls
                 }
                 catch (Exception ex)
                 {
-                    MsgBox.Show("新增獎勵失敗\n" + ex.Message);
+                    FISCA.Presentation.Controls.MsgBox.Show("新增獎勵失敗\n" + ex.Message);
                     return;
                 }
                 ApplicationLog.Log("學務系統.獎勵登錄", "獎勵快速登錄", sb.ToString());
-                MsgBox.Show("新增獎勵成功!");
+                FISCA.Presentation.Controls.MsgBox.Show("新增獎勵成功!");
             }
             else //懲戒
             {
@@ -178,11 +182,11 @@ namespace K12.Behavior.StudentExtendControls
                 }
                 catch (Exception ex)
                 {
-                    MsgBox.Show("新增獎勵失敗\n" + ex.Message);
+                    FISCA.Presentation.Controls.MsgBox.Show("新增獎勵失敗\n" + ex.Message);
                     return;
                 }
                 ApplicationLog.Log("學務系統.懲戒登錄", "懲戒快速登錄", sb.ToString());
-                MsgBox.Show("新增懲戒成功!");
+                FISCA.Presentation.Controls.MsgBox.Show("新增懲戒成功!");
             }
 
             this.Close();

@@ -68,7 +68,7 @@ namespace K12.缺曠獎懲週報表.缺曠週報表_依假別
 
                 FISCA.Presentation.MotherForm.SetStatusBarMessage("正在初始化缺曠週報表...");
 
-                object[] args = new object[] { config, weekForm.StartDate, weekForm.EndDate, weekForm.PaperSize, weekForm.ClassCix, weekForm.WeekCix };
+                object[] args = new object[] { config, weekForm.StartDate, weekForm.EndDate, weekForm.PaperSize, weekForm.ClassCix, weekForm.WeekCix, weekForm.RemarkCix };
 
                 _BGWAbsenceWeekListByAbsence = new BackgroundWorker();
                 _BGWAbsenceWeekListByAbsence.DoWork += new DoWorkEventHandler(_BGWAbsenceWeekListByAbsence_DoWork);
@@ -96,6 +96,8 @@ namespace K12.缺曠獎懲週報表.缺曠週報表_依假別
             bool CheckClass = (bool)args[4];
 
             bool CheckWeek = (bool)args[5];
+
+            string Remark = (string)args[6];
 
             DateTime firstDate = startDate;
 
@@ -311,7 +313,7 @@ namespace K12.缺曠獎懲週報表.缺曠週報表_依假別
                     prototype.Worksheets[0].Cells[titleRow + 2, colIndex].PutValue(var);
                     columnTable.Add(SaveVar, colIndex - 3);
 
-                    if(!perList.Contains(SaveVar))
+                    if (!perList.Contains(SaveVar))
                     {
                         perList.Add(type + "_" + var);
                     }
@@ -361,7 +363,7 @@ namespace K12.缺曠獎懲週報表.缺曠週報表_依假別
 
             dayStartIndex += dayColumnNumber;
             prototype.Worksheets[0].Cells.CreateRange(dayStartIndex, dayColumnNumber, true).Copy(dayRange);
-            
+
             //2011/3/10 - 調整顯示字樣                
             prototype.Worksheets[0].Cells[titleRow, dayStartIndex].PutValue("本學期累計");
 
@@ -555,9 +557,38 @@ namespace K12.缺曠獎懲週報表.缺曠週報表_依假別
 
                     //資料列上邊各加上黑線
                     ws.Cells.CreateRange(index + 4, 0, 1, dayStartIndex).SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Medium, Color.Black);
-
+                  
                     index = dataIndex;
 
+                    //增加一說明欄位 - 2020/9/21
+                    //1.備註資料 , 2.欄寬
+                    if (Remark != "")
+                    {
+                        //資料列下緣增加邊線
+                        ws.Cells.CreateRange(dataIndex, 0, 1, dayStartIndex).SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Medium, Color.Black);
+
+                        ws.Cells.CreateRange(index, 1, 1, dayStartIndex - 1).Merge();
+
+                        Range RemarkRow = ws.Cells.CreateRange(dataIndex, 0, 1, dayStartIndex);
+                        RemarkRow.SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Medium, Color.Black);
+                        RemarkRow.SetOutlineBorder(BorderType.LeftBorder, CellBorderType.Medium, Color.Black);
+                        RemarkRow.SetOutlineBorder(BorderType.RightBorder, CellBorderType.Medium, Color.Black);
+
+                        string[] JR = new string[] { "\r\n" };
+                        string[] Hei = Remark.Split(JR, StringSplitOptions.None);
+                        if (20 * Hei.Length > 409)
+                            RemarkRow.RowHeight = 409;
+                        else
+                            RemarkRow.RowHeight = 20 * Hei.Length;
+
+                        ws.Cells[dataIndex, 1].PutValue(Remark);
+
+                        Aspose.Cells.Style style = ws.Cells[dataIndex, 1].Style;
+                        style.IsTextWrapped = true;
+                        ws.Cells[dataIndex, 1].Style = style;
+
+                        index++;
+                    }
 
                     //設定分頁
                     ws.HPageBreaks.Add(index, dayStartIndex);
@@ -567,10 +598,10 @@ namespace K12.缺曠獎懲週報表.缺曠週報表_依假別
 
 
             //最後一頁的資料列下邊加上黑線
-            if (dataIndex != 0)
-            {
-                ws.Cells.CreateRange(dataIndex - 1, 0, 1, dayStartIndex).SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Medium, Color.Black);
-            }
+            //if (dataIndex != 0)
+            //{
+            //    ws.Cells.CreateRange(dataIndex - 1, 0, 1, dayStartIndex).SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Medium, Color.Black);
+            //}
 
             #endregion
 

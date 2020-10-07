@@ -9,6 +9,7 @@ namespace K12.缺曠獎懲週報表
         private int _sizeIndex = 0;
         private bool _classcix;
         private bool _weekcix;
+        private string _remarkcix;
 
         public int PaperSize
         {
@@ -23,6 +24,11 @@ namespace K12.缺曠獎懲週報表
         public bool WeekCix
         {
             get { return _weekcix; }
+        }
+
+        public string RemarkCix
+        {
+            get { return _remarkcix; }
         }
 
         public string ConfigName = "缺曠週報表_依節次統計_列印設定";
@@ -99,6 +105,22 @@ namespace K12.缺曠獎懲週報表
                     //CurrentUser.Instance.Preference["缺曠週報表_依缺曠別統計_列印設定"] = config;
                     cd.SetXml("XmlData", config);
                 }
+
+                //Remark - 2020/9/21新增
+                XmlElement Remark = (XmlElement)config.SelectSingleNode("TextRemark");
+
+                if (Remark != null)
+                {
+                    if (Remark.HasAttribute("Remark"))
+                        _remarkcix = Remark.GetAttribute("Remark");
+                }
+                else
+                {
+                    XmlElement newRemark = config.OwnerDocument.CreateElement("TextRemark");
+                    newRemark.SetAttribute("Remark", "");
+                    config.AppendChild(newRemark);
+                    cd.SetXml("XmlData", config);
+                }
             }
             else
             {
@@ -116,6 +138,10 @@ namespace K12.缺曠獎懲週報表
                 WeekSetup.SetAttribute("Week", "false");
                 config.AppendChild(WeekSetup);
 
+                XmlElement RemarkSetup = config.OwnerDocument.CreateElement("TextRemark");
+                RemarkSetup.SetAttribute("Remark", "");
+                config.AppendChild(RemarkSetup);
+
                 //CurrentUser.Instance.Preference["缺曠週報表_依節次統計_列印設定"] = config;
                 cd.SetXml("XmlData", config);
                 #endregion
@@ -131,7 +157,7 @@ namespace K12.缺曠獎懲週報表
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            WeekAbsenceReportConfig config = new WeekAbsenceReportConfig(ConfigName, _sizeIndex, _classcix, _weekcix);
+            WeekAbsenceReportConfig config = new WeekAbsenceReportConfig(ConfigName, _sizeIndex, _classcix, _weekcix, _remarkcix);
             if (config.ShowDialog() == DialogResult.OK)
             {
                 LoadPreference();

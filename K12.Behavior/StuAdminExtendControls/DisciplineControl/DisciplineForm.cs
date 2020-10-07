@@ -38,6 +38,10 @@ namespace K12.Behavior.StuAdminExtendControls
 
         private void InitialList()
         {
+            List<string> cols = new List<string>() { "¨Æ¥Ñ¥N½X" };
+            Campus.Windows.DataGridViewImeDecorator dec = new Campus.Windows.DataGridViewImeDecorator(this.dataGridViewX1, cols);
+
+
             _isInititaled = false;
 
             DSResponse dsrsp = Config.GetDisciplineReasonList();

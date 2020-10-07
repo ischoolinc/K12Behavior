@@ -336,6 +336,12 @@ namespace K12.Behavior.StuAdminExtendControls
         /// </summary>
         private void dataGridView_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.ColumnIndex == 2 || e.ColumnIndex == 3)
+            {
+                dataGridView.ImeMode = ImeMode.OnHalf;
+                dataGridView.ImeMode = ImeMode.Off;
+            }
+
             if (dataGridView.SelectedCells.Count == 1)
                 dataGridView.BeginEdit(true);
         }

@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Xml;
 using FISCA.Presentation.Controls;
@@ -9,7 +10,7 @@ namespace K12.缺曠獎懲週報表
     public partial class WeekAbsenceReportConfig : BaseForm
     {
         private string _reportName = "";
-        public WeekAbsenceReportConfig(string reportname, int sizeIndex, bool CheckClass, bool CheckWeek)
+        public WeekAbsenceReportConfig(string reportname, int sizeIndex, bool CheckClass, bool CheckWeek, string Remarkcix)
         {
             InitializeComponent();
 
@@ -17,10 +18,18 @@ namespace K12.缺曠獎懲週報表
             comboBoxEx1.SelectedIndex = sizeIndex;
             checkBoxX1.Checked = CheckClass;
             checkBoxX2.Checked = CheckWeek;
+            textBoxX1.Text = Remarkcix;
         }
 
         private void buttonX1_Click(object sender, EventArgs e)
         {
+            //if (textBoxX1.Text.Length > 500)
+            //{
+            //    MsgBox.Show(string.Format("請勿超過500字(目前字數{0})", textBoxX1.Text.Length));
+            //    return;
+            //}
+
+
             #region 儲存 Preference
 
             //XmlElement config = CurrentUser.Instance.Preference[_reportName];
@@ -38,7 +47,7 @@ namespace K12.缺曠獎懲週報表
             if (config.SelectSingleNode("Print") == null)
                 config.AppendChild(print);
             else
-                config.ReplaceChild(print, config.SelectSingleNode("Print")); 
+                config.ReplaceChild(print, config.SelectSingleNode("Print"));
             #endregion
 
             #region CheckClass
@@ -48,17 +57,27 @@ namespace K12.缺曠獎懲週報表
             if (config.SelectSingleNode("CheckClass") == null)
                 config.AppendChild(TestClass);
             else
-                config.ReplaceChild(TestClass, config.SelectSingleNode("CheckClass")); 
+                config.ReplaceChild(TestClass, config.SelectSingleNode("CheckClass"));
             #endregion
 
             #region CheckWeek
-            XmlElement TestWeek = config.OwnerDocument.CreateElement("CheckWeek");
-            TestWeek.SetAttribute("Week", checkBoxX2.Checked.ToString());
+            XmlElement CheckWeek = config.OwnerDocument.CreateElement("CheckWeek");
+            CheckWeek.SetAttribute("Week", checkBoxX2.Checked.ToString());
 
             if (config.SelectSingleNode("CheckWeek") == null)
-                config.AppendChild(TestWeek);
+                config.AppendChild(CheckWeek);
             else
-                config.ReplaceChild(TestWeek, config.SelectSingleNode("CheckWeek"));
+                config.ReplaceChild(CheckWeek, config.SelectSingleNode("CheckWeek"));
+            #endregion
+
+            #region TextRemark
+            XmlElement TextRemark = config.OwnerDocument.CreateElement("TextRemark");
+            TextRemark.SetAttribute("Remark", textBoxX1.Text);
+
+            if (config.SelectSingleNode("TextRemark") == null)
+                config.AppendChild(TextRemark);
+            else
+                config.ReplaceChild(TextRemark, config.SelectSingleNode("TextRemark"));
             #endregion
 
             //CurrentUser.Instance.Preference[_reportName] = config;
@@ -76,6 +95,20 @@ namespace K12.缺曠獎懲週報表
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void textBoxX1_TextChanged(object sender, EventArgs e)
+        {
+            labelX3.Text = string.Format("請勿超過500字(字數{0})", textBoxX1.Text.Length);
+
+            if (textBoxX1.Text.Length > 500)
+            {
+                textBoxX1.ForeColor = Color.Red;
+            }
+            else
+            {
+                textBoxX1.ForeColor = labelX2.ForeColor;
+            }
         }
     }
 }

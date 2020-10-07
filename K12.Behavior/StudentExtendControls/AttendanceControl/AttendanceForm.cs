@@ -165,7 +165,7 @@ namespace K12.Behavior.StudentExtendControls
                 rb.AutoSize = true;
                 //rb.Font = new Font(FontStyles.GeneralFontFamily, 9.25f);
                 rb.Tag = info;
-                rb.CheckedChanged += delegate(object sender, EventArgs e)
+                rb.CheckedChanged += delegate (object sender, EventArgs e)
                 {
                     if (rb.Checked)
                     {
@@ -185,6 +185,8 @@ namespace K12.Behavior.StudentExtendControls
             #endregion
 
             #region 初始化節次表
+
+            List<string> plist = new List<string>();
             foreach (PeriodMappingInfo info in periodList)
             {
                 //Log使用
@@ -194,9 +196,12 @@ namespace K12.Behavior.StudentExtendControls
                 DataGridViewTextBoxColumn column = new DataGridViewTextBoxColumn();
                 column.Width = 40;
                 column.HeaderText = info.Name;
+                plist.Add(info.Name);
                 column.Tag = info;
                 dataGridViewX1.Columns.Add(column);
             }
+            Campus.Windows.DataGridViewImeDecorator dec = new Campus.Windows.DataGridViewImeDecorator(this.dataGridViewX1, plist);
+
             DataGridViewRow row = new DataGridViewRow();
             row.CreateCells(dataGridViewX1);
             dataGridViewX1.Rows.Add(row);
@@ -344,7 +349,7 @@ namespace K12.Behavior.StudentExtendControls
                 }
 
                 ApplicationLog.Log("學務系統.缺曠資料", "新增學生缺曠資料", "student", _editor.Student.ID, sb.ToString());
-                MsgBox.Show("新增學生缺曠資料成功!"); 
+                MsgBox.Show("新增學生缺曠資料成功!");
                 #endregion
             }
             else if (_status == EditorStatus.Update)
@@ -389,7 +394,7 @@ namespace K12.Behavior.StudentExtendControls
                     ApplicationLog.Log("學務系統.缺曠資料", "修改學生缺曠資料", "student", _editor.Student.ID, sb.ToString());
                 }
 
-                MsgBox.Show("修改學生缺曠資料成功!"); 
+                MsgBox.Show("修改學生缺曠資料成功!");
                 #endregion
             }
             this.Close();
@@ -460,7 +465,7 @@ namespace K12.Behavior.StudentExtendControls
             {
                 return;
             }
-            
+
 
             //如果未輸入資料(如果是按空白鍵)
             if (string.IsNullOrEmpty(CurrentCellValue))
@@ -509,11 +514,11 @@ namespace K12.Behavior.StudentExtendControls
                 e.KeyCode == Keys.Down ||
                 e.KeyCode == Keys.Left ||
                 e.KeyCode == Keys.Right ||
-                e.KeyCode == Keys.Tab || 
+                e.KeyCode == Keys.Tab ||
                 e.KeyCode == Keys.ShiftKey ||
                 e.KeyCode == (Keys.ShiftKey | Keys.LButton) ||
                 e.KeyCode == (Keys.ShiftKey | Keys.RButton) ||
-                e.KeyCode == (Keys.ControlKey | Keys.LButton)||
+                e.KeyCode == (Keys.ControlKey | Keys.LButton) ||
                 e.KeyCode == (Keys.ControlKey | Keys.RButton))
             {
                 return true;
@@ -547,7 +552,7 @@ namespace K12.Behavior.StudentExtendControls
                 dataGridViewX1.Rows[0].Cells[0].Selected = false;
                 SelectedFalse = false;
             }
-        } 
+        }
         #endregion
     }
 }

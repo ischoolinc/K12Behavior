@@ -119,6 +119,9 @@ namespace K12.Behavior.AttendanceEdit
 
         private void AttendanceEditForm_Load(object sender, EventArgs e)
         {
+            List<string> cols = new List<string>() { "日期", "學年度", "學期" };
+            Campus.Windows.DataGridViewImeDecorator dec = new Campus.Windows.DataGridViewImeDecorator(this.dataGridViewX1, cols);
+
             //起始 - 背景模式
             InitializeBGW.DoWork += new DoWorkEventHandler(InitializeBGW_DoWork);
             InitializeBGW.RunWorkerCompleted += new RunWorkerCompletedEventHandler(InitializeBGW_RunWorkerCompleted);
@@ -249,7 +252,7 @@ namespace K12.Behavior.AttendanceEdit
             P_index.Add("AttendanceID", columnIndex);
             dataGridViewX1.Columns[columnIndex].Visible = false; //隱藏
 
-            columnIndex = dataGridViewX1.Columns.Add(SingleEditorMethod.SetColumn(dataGridViewX1, "colClassName", "班級", true, true, DataGridViewAutoSizeColumnMode.DisplayedCells, Color.LightCyan));
+            columnIndex = dataGridViewX1.Columns.Add(SingleEditorMethod.SetColumn(dataGridViewX1, "colClassName", "班級", true, true, DataGridViewAutoSizeColumnMode.AllCells, Color.LightCyan));
             P_index.Add("班級", columnIndex);
 
             columnIndex = dataGridViewX1.Columns.Add(SingleEditorMethod.SetColumn(dataGridViewX1, "colSeatNo", "座號", true, true, DataGridViewAutoSizeColumnMode.DisplayedCells, Color.LightCyan));
@@ -258,7 +261,7 @@ namespace K12.Behavior.AttendanceEdit
             columnIndex = dataGridViewX1.Columns.Add(SingleEditorMethod.SetColumn(dataGridViewX1, "colStudentName", "姓名", true, true, DataGridViewAutoSizeColumnMode.DisplayedCells, Color.LightCyan));
             P_index.Add("姓名", columnIndex);
 
-            columnIndex = dataGridViewX1.Columns.Add(SingleEditorMethod.SetColumn(dataGridViewX1, "colDateTime", "日期", false, true, DataGridViewAutoSizeColumnMode.DisplayedCells, Color.White));
+            columnIndex = dataGridViewX1.Columns.Add(SingleEditorMethod.SetColumn(dataGridViewX1, "colDateTime", "日期", false, false, DataGridViewAutoSizeColumnMode.AllCells, Color.White));
             P_index.Add("日期", columnIndex);
             dataGridViewX1.Columns[columnIndex].Frozen = true; //凍結欄位
 
@@ -1101,21 +1104,30 @@ namespace K12.Behavior.AttendanceEdit
             this.Close();
         }
 
-        private int SortByClassAndSeatNo(AttendanceRecord attendX, AttendanceRecord attendy)
+        private int SortByClassAndSeatNo(AttendanceRecord attendX, AttendanceRecord attendY)
         {
             StudentRecord x = attendX.Student;
-            StudentRecord y = attendy.Student;
+            StudentRecord y = attendY.Student;
             string 班級名稱1 = (x.Class == null ? "" : x.Class.Name) + "::";
             string 座號1 = (x.SeatNo.HasValue ? x.SeatNo.Value.ToString().PadLeft(2, '0') : "") + "::";
             string 班級名稱2 = (y.Class == null ? "" : y.Class.Name) + "::";
             string 座號2 = (y.SeatNo.HasValue ? y.SeatNo.Value.ToString().PadLeft(2, '0') : "") + "::";
-            string 日期1 = attendX.OccurDate.ToShortDateString();
-            string 日期2 = attendy.OccurDate.ToShortDateString();
-            班級名稱1 += 座號1;
-            班級名稱1 += 日期1;
 
+            班級名稱1 += 座號1;
             班級名稱2 += 座號2;
-            班級名稱2 += 日期2;
+            if (attendX.OccurDate > attendY.OccurDate)
+                班級名稱1 += "3";
+            else if (attendX.OccurDate == attendY.OccurDate)
+                班級名稱1 += "2";
+            else
+                班級名稱1 += "1";
+
+            if (attendY.OccurDate > attendX.OccurDate)
+                班級名稱2 += "3";
+            else if (attendY.OccurDate == attendX.OccurDate)
+                班級名稱2 += "2";
+            else
+                班級名稱2 += "1";
 
             return 班級名稱1.CompareTo(班級名稱2);
         }
@@ -1383,17 +1395,6 @@ namespace K12.Behavior.AttendanceEdit
             else if (dr == System.Windows.Forms.DialogResult.No) //無動作
             {
 
-            }
-
-        }
-
-        private void dataGridViewX1_CellEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == P_index["日期"] || 
-                e.ColumnIndex == P_index["學年度"] || 
-                e.ColumnIndex == P_index["學期"])
-            {
-                dataGridViewX1.ImeMode = ImeMode.Off;
             }
         }
     }
