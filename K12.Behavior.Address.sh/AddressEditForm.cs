@@ -5,11 +5,11 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using FISCA.Presentation.Controls;
-using Campus.Windows;
 using K12.Data;
 using System.Windows.Forms;
 using FISCA.LogAgent;
 using System.Drawing;
+using Campus.Windows;
 
 namespace K12.Behavior.Address.sh
 {
@@ -47,6 +47,9 @@ namespace K12.Behavior.Address.sh
             BGW.RunWorkerAsync();
 
             labelX2.Text = "學生待處理：" + K12.Presentation.NLDPanels.Student.TempSource.Count() + "人";
+
+     
+
             #endregion
         }
 
@@ -63,6 +66,8 @@ namespace K12.Behavior.Address.sh
             this.Text = "聯絡資訊管理";
 
             comboBoxEx1.SelectedIndex = 0;
+
+        
 
             //DataListener.SuspendListen(); //終止變更判斷
             //整理畫面樣式
@@ -380,6 +385,21 @@ namespace K12.Behavior.Address.sh
         void Student_TempSourceChanged(object sender, EventArgs e)
         {
             labelX2.Text = "學生待處理：" + K12.Presentation.NLDPanels.Student.TempSource.Count() + "人";
+        }
+
+       
+        private void dataGridViewX1_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+         
+            string HeaderText = dataGridViewX1.Columns[e.ColumnIndex].HeaderText;
+            List<string> cols = new List<string>() { "郵遞區號","聯絡電話","其他1","其他2","其他3","手機"};
+
+            if (cols.Contains(HeaderText))
+            {
+                dataGridViewX1.ImeMode = ImeMode.OnHalf;
+                dataGridViewX1.ImeMode = ImeMode.Off;
+            }
+
         }
     }
 }

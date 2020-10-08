@@ -33,13 +33,13 @@
             this.btnSavePage = new DevComponents.DotNetBar.ButtonX();
             this.btnExit = new DevComponents.DotNetBar.ButtonX();
             this.dataGridViewX1 = new DevComponents.DotNetBar.Controls.DataGridViewX();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.加入待處理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空待處理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboBoxEx1 = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.comboItem1 = new DevComponents.Editors.ComboItem();
             this.comboItem2 = new DevComponents.Editors.ComboItem();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.加入待處理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.清空待處理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewX1)).BeginInit();
@@ -79,9 +79,9 @@
             this.dataGridViewX1.AllowUserToAddRows = false;
             this.dataGridViewX1.AllowUserToDeleteRows = false;
             this.dataGridViewX1.AllowUserToResizeRows = false;
-            this.dataGridViewX1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewX1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewX1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewX1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewX1.ContextMenuStrip = this.contextMenuStrip1;
@@ -102,7 +102,30 @@
             this.dataGridViewX1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewX1.Size = new System.Drawing.Size(768, 464);
             this.dataGridViewX1.TabIndex = 2;
+            this.dataGridViewX1.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewX1_CellEnter);
             this.dataGridViewX1.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewX1_CurrentCellDirtyStateChanged);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.加入待處理ToolStripMenuItem,
+            this.清空待處理ToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(159, 48);
+            // 
+            // 加入待處理ToolStripMenuItem
+            // 
+            this.加入待處理ToolStripMenuItem.Name = "加入待處理ToolStripMenuItem";
+            this.加入待處理ToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.加入待處理ToolStripMenuItem.Text = "加入學生待處理";
+            this.加入待處理ToolStripMenuItem.Click += new System.EventHandler(this.加入待處理ToolStripMenuItem_Click);
+            // 
+            // 清空待處理ToolStripMenuItem
+            // 
+            this.清空待處理ToolStripMenuItem.Name = "清空待處理ToolStripMenuItem";
+            this.清空待處理ToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.清空待處理ToolStripMenuItem.Text = "清空學生待處理";
+            this.清空待處理ToolStripMenuItem.Click += new System.EventHandler(this.清空待處理ToolStripMenuItem_Click);
             // 
             // comboBoxEx1
             // 
@@ -134,6 +157,11 @@
             // 
             this.labelX1.AutoSize = true;
             this.labelX1.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX1.BackgroundStyle.Class = "";
+            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX1.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
             this.labelX1.Location = new System.Drawing.Point(12, 10);
             this.labelX1.Name = "labelX1";
@@ -141,32 +169,15 @@
             this.labelX1.TabIndex = 4;
             this.labelX1.Text = "請選擇修改項目：";
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.加入待處理ToolStripMenuItem,
-            this.清空待處理ToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(155, 48);
-            // 
-            // 加入待處理ToolStripMenuItem
-            // 
-            this.加入待處理ToolStripMenuItem.Name = "加入待處理ToolStripMenuItem";
-            this.加入待處理ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.加入待處理ToolStripMenuItem.Text = "加入學生待處理";
-            this.加入待處理ToolStripMenuItem.Click += new System.EventHandler(this.加入待處理ToolStripMenuItem_Click);
-            // 
-            // 清空待處理ToolStripMenuItem
-            // 
-            this.清空待處理ToolStripMenuItem.Name = "清空待處理ToolStripMenuItem";
-            this.清空待處理ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.清空待處理ToolStripMenuItem.Text = "清空學生待處理";
-            this.清空待處理ToolStripMenuItem.Click += new System.EventHandler(this.清空待處理ToolStripMenuItem_Click);
-            // 
             // labelX2
             // 
             this.labelX2.AutoSize = true;
             this.labelX2.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX2.BackgroundStyle.Class = "";
+            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX2.Location = new System.Drawing.Point(391, 516);
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(108, 21);
@@ -177,6 +188,11 @@
             // 
             this.labelX3.AutoSize = true;
             this.labelX3.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX3.BackgroundStyle.Class = "";
+            this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX3.Location = new System.Drawing.Point(12, 516);
             this.labelX3.Name = "labelX3";
             this.labelX3.Size = new System.Drawing.Size(248, 21);
@@ -195,6 +211,7 @@
             this.Controls.Add(this.labelX2);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnSavePage);
+            this.DoubleBuffered = true;
             this.MaximizeBox = true;
             this.MinimizeBox = true;
             this.Name = "AddressEditForm";
