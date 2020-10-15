@@ -104,7 +104,9 @@ namespace K12.缺曠獎懲週報表.缺曠週報表_依假別
             #region 快取學生缺曠紀錄資料
 
             List<ClassRecord> selectedClass = Class.SelectByIDs(K12.Presentation.NLDPanels.Class.SelectedSource);
-            selectedClass.Sort(new Comparison<ClassRecord>(CommonMethods.ClassComparer));
+            selectedClass = SortClassIndex.K12Data_ClassRecord(selectedClass);
+            //selectedClass.Sort(new Comparison<ClassRecord>(CommonMethods.ClassComparer));
+
 
             Dictionary<string, List<StudentRecord>> classStudentList = new Dictionary<string, List<StudentRecord>>();
 
@@ -562,7 +564,7 @@ namespace K12.缺曠獎懲週報表.缺曠週報表_依假別
 
                     //增加一說明欄位 - 2020/9/21
                     //1.備註資料 , 2.欄寬
-                    if (Remark != "")
+                    if (!string.IsNullOrEmpty(Remark))
                     {
                         //資料列下緣增加邊線
                         ws.Cells.CreateRange(dataIndex, 0, 1, dayStartIndex).SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Medium, Color.Black);
