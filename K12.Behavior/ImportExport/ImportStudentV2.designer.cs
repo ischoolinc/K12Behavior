@@ -342,7 +342,7 @@
             // 
             // SelectSourceFileDialog
             // 
-            this.SelectSourceFileDialog.Filter = "Excel 檔案 (*.xls)| *.xls";
+            this.SelectSourceFileDialog.Filter = "Excel 檔案 (*.xlsx)| *.xlsx";
             // 
             // errorFile
             // 

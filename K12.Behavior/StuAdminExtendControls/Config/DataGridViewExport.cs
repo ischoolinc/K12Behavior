@@ -45,7 +45,7 @@ namespace K12.Behavior.StuAdminExtendControls
         {
             try
             {
-                _workbook.Save(path, FileFormatType.Excel2003);
+                _workbook.Save(path);
 
             }
             catch (Exception ex)

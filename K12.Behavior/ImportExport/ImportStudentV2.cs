@@ -566,9 +566,9 @@ namespace K12.Behavior
                                 errorSheet.Cells[errorSheetRowIndex, 0].PutValue(i + 1);
                                 errorSheet.Cells[errorSheetRowIndex, 1].PutValue("警告");
                                 errorSheet.Cells[errorSheetRowIndex, 2].PutValue("學生不是在校生。");
-                                errorSheet.Cells[errorSheetRowIndex, 0].Style = warningStyle;
-                                errorSheet.Cells[errorSheetRowIndex, 1].Style = warningStyle2;
-                                errorSheet.Cells[errorSheetRowIndex, 2].Style = warningStyle2;
+                                errorSheet.Cells[errorSheetRowIndex, 0].SetStyle(warningStyle);
+                                errorSheet.Cells[errorSheetRowIndex, 1].SetStyle(warningStyle2);
+                                errorSheet.Cells[errorSheetRowIndex, 2].SetStyle(warningStyle2);
                                 errorSheet.Hyperlinks.Add(errorSheetRowIndex, 0, 1, 1, "'" + wb.Worksheets[0].Name + "'!" + wb.Worksheets[0].Cells[i, 0].Name);
                                 errorSheet.AutoFitRow(errorSheetRowIndex);
                                 errorSheetRowIndex++;
@@ -594,14 +594,14 @@ namespace K12.Behavior
                             errorSheet.Cells[errorSheetRowIndex, 0].PutValue(i + 1);
                             errorSheet.Cells[errorSheetRowIndex, 1].PutValue("錯誤");
                             errorSheet.Cells[errorSheetRowIndex, 2].PutValue(rowError);
-                            errorSheet.Cells[errorSheetRowIndex, 0].Style = errorStyle;
-                            errorSheet.Cells[errorSheetRowIndex, 1].Style = errorStyle2;
-                            errorSheet.Cells[errorSheetRowIndex, 2].Style = errorStyle2;
+                            errorSheet.Cells[errorSheetRowIndex, 0].SetStyle(errorStyle);
+                            errorSheet.Cells[errorSheetRowIndex, 1].SetStyle(errorStyle2);
+                            errorSheet.Cells[errorSheetRowIndex, 2].SetStyle(errorStyle2);
                             errorSheet.Hyperlinks.Add(errorSheetRowIndex, 0, 1, 1, "'" + wb.Worksheets[0].Name + "'!" + wb.Worksheets[0].Cells[i, 0].Name);
                             wb.Worksheets[0].Hyperlinks.Add(i, 0, 1, 1, "'" + errorSheetName + "'!" + errorSheet.Cells[errorSheetRowIndex, 0].Name);
                             errorSheet.AutoFitRow(errorSheetRowIndex);
                             errorSheetRowIndex++;
-                            wb.Worksheets[0].Cells[i, 0].Style = errorStyle;
+                            wb.Worksheets[0].Cells[i, 0].SetStyle(errorStyle);
                         }
                     }
                     else
@@ -618,14 +618,14 @@ namespace K12.Behavior
                             errorSheet.Cells[errorSheetRowIndex, 0].PutValue(i + 1);
                             errorSheet.Cells[errorSheetRowIndex, 1].PutValue("錯誤");
                             errorSheet.Cells[errorSheetRowIndex, 2].PutValue("驗證欄位(學生系統編號)不得空白");
-                            errorSheet.Cells[errorSheetRowIndex, 0].Style = errorStyle;
-                            errorSheet.Cells[errorSheetRowIndex, 1].Style = errorStyle2;
-                            errorSheet.Cells[errorSheetRowIndex, 2].Style = errorStyle2;
+                            errorSheet.Cells[errorSheetRowIndex, 0].SetStyle(errorStyle);
+                            errorSheet.Cells[errorSheetRowIndex, 1].SetStyle(errorStyle2);
+                            errorSheet.Cells[errorSheetRowIndex, 2].SetStyle(errorStyle2);
                             errorSheet.Hyperlinks.Add(errorSheetRowIndex, 0, 1, 1, "'" + wb.Worksheets[0].Name + "'!" + wb.Worksheets[0].Cells[i, 0].Name);
                             wb.Worksheets[0].Hyperlinks.Add(i, 0, 1, 1, "'" + errorSheetName + "'!" + errorSheet.Cells[errorSheetRowIndex, 0].Name);
                             errorSheet.AutoFitRow(errorSheetRowIndex);
                             errorSheetRowIndex++;
-                            wb.Worksheets[0].Cells[i, 0].Style = errorStyle;
+                            wb.Worksheets[0].Cells[i, 0].SetStyle(errorStyle);
                         }
                     }
                     if ( bkw.CancellationPending )
@@ -779,14 +779,14 @@ namespace K12.Behavior
                             errorSheet.Cells[errorSheetRowIndex, 0].PutValue(i + 1);
                             errorSheet.Cells[errorSheetRowIndex, 1].PutValue("錯誤");
                             errorSheet.Cells[errorSheetRowIndex, 2].PutValue(rowError);
-                            errorSheet.Cells[errorSheetRowIndex, 0].Style = errorStyle;
-                            errorSheet.Cells[errorSheetRowIndex, 1].Style = errorStyle2;
-                            errorSheet.Cells[errorSheetRowIndex, 2].Style = errorStyle2;
+                            errorSheet.Cells[errorSheetRowIndex, 0].SetStyle(errorStyle);
+                            errorSheet.Cells[errorSheetRowIndex, 1].SetStyle(errorStyle2);
+                            errorSheet.Cells[errorSheetRowIndex, 2].SetStyle(errorStyle2);
                             errorSheet.Hyperlinks.Add(errorSheetRowIndex, 0, 1, 1, "'" + wb.Worksheets[0].Name + "'!" + wb.Worksheets[0].Cells[i, 0].Name);
                             wb.Worksheets[0].Hyperlinks.Add(i, 0, 1, 1, "'" + errorSheetName + "'!" + errorSheet.Cells[errorSheetRowIndex, 0].Name);
                             errorSheet.AutoFitRow(errorSheetRowIndex);
                             errorSheetRowIndex++;
-                            wb.Worksheets[0].Cells[i, 0].Style = errorStyle;
+                            wb.Worksheets[0].Cells[i, 0].SetStyle(errorStyle);
                         }
                     }
                     else
@@ -803,14 +803,14 @@ namespace K12.Behavior
                             errorSheet.Cells[errorSheetRowIndex, 0].PutValue(i + 1);
                             errorSheet.Cells[errorSheetRowIndex, 1].PutValue("錯誤");
                             errorSheet.Cells[errorSheetRowIndex, 2].PutValue("驗證欄位(學號)不得空白");
-                            errorSheet.Cells[errorSheetRowIndex, 0].Style = errorStyle;
-                            errorSheet.Cells[errorSheetRowIndex, 1].Style = errorStyle2;
-                            errorSheet.Cells[errorSheetRowIndex, 2].Style = errorStyle2;
+                            errorSheet.Cells[errorSheetRowIndex, 0].SetStyle(errorStyle);
+                            errorSheet.Cells[errorSheetRowIndex, 1].SetStyle(errorStyle2);
+                            errorSheet.Cells[errorSheetRowIndex, 2].SetStyle(errorStyle2);
                             errorSheet.Hyperlinks.Add(errorSheetRowIndex, 0, 1, 1, "'" + wb.Worksheets[0].Name + "'!" + wb.Worksheets[0].Cells[i, 0].Name);
                             wb.Worksheets[0].Hyperlinks.Add(i, 0, 1, 1, "'" + errorSheetName + "'!" + errorSheet.Cells[errorSheetRowIndex, 0].Name);
                             errorSheet.AutoFitRow(errorSheetRowIndex);
                             errorSheetRowIndex++;
-                            wb.Worksheets[0].Cells[i, 0].Style = errorStyle;
+                            wb.Worksheets[0].Cells[i, 0].SetStyle(errorStyle);
                         }
                     }
 
@@ -861,7 +861,7 @@ namespace K12.Behavior
                 rowError += args.ErrorMessage;
                 if ( rowError == "" && errorFields.Count == 0 && warningFields.Count == 0 )
                 {
-                    wb.Worksheets[0].Cells[rowDataIndex[row], 0].Style = passStyle;
+                    wb.Worksheets[0].Cells[rowDataIndex[row], 0].SetStyle(passStyle);
                 }
                 else
                 {
@@ -880,9 +880,9 @@ namespace K12.Behavior
                         errorSheet.Cells[errorSheetRowIndex, 0].PutValue(rowDataIndex[row] + 1);
                         errorSheet.Cells[errorSheetRowIndex, 1].PutValue(hasError ? "錯誤" : "警告");
                         errorSheet.Cells[errorSheetRowIndex, 2].PutValue(message);
-                        errorSheet.Cells[errorSheetRowIndex, 0].Style = errorStyle;
-                        errorSheet.Cells[errorSheetRowIndex, 1].Style = errorStyle2;
-                        errorSheet.Cells[errorSheetRowIndex, 2].Style = errorStyle2;
+                        errorSheet.Cells[errorSheetRowIndex, 0].SetStyle(errorStyle);
+                        errorSheet.Cells[errorSheetRowIndex, 1].SetStyle(errorStyle2);
+                        errorSheet.Cells[errorSheetRowIndex, 2].SetStyle(errorStyle2);
                         errorSheet.Hyperlinks.Add(errorSheetRowIndex, 0, 1, 1, "'" + wb.Worksheets[0].Name + "'!" + wb.Worksheets[0].Cells[rowDataIndex[row], 0].Name);
                         wb.Worksheets[0].Hyperlinks.Add(rowDataIndex[row], 0, 1, 1, "'" + errorSheetName + "'!" + errorSheet.Cells[errorSheetRowIndex, 0].Name);
                         errorSheet.AutoFitRow(errorSheetRowIndex);
@@ -901,16 +901,16 @@ namespace K12.Behavior
                         errorSheet.Cells[errorSheetRowIndex, 0].PutValue(rowDataIndex[row] + 1);
                         errorSheet.Cells[errorSheetRowIndex, 1].PutValue("警告");
                         errorSheet.Cells[errorSheetRowIndex, 2].PutValue(message);
-                        errorSheet.Cells[errorSheetRowIndex, 0].Style = warningStyle;
-                        errorSheet.Cells[errorSheetRowIndex, 1].Style = warningStyle2;
-                        errorSheet.Cells[errorSheetRowIndex, 2].Style = warningStyle2;
+                        errorSheet.Cells[errorSheetRowIndex, 0].SetStyle(warningStyle);
+                        errorSheet.Cells[errorSheetRowIndex, 1].SetStyle(warningStyle2);
+                        errorSheet.Cells[errorSheetRowIndex, 2].SetStyle(warningStyle2);
                         errorSheet.Hyperlinks.Add(errorSheetRowIndex, 0, 1, 1, "'" + wb.Worksheets[0].Name + "'!" + wb.Worksheets[0].Cells[rowDataIndex[row], 0].Name);
                         if ( !hasError )
                             wb.Worksheets[0].Hyperlinks.Add(rowDataIndex[row], 0, 1, 1, "'" + errorSheetName + "'!" + errorSheet.Cells[errorSheetRowIndex, 0].Name);
                         errorSheet.AutoFitRow(errorSheetRowIndex);
                         errorSheetRowIndex++;
                     }
-                    wb.Worksheets[0].Cells[rowDataIndex[row], 0].Style = hasError ? errorStyle : warningStyle;
+                    wb.Worksheets[0].Cells[rowDataIndex[row], 0].SetStyle(hasError ? errorStyle : warningStyle);
                 }
                 #endregion
                 if ( bkw.CancellationPending )
@@ -996,7 +996,7 @@ namespace K12.Behavior
             string path = Path.Combine(Application.StartupPath, "Reports");
             if ( !Directory.Exists(path) )
                 Directory.CreateDirectory(path);
-            path = Path.Combine(path, reportName + ".xls");
+            path = Path.Combine(path, reportName + ".xlsx");
 
             Workbook doc = inputDoc;
 
@@ -1023,8 +1023,8 @@ namespace K12.Behavior
             {
                 SaveFileDialog sd = new SaveFileDialog();
                 sd.Title = "另存新檔";
-                sd.FileName = reportName + ".xls";
-                sd.Filter = "Excel檔案 (*.xls)|*.xls|所有檔案 (*.*)|*.*";
+                sd.FileName = reportName + ".xlsx";
+                sd.Filter = "Excel檔案 (*.xlsx)|*.xlsx|所有檔案 (*.*)|*.*";
                 if ( sd.ShowDialog() == DialogResult.OK )
                 {
                     try

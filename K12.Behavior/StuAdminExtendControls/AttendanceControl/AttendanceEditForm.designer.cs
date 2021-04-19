@@ -318,7 +318,7 @@ namespace K12.Behavior.StuAdminExtendControls
             // saveFileDialog1
             // 
             this.saveFileDialog1.FileName = "匯出缺曠管理";
-            this.saveFileDialog1.Filter = "Excel (*.xls)|*.xls";
+            this.saveFileDialog1.Filter = "Excel (*.xlsx)|*.xlsx";
             // 
             // picWaiting
             // 

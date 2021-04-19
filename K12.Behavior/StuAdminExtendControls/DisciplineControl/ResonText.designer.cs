@@ -56,7 +56,7 @@
             this.buttonX2.Location = new System.Drawing.Point(161, 80);
             this.buttonX2.Name = "buttonX2";
             this.buttonX2.Size = new System.Drawing.Size(48, 23);
-            this.buttonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonX2.Style=DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonX2.TabIndex = 3;
             this.buttonX2.Text = "離開";
             // 
