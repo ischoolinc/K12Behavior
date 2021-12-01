@@ -230,8 +230,6 @@ namespace K12.Behavior.DisciplineNotification
             #region 表頭
             GetReduceList(); //獎懲對照表
 
-            string reportName = "獎懲通知單";
-
             object[] args = e.Argument as object[];
 
             DateTime startDate = (DateTime)args[0];
@@ -244,6 +242,8 @@ namespace K12.Behavior.DisciplineNotification
             int condNumber = int.Parse((string)args[7]);
             bool IsInsertDate = (bool)args[8];
             bool printStudentList = (bool)args[9];
+
+            string reportName = "獎懲通知單(" + startDate.ToString("yyyy-MM-dd") + "至" + endDate.ToString("yyyy-MM-dd") + ")";
 
             ChengeDemerit(condName, condNumber);
 
@@ -657,22 +657,22 @@ namespace K12.Behavior.DisciplineNotification
 
             totalStudentNumber = studentDiscipline.Count;
 
-            foreach (string student in studentDiscipline.Keys)
+            foreach (string studentID in studentDiscipline.Keys)
             {
                 if (printHasRecordOnly)
                 {
-                    if (studentDisciplineDetail[student].Count == 0)
+                    if (studentDisciplineDetail[studentID].Count == 0)
                         continue;
                 }
 
                 if (MeritDemerit == "獎勵")
                 {
-                    if (StudMeritSum[student] < MaxMerit)
+                    if (StudMeritSum[studentID] < MaxMerit)
                         continue;
                 }
                 else if (MeritDemerit == "懲戒")
                 {
-                    if (StudMeritSum[student] < MaxDemerit)
+                    if (StudMeritSum[studentID] < MaxDemerit)
                         continue;
                 }
                 else //未設定
@@ -689,16 +689,16 @@ namespace K12.Behavior.DisciplineNotification
                     if (flag == 1)
                     {
                         int tryM;
-                        A = studentDiscipline[student].TryGetValue("Range大功", out tryM) ? tryM : 0;
-                        B = studentDiscipline[student].TryGetValue("Range小功", out tryM) ? tryM : 0;
-                        C = studentDiscipline[student].TryGetValue("Range嘉獎", out tryM) ? tryM : 0;
+                        A = studentDiscipline[studentID].TryGetValue("Range大功", out tryM) ? tryM : 0;
+                        B = studentDiscipline[studentID].TryGetValue("Range小功", out tryM) ? tryM : 0;
+                        C = studentDiscipline[studentID].TryGetValue("Range嘉獎", out tryM) ? tryM : 0;
                     }
                     else if (flag == 0)
                     {
                         int tryD;
-                        A = studentDiscipline[student].TryGetValue("Range大過", out tryD) ? tryD : 0;
-                        B = studentDiscipline[student].TryGetValue("Range小過", out tryD) ? tryD : 0;
-                        C = studentDiscipline[student].TryGetValue("Range警告", out tryD) ? tryD : 0;
+                        A = studentDiscipline[studentID].TryGetValue("Range大過", out tryD) ? tryD : 0;
+                        B = studentDiscipline[studentID].TryGetValue("Range小過", out tryD) ? tryD : 0;
+                        C = studentDiscipline[studentID].TryGetValue("Range警告", out tryD) ? tryD : 0;
                     }
 
                     //if (filter.IsFilter(A, B, C))
@@ -714,9 +714,10 @@ namespace K12.Behavior.DisciplineNotification
                 //合併列印的資料
                 Dictionary<string, object> mapping = new Dictionary<string, object>();
 
-                Dictionary<string, string> eachStudentInfo = studentInfo[student];
+                Dictionary<string, string> eachStudentInfo = studentInfo[studentID];
 
                 //學生資料
+                mapping.Add("系統編號", "系統編號{" + studentID + "}");
                 mapping.Add("學生姓名", eachStudentInfo["Name"]);
                 mapping.Add("班級", eachStudentInfo["ClassName"]);
                 mapping.Add("座號", eachStudentInfo["SeatNo"]);
@@ -746,7 +747,7 @@ namespace K12.Behavior.DisciplineNotification
                 mapping.Add("學年度", School.DefaultSchoolYear);
                 mapping.Add("學期", School.DefaultSemester);
 
-                Dictionary<string, int> eachStudentDiscipline = studentDiscipline[student];
+                Dictionary<string, int> eachStudentDiscipline = studentDiscipline[studentID];
 
                 //學生獎懲累計資料
                 int count;
@@ -764,7 +765,7 @@ namespace K12.Behavior.DisciplineNotification
                 mapping.Add("本期累計警告", eachStudentDiscipline.TryGetValue("Range警告", out count) ? "" + count : "0");
 
                 //獎懲明細
-                object[] objectValues = new object[] { studentDisciplineDetail[student] };
+                object[] objectValues = new object[] { studentDisciplineDetail[studentID] };
                 mapping.Add("獎懲明細", objectValues);
 
                 string[] keys = new string[mapping.Count];
@@ -855,7 +856,9 @@ namespace K12.Behavior.DisciplineNotification
                 Directory.CreateDirectory(path);
             path = Path.Combine(path, reportName + ".doc");
             path2 = Path.Combine(path2, reportName + "(學生清單).xls");
-            e.Result = new object[] { reportName, path, doc, path2, printStudentList, wb };
+
+            string message = "【電子報表通知】您好 本期「{0}」已產生,可於電子報表中檢視「資料期間：{1} 至 {2}」";
+            e.Result = new object[] { reportName, path, doc, path2, printStudentList, wb, string.Format(message, "獎懲通知單", startDate.ToShortDateString(), endDate.ToShortDateString()) };
         }
 
         private void DisciplineNotification_MailMerge_MergeField(object sender, Aspose.Words.Reporting.MergeFieldEventArgs e)

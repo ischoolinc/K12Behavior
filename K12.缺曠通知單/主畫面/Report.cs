@@ -121,7 +121,7 @@ namespace K12.缺曠通知單
             SelectedStudents.Sort(new Comparison<StudentRecord>(CommonMethods.ClassSeatNoComparer));
 
             #endregion
-            string reportName = "缺曠通知單" + obj.StartDate.ToString("yyyy_MM_dd") + "至" + obj.EndDate.ToString("yyyy_MM_dd");
+            string reportName = "缺曠通知單(" + obj.StartDate.ToString("yyyy-MM-dd") + "至" + obj.EndDate.ToString("yyyy-MM-dd") + ")";
 
             #region 快取資料
 
@@ -558,13 +558,13 @@ namespace K12.缺曠通知單
                 mapping.Add("學校電話", School.Telephone);
 
                 //學生資料
+                mapping.Add("系統編號", "系統編號{" + studentID + "}");
                 mapping.Add("學生姓名", StudentSuperOBJ[studentID].student.Name);
                 mapping.Add("班級", StudentSuperOBJ[studentID].ClassName);
                 mapping.Add("座號", StudentSuperOBJ[studentID].SeatNo);
                 mapping.Add("學號", StudentSuperOBJ[studentID].StudentNumber);
                 mapping.Add("導師", StudentSuperOBJ[studentID].TeacherName);
                 mapping.Add("資料期間", obj.StartDate.ToShortDateString() + " 至 " + obj.EndDate.ToShortDateString());
-                mapping.Add("系統編號", "系統編號{" + studentID + "}");
 
                 //收件人資料
                 if (obj.ReceiveName == "監護人姓名")
@@ -699,7 +699,9 @@ namespace K12.缺曠通知單
                 Directory.CreateDirectory(path);
             path = Path.Combine(path, reportName + ".doc");
             path2 = Path.Combine(path2, reportName + "(學生清單).xls");
-            e.Result = new object[] { reportName, path, doc, path2, obj.PrintStudentList, wb };
+
+            string message = "【電子報表通知】您好 本期「{0}」已產生,可於電子報表中檢視「資料期間：{1} 至 {2}」";
+            e.Result = new object[] { reportName, path, doc, path2, obj.PrintStudentList, wb, string.Format(message, "缺曠通知單", obj.StartDate.ToShortDateString(), obj.EndDate.ToShortDateString()) };
         }
 
         private void AbsenceNotification_MailMerge_MergeField(object sender, Aspose.Words.Reporting.MergeFieldEventArgs e)

@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using K12.Data;
 using FISCA.Presentation.Controls;
+using Campus.ePaperCloud;
 
 namespace K12.Behavior.DisciplineNotification
 {
@@ -25,20 +26,7 @@ namespace K12.Behavior.DisciplineNotification
                 string path2 = (string)result[3];
                 bool PrintStudetnList = (bool)result[4];
                 Aspose.Cells.Workbook wb = (Aspose.Cells.Workbook)result[5];
-
-                if (File.Exists(path))
-                {
-                    int i = 1;
-                    while (true)
-                    {
-                        string newPath = Path.GetDirectoryName(path) + "\\" + Path.GetFileNameWithoutExtension(path) + (i++) + Path.GetExtension(path);
-                        if (!File.Exists(newPath))
-                        {
-                            path = newPath;
-                            break;
-                        }
-                    }
-                }
+                string Message = "" + result[6];
 
                 if (File.Exists(path2))
                 {
@@ -54,59 +42,33 @@ namespace K12.Behavior.DisciplineNotification
                     }
                 }
 
-                try
+                if (PrintStudetnList)
                 {
-                    if (PrintStudetnList)
-                    {
-                        doc.Save(path, Aspose.Words.SaveFormat.Doc);
-                        wb.Save(path2);
-                        FISCA.Presentation.MotherForm.SetStatusBarMessage(reportName + "產生完成");
-                        System.Diagnostics.Process.Start(path);
-                        System.Diagnostics.Process.Start(path2);
-                    }
-                    else
-                    {
-                        doc.Save(path, Aspose.Words.SaveFormat.Doc);
-                        FISCA.Presentation.MotherForm.SetStatusBarMessage(reportName + "產生完成");
-                        System.Diagnostics.Process.Start(path);
-                    }
+                    MemoryStream memoryStream = new MemoryStream();
+                    doc.Save(memoryStream, Aspose.Words.SaveFormat.Doc);
+                    ePaperCloud ePaperCloud = new ePaperCloud();
+                    ePaperCloud.upload_ePaper(Convert.ToInt32(School.DefaultSchoolYear), Convert.ToInt32(School.DefaultSemester)
+                        , reportName, "", memoryStream, ePaperCloud.ViewerType.Student, ePaperCloud.FormatType.Docx, Message);
+                    
+                    wb.Save(path2);
+                    FISCA.Presentation.MotherForm.SetStatusBarMessage(reportName + "產生完成");
+                    System.Diagnostics.Process.Start(path2);
                 }
-                catch (IOException ex1)
+                else
                 {
-                    SaveFileDialog sd = new SaveFileDialog();
-                    sd.Title = "另存新檔";
-                    sd.FileName = reportName + ".doc";
-                    sd.Filter = "Word檔案 (*.doc)|*.doc|所有檔案 (*.*)|*.*";
-                    if (sd.ShowDialog() == DialogResult.OK)
-                    {
-                        try
-                        {
-                            doc.Save(sd.FileName, Aspose.Words.SaveFormat.Doc);
-                        }
-                        catch (IOException ex2)
-                        {
-                            MsgBox.Show("儲存錯誤,檔案可能開啟中。", "建立檔案失敗", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                        catch (Exception ex2)
-                        {
-                            SmartSchool.ErrorReporting.ReportingService.ReportException(ex2);
-                            MsgBox.Show("列印失敗:\n" + ex2.Message);
-                            return;
-                        }
-                    }
-                }
-                catch (Exception ex1)
-                {
-                    SmartSchool.ErrorReporting.ReportingService.ReportException(ex1);
-                    MsgBox.Show("列印失敗:\n" + ex1.Message);
-                    return;
+                    int schoolYear = Convert.ToInt32(School.DefaultSchoolYear);
+                    int semester = Convert.ToInt32(School.DefaultSemester);
+                    MemoryStream memoryStream = new MemoryStream();
+                    doc.Save(memoryStream, Aspose.Words.SaveFormat.Doc);
+                    ePaperCloud ePaperCloud = new ePaperCloud();
+                    ePaperCloud.upload_ePaper(schoolYear, semester, reportName, "", memoryStream, ePaperCloud.ViewerType.Student, ePaperCloud.FormatType.Docx, Message);
+
+                    FISCA.Presentation.MotherForm.SetStatusBarMessage(reportName + "產生完成");
                 }
             }
             else
             {
                 MsgBox.Show("列印失敗:\n" + e.Error.Message);
-                SmartSchool.ErrorReporting.ReportingService.ReportException(e.Error);
                 return;
             }
         }

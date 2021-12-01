@@ -22,6 +22,7 @@ namespace K12.缺曠通知單
             reportName = (string)result[0];
             path = (string)result[1];
             wb = (Workbook)result[2];
+            string Message = "" + result[3];
 
             if (File.Exists(path))
             {
@@ -67,51 +68,65 @@ namespace K12.缺曠通知單
         //Word報表
         public static void WordReport_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            object[] result = (object[])e.Result;
+            if (e.Cancelled)
+                return;
 
-            string reportName = (string)result[0];
-            string path = (string)result[1];
-            Aspose.Words.Document doc = (Aspose.Words.Document)result[2];
-            string path2 = (string)result[3];
-            bool PrintStudetnList = (bool)result[4];
-            Aspose.Cells.Workbook wb = (Aspose.Cells.Workbook)result[5];
-
-            if (File.Exists(path2))
+            if (e.Error == null)
             {
-                int i = 1;
-                while (true)
+
+                object[] result = (object[])e.Result;
+
+                string reportName = (string)result[0];
+                string path = (string)result[1];
+                Aspose.Words.Document doc = (Aspose.Words.Document)result[2];
+                string path2 = (string)result[3];
+                bool PrintStudetnList = (bool)result[4];
+                Aspose.Cells.Workbook wb = (Aspose.Cells.Workbook)result[5];
+                string Message = "" + result[6];
+
+                if (File.Exists(path2))
                 {
-                    string newPath = Path.GetDirectoryName(path2) + "\\" + Path.GetFileNameWithoutExtension(path2) + (i++) + Path.GetExtension(path2);
-                    if (!File.Exists(newPath))
+                    int i = 1;
+                    while (true)
                     {
-                        path2 = newPath;
-                        break;
+                        string newPath = Path.GetDirectoryName(path2) + "\\" + Path.GetFileNameWithoutExtension(path2) + (i++) + Path.GetExtension(path2);
+                        if (!File.Exists(newPath))
+                        {
+                            path2 = newPath;
+                            break;
+                        }
                     }
                 }
-            }
 
-            if (PrintStudetnList)
-            {
-                MemoryStream memoryStream = new MemoryStream();
-                doc.Save(memoryStream, Aspose.Words.SaveFormat.Doc);
-                ePaperCloud ePaperCloud = new ePaperCloud();
-                ePaperCloud.upload_ePaper(Convert.ToInt32(School.DefaultSchoolYear), Convert.ToInt32(School.DefaultSemester)
-                    , reportName, "", memoryStream, ePaperCloud.ViewerType.Student, ePaperCloud.FormatType.Docx);
+                if (PrintStudetnList)
+                {
+                    MemoryStream memoryStream = new MemoryStream();
+                    doc.Save(memoryStream, Aspose.Words.SaveFormat.Doc);
+                    ePaperCloud ePaperCloud = new ePaperCloud();
+                    ePaperCloud.upload_ePaper(Convert.ToInt32(School.DefaultSchoolYear), Convert.ToInt32(School.DefaultSemester)
+                        , reportName, "", memoryStream, ePaperCloud.ViewerType.Student, ePaperCloud.FormatType.Docx, Message);
 
-                wb.Save(path2);
-                FISCA.Presentation.MotherForm.SetStatusBarMessage(reportName + "產生完成");
-                System.Diagnostics.Process.Start(path2);
+                    wb.Save(path2);
+                    FISCA.Presentation.MotherForm.SetStatusBarMessage(reportName + "產生完成");
+                    System.Diagnostics.Process.Start(path2);
+                }
+                else
+                {
+                    int schoolYear = Convert.ToInt32(School.DefaultSchoolYear);
+                    int semester = Convert.ToInt32(School.DefaultSemester);
+                    MemoryStream memoryStream = new MemoryStream();
+                    doc.Save(memoryStream, Aspose.Words.SaveFormat.Doc);
+                    ePaperCloud ePaperCloud = new ePaperCloud();
+                    ePaperCloud.upload_ePaper(schoolYear, semester, reportName, "", memoryStream, ePaperCloud.ViewerType.Student, ePaperCloud.FormatType.Docx, Message);
+
+                    FISCA.Presentation.MotherForm.SetStatusBarMessage(reportName + "產生完成");
+                }
+
             }
             else
             {
-                int schoolYear = Convert.ToInt32(School.DefaultSchoolYear);
-                int semester = Convert.ToInt32(School.DefaultSemester);
-                MemoryStream memoryStream = new MemoryStream();
-                doc.Save(memoryStream, Aspose.Words.SaveFormat.Doc);
-                ePaperCloud ePaperCloud = new ePaperCloud();
-                ePaperCloud.upload_ePaper(schoolYear, semester, reportName, "", memoryStream, ePaperCloud.ViewerType.Student, ePaperCloud.FormatType.Docx);
-
-                FISCA.Presentation.MotherForm.SetStatusBarMessage(reportName + "產生完成");
+                MsgBox.Show("列印失敗:\n" + e.Error.Message);
+                return;
             }
         }
 
