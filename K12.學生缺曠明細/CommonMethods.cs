@@ -15,7 +15,7 @@ namespace K12.學生缺曠明細
         {
             if (e.Cancelled)
             {
-                MsgBox.Show("未取得獎懲資料");
+                MsgBox.Show("未取得缺曠資料");
                 return;
             }
 
@@ -74,7 +74,7 @@ namespace K12.學生缺曠明細
         {
             if (e.Cancelled)
             {
-                MsgBox.Show("未取得獎懲資料");
+                MsgBox.Show("未取得缺曠資料");
                 return;
             }
 
