@@ -237,7 +237,7 @@ namespace K12.學生缺曠明細
 
             foreach (StudentRecord studentInfo in selectedStudents)
             {
-                string TitleName1 = School.ChineseName + " 個人缺曠明細";
+                string TitleName1 = School.ChineseName + "\n個人缺曠明細";
                 string time_2013 = "";
                 if (form.SelectDayOrSchoolYear)
                 {
