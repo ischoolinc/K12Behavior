@@ -288,7 +288,6 @@ namespace K12.缺曠獎懲週報表.獎懲週報表
             Workbook template = new Workbook();
 
             template.Open(new MemoryStream(Properties.Resources.獎懲週報表), FileFormatType.Excel2003);
-            template.Worksheets[0].Cells.CreateRange(2, 3, 3, 1).SetOutlineBorder(BorderType.LeftBorder, CellBorderType.Medium, Color.Black);
 
             Range tempStudent = template.Worksheets[0].Cells.CreateRange(0, 3, true);
             Range tempEachColumn = template.Worksheets[0].Cells.CreateRange(3, 1, true);
@@ -327,9 +326,6 @@ namespace K12.缺曠獎懲週報表.獎懲週報表
             prototype.Worksheets[0].Cells.CreateRange(titleRow + 1, colIndex - meritTable.Keys.Count, 1, meritTable.Keys.Count).Merge();
             prototype.Worksheets[0].Cells[titleRow + 1, colIndex - meritTable.Keys.Count].PutValue("獎勵");
 
-            //設定獎懲分類的欄位外框
-            prototype.Worksheets[0].Cells.CreateRange(titleRow + 1, colIndex - meritTable.Keys.Count, 3, meritTable.Keys.Count).SetOutlineBorder(BorderType.LeftBorder, CellBorderType.Medium, Color.Black);
-
             //產生懲戒部分的欄位
             foreach (string var in demeritTable.Keys)
             {
@@ -341,9 +337,6 @@ namespace K12.缺曠獎懲週報表.獎懲週報表
             }
             prototype.Worksheets[0].Cells.CreateRange(titleRow + 1, colIndex - demeritTable.Keys.Count, 1, demeritTable.Keys.Count).Merge();
             prototype.Worksheets[0].Cells[titleRow + 1, colIndex - demeritTable.Keys.Count].PutValue("懲戒");
-
-            //設定獎懲分類的欄位外框
-            prototype.Worksheets[0].Cells.CreateRange(titleRow + 1, colIndex - demeritTable.Keys.Count, 3, demeritTable.Keys.Count).SetOutlineBorder(BorderType.LeftBorder, CellBorderType.Medium, Color.Black);
 
             dayEndIndex = colIndex;
             dayColumnNumber = dayEndIndex - dayStartIndex;
@@ -462,10 +455,6 @@ namespace K12.缺曠獎懲週報表.獎懲週報表
                 {
                     List<StudentRecord> classStudent = classStudentList[classInfo.ID];
 
-                    //如果不是第一頁，就在上一頁的資料列下邊加黑線
-                    if (index != 0)
-                        ws.Cells.CreateRange(index - 1, 0, 1, dayStartIndex).SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Medium, Color.Black);
-
                     //複製 Header
                     ws.Cells.CreateRange(index, 5, false).Copy(prototypeHeader);
 
@@ -554,30 +543,18 @@ namespace K12.缺曠獎懲週報表.獎懲週報表
                         _BGWDisciplineWeekList.ReportProgress((int)(((double)current++ * 100.0) / (double)all));
                     }
 
-                    //資料列上邊加上黑線
-                    ws.Cells.CreateRange(index + 4, 0, 1, dayStartIndex).SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Medium, Color.Black);
-
-                    //表格最右邊加上黑線
-                    ws.Cells.CreateRange(index + 2, dayStartIndex - 1, studentCount + 3, 1).SetOutlineBorder(BorderType.RightBorder, CellBorderType.Medium, Color.Black);
-                    
-                    //資料列下緣增加邊線
-                    ws.Cells.CreateRange(dataIndex, 0, 1, dayStartIndex).SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Medium, Color.Black);
-
                     index = dataIndex;
 
                     //增加一說明欄位 - 2020/9/21
                     //1.備註資料 , 2.欄寬
                     if (!string.IsNullOrEmpty(Remark))
                     {
-                        //資料列下緣增加邊線
-                        ws.Cells.CreateRange(dataIndex, 0, 1, dayStartIndex).SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Medium, Color.Black);
-
                         ws.Cells.CreateRange(index, 1, 1, dayStartIndex - 1).Merge();
 
                         Range RemarkRow = ws.Cells.CreateRange(dataIndex, 0, 1, dayStartIndex);
-                        RemarkRow.SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Medium, Color.Black);
-                        RemarkRow.SetOutlineBorder(BorderType.LeftBorder, CellBorderType.Medium, Color.Black);
-                        RemarkRow.SetOutlineBorder(BorderType.RightBorder, CellBorderType.Medium, Color.Black);
+                        RemarkRow.SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Thin, Color.Black);
+                        RemarkRow.SetOutlineBorder(BorderType.LeftBorder, CellBorderType.Thin, Color.Black);
+                        RemarkRow.SetOutlineBorder(BorderType.RightBorder, CellBorderType.Thin, Color.Black);
 
                         string[] JR = new string[] { "\r\n" };
                         string[] Hei = Remark.Split(JR, StringSplitOptions.None);
@@ -599,12 +576,6 @@ namespace K12.缺曠獎懲週報表.獎懲週報表
                     ws.HPageBreaks.Add(index, dayStartIndex);
                 }
             }
-
-            //最後一頁的資料列下邊加上黑線
-            //if (dataIndex != 0)
-            //{
-            //    ws.Cells.CreateRange(dataIndex - 1, 0, 1, dayStartIndex).SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Medium, Color.Black);
-            //}
 
             #endregion
 
