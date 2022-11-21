@@ -255,7 +255,7 @@ namespace K12.學生缺曠明細
                     }
                 }
 
-                string TitleName2 = "班級：" + ((studentInfo.Class == null ? "　" : studentInfo.Class.Name) + "　座號：" + ((studentInfo.SeatNo == null) ? "　" : studentInfo.SeatNo.ToString()) + "　姓名：" + studentInfo.Name + "　學號：" + studentInfo.StudentNumber);
+                string TitleName2 = "班級：" + ((studentInfo.Class == null ? "　" : studentInfo.Class.Name) + "　座號：" + ((studentInfo.SeatNo == null) ? "　" : studentInfo.SeatNo.ToString()) + "　學號：" + studentInfo.StudentNumber + "\n姓名：" + studentInfo.Name);
                 string TitleName3 = time_2013;
 
                 //回報進度
