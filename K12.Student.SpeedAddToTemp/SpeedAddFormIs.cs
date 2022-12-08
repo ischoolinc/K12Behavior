@@ -56,6 +56,8 @@ namespace K12.Student.SpeedAddToTemp
             bgwLoad.DoWork += BgwLoad_DoWork;
 
             bgwLoad.RunWorkerAsync();
+            this.Text = "快速待處理(資料下載中)";
+            this.Enabled = false;
         }
 
         private void BgwLoad_DoWork(object sender, DoWorkEventArgs e)
@@ -101,6 +103,8 @@ namespace K12.Student.SpeedAddToTemp
 
             TempSourceIpr();
 
+            this.Text = "快速待處理";
+            this.Enabled = true;
             tbClassName.Focus();
         }
 
