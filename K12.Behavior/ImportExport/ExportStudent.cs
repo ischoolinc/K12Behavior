@@ -32,7 +32,7 @@ namespace K12.Behavior
             process.StartupProcess();
 
             ButtonX advButton = new ButtonX();
-            advButton.ShowSubItems=false;
+            advButton.ShowSubItems = false;
             advButton.Text = "進階>>";
             advButton.Top = this.wizard1.Controls[1].Controls[0].Top;
             advButton.Left = 5;
@@ -44,29 +44,29 @@ namespace K12.Behavior
             advButton.SplitButton = false;
             container.Control = process.Configuration;
             advButton.Click += new EventHandler(advButton_Click);
-            advButton.Enabled = ( process.Configuration != null );
+            advButton.Enabled = (process.Configuration != null);
             this.wizard1.Controls[1].Controls.Add(advButton);
 
             #region 設定Wizard會跟著Style跑
             //this.wizard1.FooterStyle.ApplyStyle(( GlobalManager.Renderer as Office2007Renderer ).ColorTable.GetClass(ElementStyleClassKeys.RibbonFileMenuBottomContainerKey));
-            this.wizard1.HeaderStyle.ApplyStyle(( GlobalManager.Renderer as Office2007Renderer ).ColorTable.GetClass(ElementStyleClassKeys.RibbonFileMenuBottomContainerKey));
+            this.wizard1.HeaderStyle.ApplyStyle((GlobalManager.Renderer as Office2007Renderer).ColorTable.GetClass(ElementStyleClassKeys.RibbonFileMenuBottomContainerKey));
             this.wizard1.FooterStyle.BackColorGradientAngle = -90;
             this.wizard1.FooterStyle.BackColorGradientType = eGradientType.Linear;
-            this.wizard1.FooterStyle.BackColor = ( GlobalManager.Renderer as Office2007Renderer ).ColorTable.RibbonBar.Default.TopBackground.Start;
-            this.wizard1.FooterStyle.BackColor2 = ( GlobalManager.Renderer as Office2007Renderer ).ColorTable.RibbonBar.Default.TopBackground.End;
-            this.wizard1.BackColor = ( GlobalManager.Renderer as Office2007Renderer ).ColorTable.RibbonBar.Default.TopBackground.Start;
+            this.wizard1.FooterStyle.BackColor = (GlobalManager.Renderer as Office2007Renderer).ColorTable.RibbonBar.Default.TopBackground.Start;
+            this.wizard1.FooterStyle.BackColor2 = (GlobalManager.Renderer as Office2007Renderer).ColorTable.RibbonBar.Default.TopBackground.End;
+            this.wizard1.BackColor = (GlobalManager.Renderer as Office2007Renderer).ColorTable.RibbonBar.Default.TopBackground.Start;
             this.wizard1.BackgroundImage = null;
-            for ( int i = 0 ; i < 6 ; i++ )
+            for (int i = 0; i < 6; i++)
             {
-                ( this.wizard1.Controls[1].Controls[i] as ButtonX ).ColorTable = eButtonColor.OrangeWithBackground;
+                (this.wizard1.Controls[1].Controls[i] as ButtonX).ColorTable = eButtonColor.OrangeWithBackground;
             }
-            ( this.wizard1.Controls[0].Controls[1] as System.Windows.Forms.Label ).ForeColor = ( GlobalManager.Renderer as Office2007Renderer ).ColorTable.RibbonBar.MouseOver.TitleText;
-            ( this.wizard1.Controls[0].Controls[2] as System.Windows.Forms.Label ).ForeColor = ( GlobalManager.Renderer as Office2007Renderer ).ColorTable.RibbonBar.Default.TitleText; 
+            (this.wizard1.Controls[0].Controls[1] as System.Windows.Forms.Label).ForeColor = (GlobalManager.Renderer as Office2007Renderer).ColorTable.RibbonBar.MouseOver.TitleText;
+            (this.wizard1.Controls[0].Controls[2] as System.Windows.Forms.Label).ForeColor = (GlobalManager.Renderer as Office2007Renderer).ColorTable.RibbonBar.Default.TitleText;
             #endregion
 
 
-            this.checkBox1.ForeColor = ( GlobalManager.Renderer as Office2007Renderer ).ColorTable.CheckBoxItem.Default.Text;
-            listViewEx1.ForeColor = ( GlobalManager.Renderer as Office2007Renderer ).ColorTable.CheckBoxItem.Default.Text;
+            this.checkBox1.ForeColor = (GlobalManager.Renderer as Office2007Renderer).ColorTable.CheckBoxItem.Default.Text;
+            listViewEx1.ForeColor = (GlobalManager.Renderer as Office2007Renderer).ColorTable.CheckBoxItem.Default.Text;
             //listViewEx1.BackColor = this.wizard1.BackColor;
 
             _Process = process;
@@ -80,7 +80,7 @@ namespace K12.Behavior
 
         void advButton_Click(object sender, EventArgs e)
         {
-            ButtonX button=( (ButtonX)sender );
+            ButtonX button = ((ButtonX)sender);
             button.Expanded ^= true;
             button.Text = button.Expanded ? "進階<<" : "進階>>";
         }
@@ -96,7 +96,7 @@ namespace K12.Behavior
             //this.listViewEx1.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
             //listViewGroup4});
             List<ListViewItem> items = new List<ListViewItem>();
-            foreach ( string var in _Process.ExportableFields )
+            foreach (string var in _Process.ExportableFields)
             {
                 ListViewItem item = new ListViewItem(var);
                 item.Checked = true;
@@ -104,10 +104,10 @@ namespace K12.Behavior
             }
             listViewEx1.Items.AddRange(items.ToArray());
             _Process.ExportableFieldsChanged += new EventHandler(_Process_ExportableFieldsChanged);
-            if ( _Process.Image != null )
+            if (_Process.Image != null)
             {
                 Bitmap b = new Bitmap(48, 48);
-                using ( Graphics g = Graphics.FromImage(b) )
+                using (Graphics g = Graphics.FromImage(b))
                     g.DrawImage(_Process.Image, 0, 0, 48, 48);
                 this.wizardPage1.PageHeaderImage = b;
             }
@@ -116,15 +116,15 @@ namespace K12.Behavior
         void _Process_ExportableFieldsChanged(object sender, EventArgs e)
         {
             List<string> unCheckedList = new List<string>();
-            foreach ( ListViewItem item in listViewEx1.Items )
+            foreach (ListViewItem item in listViewEx1.Items)
             {
-                if ( !item.Checked )
+                if (!item.Checked)
                     unCheckedList.Add(item.Text);
             }
             List<string> newFields = new List<string>(new string[] { "學生系統編號", "學號", "班級", "座號", "科別", "姓名" });
             newFields.AddRange(_Process.ExportableFields);
             List<ListViewItem> items = new List<ListViewItem>();
-            foreach ( string var in newFields )
+            foreach (string var in newFields)
             {
                 ListViewItem item = new ListViewItem(var);
                 item.Checked = !unCheckedList.Contains(var);
@@ -137,35 +137,35 @@ namespace K12.Behavior
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Title = "匯出成績";
-            saveFileDialog1.FileName = ""+_Process.Title+".xlsx";
+            saveFileDialog1.FileName = "" + _Process.Title + ".xlsx";
             saveFileDialog1.Filter = "Excel (*.xlsx)|*.xlsx|所有檔案 (*.*)|*.*";
-            if ( saveFileDialog1.ShowDialog() == DialogResult.OK )
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 List<string> idlist = new List<string>();
                 #region 取得選取學生編號
                 List<SmartSchool.Customization.Data.StudentRecord> selectedStudents = _AccessHelper.StudentHelper.GetSelectedStudent();
-                foreach ( SmartSchool.Customization.Data.StudentRecord stu in selectedStudents )
+                foreach (SmartSchool.Customization.Data.StudentRecord stu in selectedStudents)
                 {
-                    if ( !idlist.Contains(stu.StudentID) )
+                    if (!idlist.Contains(stu.StudentID))
                     {
                         idlist.Add(stu.StudentID);
                     }
-                } 
+                }
                 #endregion
 
                 List<string> studentFieldList = new List<string>();
                 List<string> exportFieldList = new List<string>();
                 #region 取得選取欄位
-                foreach ( ListViewItem item in listViewEx1.Items )
+                foreach (ListViewItem item in listViewEx1.Items)
                 {
-                    if ( item.Checked )
+                    if (item.Checked)
                     {
-                        if ( _Process.ExportableFields.Contains(item.Text) )
+                        if (_Process.ExportableFields.Contains(item.Text))
                             exportFieldList.Add(item.Text.Trim());
                         else
                             studentFieldList.Add(item.Text.Trim());
                     }
-                } 
+                }
                 #endregion
 
                 List<List<string>> splitList = new List<List<string>>();
@@ -173,11 +173,11 @@ namespace K12.Behavior
                 #region 把全部學生以_Process.PackageLimit人分一包
                 int count = 0;
                 List<string> package = new List<string>();
-                foreach ( string id in idlist )
+                foreach (string id in idlist)
                 {
-                    if ( count == 0 )
+                    if (count == 0)
                     {
-                        count = ( splitList.Count + 1 ) * 50;
+                        count = (splitList.Count + 1) * 50;
                         count = count > _Process.PackageLimit ? _Process.PackageLimit : count;
                         package = new List<string>(_Process.PackageLimit);
                         splitList.Add(package);
@@ -192,10 +192,10 @@ namespace K12.Behavior
                 //已讀取資料
                 Dictionary<ManualResetEvent, List<RowData>> Filler = new Dictionary<ManualResetEvent, List<RowData>>();
                 int i = 0;
-                foreach ( List<string> p in splitList )
+                foreach (List<string> p in splitList)
                 {
                     ManualResetEvent handleEvent = new ManualResetEvent(false);
-                    if ( ( i & 1 ) == 0 )
+                    if ((i & 1) == 0)
                         Loader1.Add(p, handleEvent);
                     else
                         Loader2.Add(p, handleEvent);
@@ -223,77 +223,71 @@ namespace K12.Behavior
 
         void bkwNotPassComputer_DoWork(object sender, DoWorkEventArgs e)
         {
-            string fileName = (string)( (object[])e.Argument )[0];
-            List<string> studentFieldList = (List<string>)( (object[])e.Argument )[1];
-            List<string> exportFieldList = (List<string>)( (object[])e.Argument )[2];
-            Dictionary<ManualResetEvent, List<RowData>> Filler = (Dictionary<ManualResetEvent, List<RowData>>)( (object[])e.Argument )[3];
+            string fileName = (string)((object[])e.Argument)[0];
+            List<string> studentFieldList = (List<string>)((object[])e.Argument)[1];
+            List<string> exportFieldList = (List<string>)((object[])e.Argument)[2];
+            Dictionary<ManualResetEvent, List<RowData>> Filler = (Dictionary<ManualResetEvent, List<RowData>>)((object[])e.Argument)[3];
             double totleProgress = 0.0;
             double packageProgress = 100.0 / Filler.Count;
             Workbook report = new Workbook();
             report.Worksheets[0].Name = _Process.Title;
-            ( (BackgroundWorker)sender ).ReportProgress(1, _Process.Title + " 資料整理中...");
+            ((BackgroundWorker)sender).ReportProgress(1, _Process.Title + " 資料整理中...");
             int RowIndex = 0;
             int i = 0;
             //填表頭
-            for ( ; i < studentFieldList.Count ; i++ )
+            for (; i < studentFieldList.Count; i++)
             {
                 report.Worksheets[0].Cells[0, i].PutValue(studentFieldList[i]);
             }
-            for ( int j = 0 ; j < exportFieldList.Count ; j++ )
+            for (int j = 0; j < exportFieldList.Count; j++)
             {
                 report.Worksheets[0].Cells[0, i + j].PutValue(exportFieldList[j]);
             }
-            RowIndex=1;
-            foreach ( ManualResetEvent eve in Filler.Keys )
+            RowIndex = 1;
+            foreach (ManualResetEvent eve in Filler.Keys)
             {
                 eve.WaitOne();
-                if ( RowIndex <= 65535 )
+                double miniProgress = Filler[eve].Count == 0 ? 1 : packageProgress / Filler[eve].Count;
+                double miniTotle = 0;
+                foreach (RowData row in Filler[eve])
                 {
-                    double miniProgress = Filler[eve].Count == 0 ? 1 : packageProgress / Filler[eve].Count;
-                    double miniTotle = 0;
-                    foreach ( RowData row in Filler[eve] )
+                    List<SmartSchool.Customization.Data.StudentRecord> students = _AccessHelper.StudentHelper.GetStudents(row.ID);
+                    if (students.Count == 1)
                     {
-                        List<SmartSchool.Customization.Data.StudentRecord> students = _AccessHelper.StudentHelper.GetStudents(row.ID);
-                        if ( students.Count == 1 )
+                        SmartSchool.Customization.Data.StudentRecord student = students[0];
+                        i = 0;
+                        for (; i < studentFieldList.Count; i++)
                         {
-                            if ( RowIndex <= 65535 )
+                            switch (studentFieldList[i])
                             {
-                                SmartSchool.Customization.Data.StudentRecord student = students[0];
-                                i = 0;
-                                for ( ; i < studentFieldList.Count ; i++ )
-                                {
-                                    switch ( studentFieldList[i] )
-                                    {
-                                        case "學生系統編號": report.Worksheets[0].Cells[RowIndex, i].PutValue(student.StudentID); break;
-                                        case "學號": report.Worksheets[0].Cells[RowIndex, i].PutValue(student.StudentNumber); break;
-                                        case "班級": report.Worksheets[0].Cells[RowIndex, i].PutValue(student.RefClass == null ? "" : student.RefClass.ClassName); break;
-                                        case "座號": report.Worksheets[0].Cells[RowIndex, i].PutValue(student.SeatNo); break;
-                                        case "科別": report.Worksheets[0].Cells[RowIndex, i].PutValue(student.Department); break;
-                                        case "姓名": report.Worksheets[0].Cells[RowIndex, i].PutValue(student.StudentName); break;
-                                        default:
-                                            break;
-                                    }
-                                }
-                                for ( int j = 0 ; j < exportFieldList.Count ; j++ )
-                                {
-                                    report.Worksheets[0].Cells[RowIndex, i + j].PutValue(row.ContainsKey(exportFieldList[j]) ? row[exportFieldList[j]] : "");
-                                } 
+                                case "學生系統編號": report.Worksheets[0].Cells[RowIndex, i].PutValue(student.StudentID); break;
+                                case "學號": report.Worksheets[0].Cells[RowIndex, i].PutValue(student.StudentNumber); break;
+                                case "班級": report.Worksheets[0].Cells[RowIndex, i].PutValue(student.RefClass == null ? "" : student.RefClass.ClassName); break;
+                                case "座號": report.Worksheets[0].Cells[RowIndex, i].PutValue(student.SeatNo); break;
+                                case "科別": report.Worksheets[0].Cells[RowIndex, i].PutValue(student.Department); break;
+                                case "姓名": report.Worksheets[0].Cells[RowIndex, i].PutValue(student.StudentName); break;
+                                default:
+                                    break;
                             }
-                            RowIndex++;
                         }
-                        miniTotle += miniProgress;
-                        ( (BackgroundWorker)sender ).ReportProgress((int)(totleProgress + miniTotle), _Process.Title + " 處理中...");
+                        for (int j = 0; j < exportFieldList.Count; j++)
+                        {
+                            report.Worksheets[0].Cells[RowIndex, i + j].PutValue(row.ContainsKey(exportFieldList[j]) ? row[exportFieldList[j]] : "");
+                        }
+                        RowIndex++;
                     }
+                    miniTotle += miniProgress;
+                    ((BackgroundWorker)sender).ReportProgress((int)(totleProgress + miniTotle), _Process.Title + " 處理中...");
                 }
                 totleProgress += packageProgress;
-                ( (BackgroundWorker)sender ).ReportProgress((int)(totleProgress), _Process.Title + " 處理中...");
+                ((BackgroundWorker)sender).ReportProgress((int)(totleProgress), _Process.Title + " 處理中...");
             }
-            for ( int k = 0 ;k < studentFieldList.Count + exportFieldList.Count ; k++ )
+            for (int k = 0; k < studentFieldList.Count + exportFieldList.Count; k++)
             {
                 report.Worksheets[0].AutoFitColumn(k, 0, 150);
             }
             report.Worksheets[0].FreezePanes(1, 0, 1, studentFieldList.Count + exportFieldList.Count);
-            e.Result = new object[] { report, fileName, RowIndex > 65535 };
+            e.Result = new object[] { report, fileName };
         }
 
         void bkwNotPassComputer_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -304,15 +298,14 @@ namespace K12.Behavior
         void bkwNotPassComputer_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             SmartSchool.Customization.PlugIn.Global.SetStatusBarMessage(_Process.Title + " 檔案儲存中。", 100);
-            if ( e.Error == null )
+            if (e.Error == null)
             {
-                Workbook report = (Workbook)( (object[])e.Result )[0];
-                bool overLimit = (bool)( (object[])e.Result )[2];
+                Workbook report = (Workbook)((object[])e.Result)[0];
                 //儲存 Excel
                 #region 儲存 Excel
-                string path = (string)( (object[])e.Result )[1];
+                string path = (string)((object[])e.Result)[1];
 
-                if ( File.Exists(path) )
+                if (File.Exists(path))
                 {
                     bool needCount = true;
                     try
@@ -322,10 +315,10 @@ namespace K12.Behavior
                     }
                     catch { }
                     int i = 1;
-                    while ( needCount )
+                    while (needCount)
                     {
-                        string newPath = Path.GetDirectoryName(path) + "\\" + Path.GetFileNameWithoutExtension(path) + ( i++ ) + Path.GetExtension(path);
-                        if ( !File.Exists(newPath) )
+                        string newPath = Path.GetDirectoryName(path) + "\\" + Path.GetFileNameWithoutExtension(path) + (i++) + Path.GetExtension(path);
+                        if (!File.Exists(newPath))
                         {
                             path = newPath;
                             break;
@@ -352,7 +345,7 @@ namespace K12.Behavior
                     sd.Title = "另存新檔";
                     sd.FileName = Path.GetFileNameWithoutExtension(path) + ".xlsx";
                     sd.Filter = "Excel檔案 (*.xlsx)|*.xlsx|所有檔案 (*.*)|*.*";
-                    if ( sd.ShowDialog() == DialogResult.OK )
+                    if (sd.ShowDialog() == DialogResult.OK)
                     {
                         try
                         {
@@ -369,8 +362,6 @@ namespace K12.Behavior
                 report.Save(path);
                 #endregion
                 SmartSchool.Customization.PlugIn.Global.SetStatusBarMessage(_Process.Title + "完成。");
-                if ( overLimit )
-                    MsgBox.Show("匯出資料已經超過Excel的極限(65536筆)。\n超出的資料無法被匯出。\n\n請減少選取學生人數。");
                 System.Diagnostics.Process.Start(path);
             }
             else
@@ -379,16 +370,16 @@ namespace K12.Behavior
 
         void bkwDataLoader_DoWork(object sender, DoWorkEventArgs e)
         {
-            Dictionary<List<string>, ManualResetEvent> handle = (Dictionary<List<string>, ManualResetEvent>)( (object[])e.Argument )[0];
-            Dictionary<ManualResetEvent, List<RowData>> Filler = (Dictionary<ManualResetEvent, List<RowData>>)( (object[])e.Argument )[1];
-            List<string> exportFieldList = (List<string>)( (object[])e.Argument )[2];
-            foreach ( List<string> splitList in handle.Keys )
+            Dictionary<List<string>, ManualResetEvent> handle = (Dictionary<List<string>, ManualResetEvent>)((object[])e.Argument)[0];
+            Dictionary<ManualResetEvent, List<RowData>> Filler = (Dictionary<ManualResetEvent, List<RowData>>)((object[])e.Argument)[1];
+            List<string> exportFieldList = (List<string>)((object[])e.Argument)[2];
+            foreach (List<string> splitList in handle.Keys)
             {
                 try
                 {
                     Filler[handle[splitList]].AddRange(_Process.GetExportData(splitList, exportFieldList));
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     SmartSchool.ErrorReporting.ReportingService.ReportException(ex);
                 }
