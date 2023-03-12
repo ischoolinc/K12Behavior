@@ -68,7 +68,7 @@ namespace K12.Behavior.StuAdminExtendControls
                 InitialDate(); //初始化日期
                 //btnRefresh_Click(null, null); //重新整理 
 
-                cbRange.SelectedIndex = 4;
+                cbLevel1.SelectedIndex = 4;
                 comboBoxEx1.SelectedIndex = 0;
 
                 btnRefresh.Pulse(5);
@@ -124,9 +124,9 @@ namespace K12.Behavior.StuAdminExtendControls
             List<StRecord> list = new List<StRecord>();
             DataTable dt = tool._Q.Select(@"select student.id as student_id,student.name as student_name,
 student.student_number,student.gender,student.seat_no,
-class.id as class_id,class.class_name
+class.id as class_id,class.class_name,class.display_order,class.grade_year
 from student 
-left join class on class.id=student.ref_class_id");
+left join class on class.id=student.ref_class_id ");
             foreach (DataRow row in dt.Rows)
             {
                 StRecord st = new StRecord(row);
@@ -138,7 +138,7 @@ left join class on class.id=student.ref_class_id");
                 }
             }
 
-            list.Sort(new Comparison<StRecord>(SortComparerInStudent));
+            list.Sort(new Comparison<StRecord>(tool.SortComparerInStudent));
             return list;
         }
 
@@ -162,90 +162,90 @@ left join class on class.id=student.ref_class_id");
         private void cbRange_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             #region 範圍條件變更
-            if (cbRange.SelectedIndex == 0) //班座
+            if (cbLevel1.SelectedIndex == 0) //班座
             {
                 ChengClass(); //建立班級內容
 
-                cbClass.Visible = true; //顯示班級控制
-                lbClass.Text = "班級"; //更改班級lb
-                lbClass.Visible = true; //顯示班級lb
+                cbLevel2.Visible = true; //顯示班級控制
+                lbLevel2.Text = "班級"; //更改班級lb
+                lbLevel2.Visible = true; //顯示班級lb
 
-                lbSeatNo.Visible = true; //顯示座號文字
-                txtSeatNo.Visible = true; //顯示控制
-                txtSeatNo.Text = "";
+                lbLevel3.Visible = true; //顯示座號文字
+                txtLevel3.Visible = true; //顯示控制
+                txtLevel3.Text = "";
 
-                txtClass.Visible = false;
-                txtClass.Text = "";
+                txtLevel2.Visible = false;
+                txtLevel2.Text = "";
 
-                cbClass.SelectedIndex = 0;
+                cbLevel2.SelectedIndex = 0;
             }
-            else if (cbRange.SelectedIndex == 1) //學號
+            else if (cbLevel1.SelectedIndex == 1) //學號
             {
-                cbClass.Visible = false;
-                cbClass.Items.Clear();
+                cbLevel2.Visible = false;
+                cbLevel2.Items.Clear();
 
-                txtClass.Visible = true;
-                txtClass.Text = "";
+                txtLevel2.Visible = true;
+                txtLevel2.Text = "";
 
-                lbClass.Text = "學號";
-                lbClass.Visible = true;
+                lbLevel2.Text = "學號";
+                lbLevel2.Visible = true;
 
-                lbSeatNo.Visible = false;
-                txtSeatNo.Visible = false;
-                txtSeatNo.Text = "";
+                lbLevel3.Visible = false;
+                txtLevel3.Visible = false;
+                txtLevel3.Text = "";
             }
-            else if (cbRange.SelectedIndex == 2) //班級
+            else if (cbLevel1.SelectedIndex == 2) //班級
             {
                 ChengClass(); //建立班級內容
 
-                txtClass.Visible = false;
-                txtClass.Text = "";
+                txtLevel2.Visible = false;
+                txtLevel2.Text = "";
 
-                cbClass.Visible = true; //顯示班級控制
-                lbClass.Text = "班級"; //更改班級lb
-                lbClass.Visible = true; //顯示班級lb
+                cbLevel2.Visible = true; //顯示班級控制
+                lbLevel2.Text = "班級"; //更改班級lb
+                lbLevel2.Visible = true; //顯示班級lb
 
-                lbSeatNo.Visible = false; //隱藏座號lb
+                lbLevel3.Visible = false; //隱藏座號lb
 
-                txtSeatNo.Visible = false; //隱藏座號控制
-                txtSeatNo.Text = ""; //清空座號內容
+                txtLevel3.Visible = false; //隱藏座號控制
+                txtLevel3.Text = ""; //清空座號內容
 
-                cbClass.SelectedIndex = 0;
+                cbLevel2.SelectedIndex = 0;
 
             }
-            else if (cbRange.SelectedIndex == 3) //年級
+            else if (cbLevel1.SelectedIndex == 3) //年級
             {
                 ChengGr();
 
-                txtClass.Visible = false;
-                txtClass.Text = "";
+                txtLevel2.Visible = false;
+                txtLevel2.Text = "";
 
-                cbClass.Visible = true; //顯示班級控制
+                cbLevel2.Visible = true; //顯示班級控制
 
-                lbClass.Text = "年級"; //更改班級lb
-                lbClass.Visible = true; //顯示班級lb
+                lbLevel2.Text = "年級"; //更改班級lb
+                lbLevel2.Visible = true; //顯示班級lb
 
-                lbSeatNo.Visible = false; //隱藏座號lb
+                lbLevel3.Visible = false; //隱藏座號lb
 
-                txtSeatNo.Visible = false; //隱藏座號控制
-                txtSeatNo.Text = ""; //清空座號內容
+                txtLevel3.Visible = false; //隱藏座號控制
+                txtLevel3.Text = ""; //清空座號內容
 
-                cbClass.SelectedIndex = 0;
+                cbLevel2.SelectedIndex = 0;
             }
-            else if (cbRange.SelectedIndex == 4) //全校
+            else if (cbLevel1.SelectedIndex == 4) //全校
             {
-                txtClass.Visible = false;
-                txtClass.Text = "";
+                txtLevel2.Visible = false;
+                txtLevel2.Text = "";
 
-                cbClass.Visible = false; //隱藏班級控制
-                cbClass.Items.Clear(); //清空班級內容
+                cbLevel2.Visible = false; //隱藏班級控制
+                cbLevel2.Items.Clear(); //清空班級內容
 
-                lbClass.Visible = false; //隱藏班級lb
+                lbLevel2.Visible = false; //隱藏班級lb
 
 
-                lbSeatNo.Visible = false; //隱藏座號lb
-                txtSeatNo.Visible = false; //隱藏座號控制
-                txtSeatNo.Text = ""; //清空座號內容
+                lbLevel3.Visible = false; //隱藏座號lb
+                txtLevel3.Visible = false; //隱藏座號控制
+                txtLevel3.Text = ""; //清空座號內容
 
                 Students = GetStudent();
 
@@ -257,12 +257,11 @@ left join class on class.id=student.ref_class_id");
         {
             #region 年級資料處理
 
-            cbClass.Items.Clear(); //清空下拉式選單
-            cbClass.DisplayMember = "Key";
-            Classes.Sort(new Comparison<ClassRecord>(SortComparer)); //排序
-
-            Dictionary<string, List<ClassRecord>> dic = new Dictionary<string, List<ClassRecord>>();
+            cbLevel2.Items.Clear(); //清空下拉式選單
+            cbLevel2.DisplayMember = "Key";
+            Classes.Sort(new Comparison<ClassRecord>(tool.SortComparer)); //排序
             List<string> dicSort = new List<string>();
+            Dictionary<string, List<ClassRecord>> dic = new Dictionary<string, List<ClassRecord>>();
 
             foreach (ClassRecord DCA in Classes)
             {
@@ -278,12 +277,16 @@ left join class on class.id=student.ref_class_id");
                 dic[DCA.GradeYear.ToString()].Add(DCA);
             }
 
+            //年級Sort
             dicSort.Sort();
 
             foreach (string each in dicSort)
             {
-                KeyValuePair<string, List<ClassRecord>> KKBOX = new KeyValuePair<string, List<ClassRecord>>(each, dic[each]);
-                cbClass.Items.Add(KKBOX);
+                List<ClassRecord> classList = dic[each];
+                classList.Sort(new Comparison<ClassRecord>(tool.SortComparer)); //排序
+
+                KeyValuePair<string, List<ClassRecord>> KKBOX = new KeyValuePair<string, List<ClassRecord>>(each, classList);
+                cbLevel2.Items.Add(KKBOX);
             }
 
             #endregion
@@ -293,16 +296,16 @@ left join class on class.id=student.ref_class_id");
         {
             #region 班級資料處理
 
-            cbClass.Items.Clear(); //清空下拉式選單
-            cbClass.DisplayMember = "Key";
-            Classes.Sort(new Comparison<ClassRecord>(SortComparer)); //排序
+            cbLevel2.Items.Clear(); //清空下拉式選單
+            cbLevel2.DisplayMember = "Key";
+            Classes.Sort(new Comparison<ClassRecord>(tool.SortComparer)); //排序
 
             foreach (ClassRecord DCA in Classes)
             {
                 if (DCA.Name == string.Empty)
                     continue;
                 KeyValuePair<string, ClassRecord> KKBOX = new KeyValuePair<string, ClassRecord>(DCA.Name, DCA);
-                cbClass.Items.Add(KKBOX);
+                cbLevel2.Items.Add(KKBOX);
             }
             #endregion
         }
@@ -316,31 +319,6 @@ left join class on class.id=student.ref_class_id");
             #endregion
         }
 
-        private int SortComparer(ClassRecord x, ClassRecord y)
-        {
-            string xx = x.Name;
-            string yy = y.Name;
-            return xx.CompareTo(yy);
-        }
-
-        private int SortComparerInStudent(StRecord x, StRecord y)
-        {
-            #region 排序學生
-            if (x.RefClassID == "" || y.RefClassID == "")
-            {
-                string xx = "" + x.StudentNumber;
-                string yy = "" + y.StudentNumber;
-                return xx.CompareTo(yy);
-            }
-            else
-            {
-                string xx = "" + x.ClassName + x.SeatNo;
-                string yy = "" + y.ClassName + y.SeatNo;
-                return xx.CompareTo(yy);
-            }
-            #endregion
-        }
-
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             #region 更新資料
@@ -351,10 +329,10 @@ left join class on class.id=student.ref_class_id");
             btnRefresh.Enabled = false; //關掉開關
             DelRowRecordList.Clear();
 
-            if (cbRange.SelectedIndex == 0)
+            if (cbLevel1.SelectedIndex == 0)
             {
                 #region 班級座號
-                KeyValuePair<string, ClassRecord> item = (KeyValuePair<string, ClassRecord>)cbClass.SelectedItem;
+                KeyValuePair<string, ClassRecord> item = (KeyValuePair<string, ClassRecord>)cbLevel2.SelectedItem;
                 ClassRecord classR = item.Value;
                 StRecord SeleteStud = null;
 
@@ -369,7 +347,7 @@ left join class on class.id=student.ref_class_id");
                             continue;
                         }
 
-                        if ("" + stud.SeatNo == txtSeatNo.Text)
+                        if ("" + stud.SeatNo == txtLevel3.Text)
                         {
                             SeleteStud = stud;
                             break;
@@ -382,7 +360,7 @@ left join class on class.id=student.ref_class_id");
                     FISCA.Presentation.Controls.MsgBox.Show("查無此座號,請重新輸入");
                     btnRefresh.Enabled = true;
                     Waiting = false;
-                    txtSeatNo.SelectAll();
+                    txtLevel3.SelectAll();
                     return;
                 }
                 else
@@ -393,14 +371,14 @@ left join class on class.id=student.ref_class_id");
                 }
                 #endregion
             }
-            else if (cbRange.SelectedIndex == 1)
+            else if (cbLevel1.SelectedIndex == 1)
             {
                 #region 學號
                 StRecord SeleteStud = null;
 
                 foreach (StRecord stud in Students)
                 {
-                    if (stud.StudentNumber.ToLower() == txtClass.Text.Trim().ToLower())
+                    if (stud.StudentNumber.ToLower() == txtLevel2.Text.Trim().ToLower())
                     {
                         SeleteStud = stud;
                         break;
@@ -412,7 +390,7 @@ left join class on class.id=student.ref_class_id");
                     FISCA.Presentation.Controls.MsgBox.Show("查無此學號,請重新輸入");
                     btnRefresh.Enabled = true;
                     Waiting = false;
-                    txtClass.SelectAll();
+                    txtLevel2.SelectAll();
                 }
                 else
                 {
@@ -422,10 +400,10 @@ left join class on class.id=student.ref_class_id");
                 }
                 #endregion
             }
-            else if (cbRange.SelectedIndex == 2)
+            else if (cbLevel1.SelectedIndex == 2)
             {
                 #region 班級
-                KeyValuePair<string, ClassRecord> item = (KeyValuePair<string, ClassRecord>)cbClass.SelectedItem;
+                KeyValuePair<string, ClassRecord> item = (KeyValuePair<string, ClassRecord>)cbLevel2.SelectedItem;
 
                 if (item.Value.Students.Count == 0)
                 {
@@ -443,10 +421,10 @@ left join class on class.id=student.ref_class_id");
 
                 #endregion
             }
-            else if (cbRange.SelectedIndex == 3)
+            else if (cbLevel1.SelectedIndex == 3)
             {
                 #region 年級
-                KeyValuePair<string, List<ClassRecord>> item = (KeyValuePair<string, List<ClassRecord>>)cbClass.SelectedItem;
+                KeyValuePair<string, List<ClassRecord>> item = (KeyValuePair<string, List<ClassRecord>>)cbLevel2.SelectedItem;
                 List<ClassRecord> classRList = item.Value;
                 List<StRecord> stud = new List<StRecord>();
                 //
@@ -464,7 +442,7 @@ left join class on class.id=student.ref_class_id");
                 _loader.RunWorkerAsync(stud);
                 #endregion
             }
-            else if (cbRange.SelectedIndex == 4) //全校
+            else if (cbLevel1.SelectedIndex == 4) //全校
             {
                 _loader.RunWorkerAsync(Students);
             }
@@ -1221,35 +1199,5 @@ left join class on class.id=student.ref_class_id");
             }
             #endregion
         }
-    }
-
-    class StRecord
-    {
-        public StRecord(DataRow row)
-        {
-            StudentID = "" + row["student_id"];
-            StudentName = "" + row["student_name"];
-            StudentNumber = "" + row["student_number"];
-            if ("" + row["gender"] == "0")
-                Gender = "女";
-            else if ("" + row["gender"] == "1")
-                Gender = "男";
-            else
-                Gender = "";
-
-            SeatNo = "" + row["seat_no"];
-            ClassName = "" + row["class_name"];
-            RefClassID = "" + row["class_id"];
-        }
-
-        public string StudentID { get; set; }
-        public string StudentName { get; set; }
-        public string StudentNumber { get; set; }
-        public string Gender { get; set; }
-        public string SeatNo { get; set; }
-        public string ClassName { get; set; }
-        public string RefClassID { get; set; }
-
-
     }
 }

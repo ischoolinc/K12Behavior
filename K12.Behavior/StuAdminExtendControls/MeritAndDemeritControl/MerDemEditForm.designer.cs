@@ -33,6 +33,21 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MerDemEditForm));
             this.dataGridViewX1 = new DevComponents.DotNetBar.Controls.DataGridViewX();
+            this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStudentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colOccurDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colClassName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSeatNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStudentNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStudentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDisciplineCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colRemark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSchoolYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSemester = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colRegisterDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colMeritFlag = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.批次增加前置詞ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -59,18 +74,18 @@
             this.cbDemeritAA = new System.Windows.Forms.CheckBox();
             this.cbMeritCC = new System.Windows.Forms.CheckBox();
             this.groupPanel2 = new DevComponents.DotNetBar.Controls.GroupPanel();
-            this.lbRange = new DevComponents.DotNetBar.LabelX();
-            this.lbClass = new DevComponents.DotNetBar.LabelX();
-            this.lbSeatNo = new DevComponents.DotNetBar.LabelX();
-            this.txtSeatNo = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.cbRange = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.lbLevel1 = new DevComponents.DotNetBar.LabelX();
+            this.lbLevel2 = new DevComponents.DotNetBar.LabelX();
+            this.lbLevel3 = new DevComponents.DotNetBar.LabelX();
+            this.txtLevel3 = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.cbLevel1 = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.comboItem5 = new DevComponents.Editors.ComboItem();
             this.comboItem4 = new DevComponents.Editors.ComboItem();
             this.comboItem3 = new DevComponents.Editors.ComboItem();
             this.comboItem6 = new DevComponents.Editors.ComboItem();
             this.comboItem7 = new DevComponents.Editors.ComboItem();
-            this.txtClass = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.cbClass = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.txtLevel2 = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.cbLevel2 = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.groupPanel3 = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.txtReason = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
@@ -112,21 +127,6 @@
             this.txtHelpStudentCount = new DevComponents.DotNetBar.LabelX();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.picWaiting = new System.Windows.Forms.PictureBox();
-            this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStudentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colOccurDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colClassName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSeatNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStudentNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStudentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDisciplineCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colRemark = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSchoolYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSemester = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colRegisterDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colMeritFlag = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewX1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -186,6 +186,116 @@
             this.dataGridViewX1.TabIndex = 24;
             this.dataGridViewX1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewX1_CellDoubleClick);
             this.dataGridViewX1.SelectionChanged += new System.EventHandler(this.dataGridViewX1_SelectionChanged);
+            // 
+            // colID
+            // 
+            this.colID.HeaderText = "ID";
+            this.colID.Name = "colID";
+            this.colID.ReadOnly = true;
+            this.colID.Visible = false;
+            this.colID.Width = 80;
+            // 
+            // colStudentID
+            // 
+            this.colStudentID.HeaderText = "StudentID";
+            this.colStudentID.Name = "colStudentID";
+            this.colStudentID.ReadOnly = true;
+            this.colStudentID.Visible = false;
+            // 
+            // colOccurDate
+            // 
+            this.colOccurDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colOccurDate.HeaderText = "獎懲日期";
+            this.colOccurDate.Name = "colOccurDate";
+            this.colOccurDate.ReadOnly = true;
+            this.colOccurDate.Width = 85;
+            // 
+            // colClassName
+            // 
+            this.colClassName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colClassName.HeaderText = "班級";
+            this.colClassName.Name = "colClassName";
+            this.colClassName.ReadOnly = true;
+            this.colClassName.Width = 59;
+            // 
+            // colSeatNo
+            // 
+            this.colSeatNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colSeatNo.HeaderText = "座號";
+            this.colSeatNo.Name = "colSeatNo";
+            this.colSeatNo.ReadOnly = true;
+            this.colSeatNo.Width = 59;
+            // 
+            // colStudentNumber
+            // 
+            this.colStudentNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colStudentNumber.HeaderText = "學號";
+            this.colStudentNumber.Name = "colStudentNumber";
+            this.colStudentNumber.ReadOnly = true;
+            this.colStudentNumber.Width = 59;
+            // 
+            // colStudentName
+            // 
+            this.colStudentName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colStudentName.HeaderText = "姓名";
+            this.colStudentName.Name = "colStudentName";
+            this.colStudentName.ReadOnly = true;
+            this.colStudentName.Width = 59;
+            // 
+            // colGender
+            // 
+            this.colGender.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colGender.HeaderText = "性別";
+            this.colGender.Name = "colGender";
+            this.colGender.ReadOnly = true;
+            this.colGender.Width = 59;
+            // 
+            // colDisciplineCount
+            // 
+            this.colDisciplineCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colDisciplineCount.HeaderText = "獎懲次數";
+            this.colDisciplineCount.Name = "colDisciplineCount";
+            this.colDisciplineCount.ReadOnly = true;
+            this.colDisciplineCount.Width = 85;
+            // 
+            // colReason
+            // 
+            this.colReason.HeaderText = "事由";
+            this.colReason.Name = "colReason";
+            this.colReason.ReadOnly = true;
+            this.colReason.Width = 250;
+            // 
+            // colRemark
+            // 
+            this.colRemark.HeaderText = "備註";
+            this.colRemark.Name = "colRemark";
+            // 
+            // colSchoolYear
+            // 
+            this.colSchoolYear.HeaderText = "學年度";
+            this.colSchoolYear.Name = "colSchoolYear";
+            this.colSchoolYear.ReadOnly = true;
+            this.colSchoolYear.Width = 75;
+            // 
+            // colSemester
+            // 
+            this.colSemester.HeaderText = "學期";
+            this.colSemester.Name = "colSemester";
+            this.colSemester.ReadOnly = true;
+            this.colSemester.Width = 75;
+            // 
+            // colRegisterDate
+            // 
+            this.colRegisterDate.HeaderText = "登錄日期";
+            this.colRegisterDate.Name = "colRegisterDate";
+            this.colRegisterDate.ReadOnly = true;
+            this.colRegisterDate.Width = 120;
+            // 
+            // colMeritFlag
+            // 
+            this.colMeritFlag.HeaderText = "Flag";
+            this.colMeritFlag.Name = "colMeritFlag";
+            this.colMeritFlag.Visible = false;
             // 
             // contextMenuStrip1
             // 
@@ -502,13 +612,13 @@
             this.groupPanel2.BackColor = System.Drawing.Color.Transparent;
             this.groupPanel2.CanvasColor = System.Drawing.SystemColors.Control;
             this.groupPanel2.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
-            this.groupPanel2.Controls.Add(this.lbRange);
-            this.groupPanel2.Controls.Add(this.lbClass);
-            this.groupPanel2.Controls.Add(this.lbSeatNo);
-            this.groupPanel2.Controls.Add(this.txtSeatNo);
-            this.groupPanel2.Controls.Add(this.cbRange);
-            this.groupPanel2.Controls.Add(this.txtClass);
-            this.groupPanel2.Controls.Add(this.cbClass);
+            this.groupPanel2.Controls.Add(this.lbLevel1);
+            this.groupPanel2.Controls.Add(this.lbLevel2);
+            this.groupPanel2.Controls.Add(this.lbLevel3);
+            this.groupPanel2.Controls.Add(this.txtLevel3);
+            this.groupPanel2.Controls.Add(this.cbLevel1);
+            this.groupPanel2.Controls.Add(this.txtLevel2);
+            this.groupPanel2.Controls.Add(this.cbLevel2);
             this.groupPanel2.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
             this.groupPanel2.Location = new System.Drawing.Point(277, 8);
             this.groupPanel2.Name = "groupPanel2";
@@ -546,87 +656,87 @@
             this.groupPanel2.TabIndex = 16;
             this.groupPanel2.Text = "篩選範圍";
             // 
-            // lbRange
+            // lbLevel1
             // 
-            this.lbRange.AutoSize = true;
-            this.lbRange.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.lbRange.BackgroundStyle.Class = "";
-            this.lbRange.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lbRange.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
-            this.lbRange.Location = new System.Drawing.Point(20, 18);
-            this.lbRange.Name = "lbRange";
-            this.lbRange.Size = new System.Drawing.Size(34, 21);
-            this.lbRange.TabIndex = 35;
-            this.lbRange.Text = "範圍";
-            // 
-            // lbClass
-            // 
-            this.lbClass.AutoSize = true;
-            this.lbClass.BackColor = System.Drawing.Color.Transparent;
+            this.lbLevel1.AutoSize = true;
+            this.lbLevel1.BackColor = System.Drawing.Color.Transparent;
             // 
             // 
             // 
-            this.lbClass.BackgroundStyle.Class = "";
-            this.lbClass.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lbClass.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
-            this.lbClass.Location = new System.Drawing.Point(20, 62);
-            this.lbClass.Name = "lbClass";
-            this.lbClass.Size = new System.Drawing.Size(34, 21);
-            this.lbClass.TabIndex = 31;
-            this.lbClass.Text = "班級";
-            this.lbClass.Visible = false;
+            this.lbLevel1.BackgroundStyle.Class = "";
+            this.lbLevel1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lbLevel1.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
+            this.lbLevel1.Location = new System.Drawing.Point(20, 18);
+            this.lbLevel1.Name = "lbLevel1";
+            this.lbLevel1.Size = new System.Drawing.Size(34, 21);
+            this.lbLevel1.TabIndex = 35;
+            this.lbLevel1.Text = "範圍";
             // 
-            // lbSeatNo
+            // lbLevel2
             // 
-            this.lbSeatNo.AutoSize = true;
-            this.lbSeatNo.BackColor = System.Drawing.Color.Transparent;
-            // 
-            // 
-            // 
-            this.lbSeatNo.BackgroundStyle.Class = "";
-            this.lbSeatNo.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lbSeatNo.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
-            this.lbSeatNo.Location = new System.Drawing.Point(20, 105);
-            this.lbSeatNo.Name = "lbSeatNo";
-            this.lbSeatNo.Size = new System.Drawing.Size(34, 21);
-            this.lbSeatNo.TabIndex = 32;
-            this.lbSeatNo.Text = "座號";
-            this.lbSeatNo.Visible = false;
-            // 
-            // txtSeatNo
+            this.lbLevel2.AutoSize = true;
+            this.lbLevel2.BackColor = System.Drawing.Color.Transparent;
             // 
             // 
             // 
+            this.lbLevel2.BackgroundStyle.Class = "";
+            this.lbLevel2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lbLevel2.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
+            this.lbLevel2.Location = new System.Drawing.Point(20, 62);
+            this.lbLevel2.Name = "lbLevel2";
+            this.lbLevel2.Size = new System.Drawing.Size(34, 21);
+            this.lbLevel2.TabIndex = 31;
+            this.lbLevel2.Text = "班級";
+            this.lbLevel2.Visible = false;
             // 
-            this.txtSeatNo.Border.Class = "TextBoxBorder";
-            this.txtSeatNo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.txtSeatNo.Location = new System.Drawing.Point(57, 103);
-            this.txtSeatNo.Name = "txtSeatNo";
-            this.txtSeatNo.Size = new System.Drawing.Size(176, 25);
-            this.txtSeatNo.TabIndex = 33;
-            this.txtSeatNo.Visible = false;
+            // lbLevel3
             // 
-            // cbRange
+            this.lbLevel3.AutoSize = true;
+            this.lbLevel3.BackColor = System.Drawing.Color.Transparent;
             // 
-            this.cbRange.DisplayMember = "Text";
-            this.cbRange.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbRange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbRange.FormattingEnabled = true;
-            this.cbRange.ItemHeight = 19;
-            this.cbRange.Items.AddRange(new object[] {
+            // 
+            // 
+            this.lbLevel3.BackgroundStyle.Class = "";
+            this.lbLevel3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lbLevel3.Font = new System.Drawing.Font("微軟正黑體", 9.75F);
+            this.lbLevel3.Location = new System.Drawing.Point(20, 105);
+            this.lbLevel3.Name = "lbLevel3";
+            this.lbLevel3.Size = new System.Drawing.Size(34, 21);
+            this.lbLevel3.TabIndex = 32;
+            this.lbLevel3.Text = "座號";
+            this.lbLevel3.Visible = false;
+            // 
+            // txtLevel3
+            // 
+            // 
+            // 
+            // 
+            this.txtLevel3.Border.Class = "TextBoxBorder";
+            this.txtLevel3.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.txtLevel3.Location = new System.Drawing.Point(57, 103);
+            this.txtLevel3.Name = "txtLevel3";
+            this.txtLevel3.Size = new System.Drawing.Size(176, 25);
+            this.txtLevel3.TabIndex = 33;
+            this.txtLevel3.Visible = false;
+            // 
+            // cbLevel1
+            // 
+            this.cbLevel1.DisplayMember = "Text";
+            this.cbLevel1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbLevel1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbLevel1.FormattingEnabled = true;
+            this.cbLevel1.ItemHeight = 19;
+            this.cbLevel1.Items.AddRange(new object[] {
             this.comboItem5,
             this.comboItem4,
             this.comboItem3,
             this.comboItem6,
             this.comboItem7});
-            this.cbRange.Location = new System.Drawing.Point(57, 16);
-            this.cbRange.Name = "cbRange";
-            this.cbRange.Size = new System.Drawing.Size(176, 25);
-            this.cbRange.TabIndex = 34;
-            this.cbRange.SelectedIndexChanged += new System.EventHandler(this.cbRange_SelectedIndexChanged_1);
+            this.cbLevel1.Location = new System.Drawing.Point(57, 16);
+            this.cbLevel1.Name = "cbLevel1";
+            this.cbLevel1.Size = new System.Drawing.Size(176, 25);
+            this.cbLevel1.TabIndex = 34;
+            this.cbLevel1.SelectedIndexChanged += new System.EventHandler(this.cbRange_SelectedIndexChanged_1);
             // 
             // comboItem5
             // 
@@ -648,31 +758,31 @@
             // 
             this.comboItem7.Text = "全校";
             // 
-            // txtClass
+            // txtLevel2
             // 
             // 
             // 
             // 
-            this.txtClass.Border.Class = "TextBoxBorder";
-            this.txtClass.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.txtClass.Location = new System.Drawing.Point(57, 60);
-            this.txtClass.Name = "txtClass";
-            this.txtClass.Size = new System.Drawing.Size(176, 25);
-            this.txtClass.TabIndex = 37;
-            this.txtClass.Visible = false;
+            this.txtLevel2.Border.Class = "TextBoxBorder";
+            this.txtLevel2.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.txtLevel2.Location = new System.Drawing.Point(57, 60);
+            this.txtLevel2.Name = "txtLevel2";
+            this.txtLevel2.Size = new System.Drawing.Size(176, 25);
+            this.txtLevel2.TabIndex = 37;
+            this.txtLevel2.Visible = false;
             // 
-            // cbClass
+            // cbLevel2
             // 
-            this.cbClass.DisplayMember = "Text";
-            this.cbClass.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbClass.FormattingEnabled = true;
-            this.cbClass.ItemHeight = 19;
-            this.cbClass.Location = new System.Drawing.Point(57, 60);
-            this.cbClass.Name = "cbClass";
-            this.cbClass.Size = new System.Drawing.Size(176, 25);
-            this.cbClass.TabIndex = 36;
-            this.cbClass.Visible = false;
+            this.cbLevel2.DisplayMember = "Text";
+            this.cbLevel2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbLevel2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbLevel2.FormattingEnabled = true;
+            this.cbLevel2.ItemHeight = 19;
+            this.cbLevel2.Location = new System.Drawing.Point(57, 60);
+            this.cbLevel2.Name = "cbLevel2";
+            this.cbLevel2.Size = new System.Drawing.Size(176, 25);
+            this.cbLevel2.TabIndex = 36;
+            this.cbLevel2.Visible = false;
             // 
             // groupPanel3
             // 
@@ -1208,116 +1318,6 @@
             this.picWaiting.TabStop = false;
             this.picWaiting.Visible = false;
             // 
-            // colID
-            // 
-            this.colID.HeaderText = "ID";
-            this.colID.Name = "colID";
-            this.colID.ReadOnly = true;
-            this.colID.Visible = false;
-            this.colID.Width = 80;
-            // 
-            // colStudentID
-            // 
-            this.colStudentID.HeaderText = "StudentID";
-            this.colStudentID.Name = "colStudentID";
-            this.colStudentID.ReadOnly = true;
-            this.colStudentID.Visible = false;
-            // 
-            // colOccurDate
-            // 
-            this.colOccurDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colOccurDate.HeaderText = "獎懲日期";
-            this.colOccurDate.Name = "colOccurDate";
-            this.colOccurDate.ReadOnly = true;
-            this.colOccurDate.Width = 85;
-            // 
-            // colClassName
-            // 
-            this.colClassName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colClassName.HeaderText = "班級";
-            this.colClassName.Name = "colClassName";
-            this.colClassName.ReadOnly = true;
-            this.colClassName.Width = 59;
-            // 
-            // colSeatNo
-            // 
-            this.colSeatNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colSeatNo.HeaderText = "座號";
-            this.colSeatNo.Name = "colSeatNo";
-            this.colSeatNo.ReadOnly = true;
-            this.colSeatNo.Width = 59;
-            // 
-            // colStudentNumber
-            // 
-            this.colStudentNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colStudentNumber.HeaderText = "學號";
-            this.colStudentNumber.Name = "colStudentNumber";
-            this.colStudentNumber.ReadOnly = true;
-            this.colStudentNumber.Width = 59;
-            // 
-            // colStudentName
-            // 
-            this.colStudentName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colStudentName.HeaderText = "姓名";
-            this.colStudentName.Name = "colStudentName";
-            this.colStudentName.ReadOnly = true;
-            this.colStudentName.Width = 59;
-            // 
-            // colGender
-            // 
-            this.colGender.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colGender.HeaderText = "性別";
-            this.colGender.Name = "colGender";
-            this.colGender.ReadOnly = true;
-            this.colGender.Width = 59;
-            // 
-            // colDisciplineCount
-            // 
-            this.colDisciplineCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colDisciplineCount.HeaderText = "獎懲次數";
-            this.colDisciplineCount.Name = "colDisciplineCount";
-            this.colDisciplineCount.ReadOnly = true;
-            this.colDisciplineCount.Width = 85;
-            // 
-            // colReason
-            // 
-            this.colReason.HeaderText = "事由";
-            this.colReason.Name = "colReason";
-            this.colReason.ReadOnly = true;
-            this.colReason.Width = 250;
-            // 
-            // colRemark
-            // 
-            this.colRemark.HeaderText = "備註";
-            this.colRemark.Name = "colRemark";
-            // 
-            // colSchoolYear
-            // 
-            this.colSchoolYear.HeaderText = "學年度";
-            this.colSchoolYear.Name = "colSchoolYear";
-            this.colSchoolYear.ReadOnly = true;
-            this.colSchoolYear.Width = 75;
-            // 
-            // colSemester
-            // 
-            this.colSemester.HeaderText = "學期";
-            this.colSemester.Name = "colSemester";
-            this.colSemester.ReadOnly = true;
-            this.colSemester.Width = 75;
-            // 
-            // colRegisterDate
-            // 
-            this.colRegisterDate.HeaderText = "登錄日期";
-            this.colRegisterDate.Name = "colRegisterDate";
-            this.colRegisterDate.ReadOnly = true;
-            this.colRegisterDate.Width = 120;
-            // 
-            // colMeritFlag
-            // 
-            this.colMeritFlag.HeaderText = "Flag";
-            this.colMeritFlag.Name = "colMeritFlag";
-            this.colMeritFlag.Visible = false;
-            // 
             // MerDemEditForm
             // 
             this.ClientSize = new System.Drawing.Size(792, 546);
@@ -1417,18 +1417,18 @@
         private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxEx1;
         private DevComponents.Editors.ComboItem comboItem1;
         private DevComponents.Editors.ComboItem comboItem2;
-        private DevComponents.DotNetBar.LabelX lbRange;
-        private DevComponents.DotNetBar.Controls.ComboBoxEx cbRange;
+        private DevComponents.DotNetBar.LabelX lbLevel1;
+        private DevComponents.DotNetBar.Controls.ComboBoxEx cbLevel1;
         private DevComponents.Editors.ComboItem comboItem5;
         private DevComponents.Editors.ComboItem comboItem4;
         private DevComponents.Editors.ComboItem comboItem3;
         private DevComponents.Editors.ComboItem comboItem6;
         private DevComponents.Editors.ComboItem comboItem7;
-        private DevComponents.DotNetBar.Controls.TextBoxX txtClass;
-        private DevComponents.DotNetBar.LabelX lbClass;
-        private DevComponents.DotNetBar.Controls.ComboBoxEx cbClass;
-        private DevComponents.DotNetBar.LabelX lbSeatNo;
-        private DevComponents.DotNetBar.Controls.TextBoxX txtSeatNo;
+        private DevComponents.DotNetBar.Controls.TextBoxX txtLevel2;
+        private DevComponents.DotNetBar.LabelX lbLevel2;
+        private DevComponents.DotNetBar.Controls.ComboBoxEx cbLevel2;
+        private DevComponents.DotNetBar.LabelX lbLevel3;
+        private DevComponents.DotNetBar.Controls.TextBoxX txtLevel3;
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dateTimeInput2;
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dateTimeInput1;
         private DevComponents.DotNetBar.LabelX txtHelpStudentCount;

@@ -311,7 +311,7 @@ namespace K12.Behavior.StuAdminExtendControls
 
             cbClass.Items.Clear(); //清空下拉式選單
             cbClass.DisplayMember = "Key";
-            Classes.Sort(new Comparison<ClassRecord>(SortComparer)); //排序
+            Classes.Sort(new Comparison<ClassRecord>(tool.SortComparer)); //排序
 
             Dictionary<string, List<ClassRecord>> dic = new Dictionary<string, List<ClassRecord>>();
             List<string> dicSort = new List<string>();
@@ -347,7 +347,7 @@ namespace K12.Behavior.StuAdminExtendControls
 
             cbClass.Items.Clear(); //清空下拉式選單
             cbClass.DisplayMember = "Key";
-            Classes.Sort(new Comparison<ClassRecord>(SortComparer)); //排序
+            Classes.Sort(new Comparison<ClassRecord>(tool.SortComparer)); //排序
 
             foreach (ClassRecord DCA in Classes)
             {
@@ -367,13 +367,6 @@ namespace K12.Behavior.StuAdminExtendControls
                 each.Checked = checkBox1.Checked;
             }
             #endregion
-        }
-
-        private int SortComparer(ClassRecord x, ClassRecord y)
-        {
-            string xx = x.Name;
-            string yy = y.Name;
-            return xx.CompareTo(yy);
         }
 
         private void btnRefresh_Click_1(object sender, EventArgs e)

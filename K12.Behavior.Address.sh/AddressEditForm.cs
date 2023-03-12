@@ -48,7 +48,7 @@ namespace K12.Behavior.Address.sh
 
             labelX2.Text = "學生待處理：" + K12.Presentation.NLDPanels.Student.TempSource.Count() + "人";
 
-     
+
 
             #endregion
         }
@@ -67,7 +67,7 @@ namespace K12.Behavior.Address.sh
 
             comboBoxEx1.SelectedIndex = 0;
 
-        
+
 
             //DataListener.SuspendListen(); //終止變更判斷
             //整理畫面樣式
@@ -108,7 +108,7 @@ namespace K12.Behavior.Address.sh
 
             DataListener.Reset();
             DataListener.ResumeListen();
-        } 
+        }
         #endregion
 
         private void ColumnCheng()
@@ -132,6 +132,9 @@ namespace K12.Behavior.Address.sh
                 //SetColumnNameLock("村里", 90);
                 //SetColumnNameLock("鄰", 90);
                 SetColumnNameLock("村里街號", 250);
+
+                List<string> cols = new List<string>() { "郵遞區號" };
+                Campus.Windows.DataGridViewImeDecorator dec = new Campus.Windows.DataGridViewImeDecorator(this.dataGridViewX1, cols);
                 #endregion
             }
             else
@@ -142,6 +145,10 @@ namespace K12.Behavior.Address.sh
                 SetColumnNameLock("其他2", 90);
                 SetColumnNameLock("其他3", 90);
                 SetColumnNameLock("手機", 90);
+
+                //避免欄位輸入全形問題
+                List<string> cols = new List<string>() { "聯絡電話", "其他1", "其他2", "其他3", "手機" };
+                Campus.Windows.DataGridViewImeDecorator dec = new Campus.Windows.DataGridViewImeDecorator(this.dataGridViewX1, cols);
                 #endregion
             }
             #endregion
@@ -191,7 +198,7 @@ namespace K12.Behavior.Address.sh
                 }
 
                 dataGridViewX1.Rows.Add(row);
-            } 
+            }
             #endregion
         }
 
@@ -254,7 +261,7 @@ namespace K12.Behavior.Address.sh
                 }
 
                 btnSavePage.Enabled = true;
-                FISCA.Presentation.Controls.MsgBox.Show("地址資料,儲存成功"); 
+                FISCA.Presentation.Controls.MsgBox.Show("地址資料,儲存成功");
                 #endregion
             }
             else
@@ -309,14 +316,14 @@ namespace K12.Behavior.Address.sh
                 }
 
                 btnSavePage.Enabled = true;
-                FISCA.Presentation.Controls.MsgBox.Show("電話資料,儲存成功"); 
+                FISCA.Presentation.Controls.MsgBox.Show("電話資料,儲存成功");
                 #endregion
-            } 
+            }
             #endregion
 
             DataGridViewDataInChange = false;
         }
-        
+
         #region 其他內容
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -327,7 +334,7 @@ namespace K12.Behavior.Address.sh
         /// 新增Column
         /// </summary>
         /// <param name="x"></param>
-        private void SetColumnName(string x,int y)
+        private void SetColumnName(string x, int y)
         {
             int NUM = dataGridViewX1.Columns.Add(x, x);
             dataGridViewX1.Columns[NUM].Width = y;
@@ -339,7 +346,7 @@ namespace K12.Behavior.Address.sh
         /// 新增Column,不鎖定
         /// </summary>
         /// <param name="x"></param>
-        private void SetColumnNameLock(string x,int y)
+        private void SetColumnNameLock(string x, int y)
         {
             int NUM = dataGridViewX1.Columns.Add(x, x);
             dataGridViewX1.Columns[NUM].Width = y;
@@ -387,12 +394,12 @@ namespace K12.Behavior.Address.sh
             labelX2.Text = "學生待處理：" + K12.Presentation.NLDPanels.Student.TempSource.Count() + "人";
         }
 
-       
+
         private void dataGridViewX1_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
-         
+
             string HeaderText = dataGridViewX1.Columns[e.ColumnIndex].HeaderText;
-            List<string> cols = new List<string>() { "郵遞區號","聯絡電話","其他1","其他2","其他3","手機"};
+            List<string> cols = new List<string>() { "郵遞區號", "聯絡電話", "其他1", "其他2", "其他3", "手機" };
 
             if (cols.Contains(HeaderText))
             {
