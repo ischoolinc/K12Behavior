@@ -257,7 +257,7 @@ namespace K12.學生獎勵懲戒明細
 
                 //如果不是第一頁，就在上一頁的資料列下邊加黑線
                 if (index != 0)
-                    ws.Cells.CreateRange(index - 1, 0, 1, columnNumber).SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Medium, Color.Black);
+                    ws.Cells.CreateRange(index - 1, 0, 1, columnNumber).SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Thin, Color.Black);
 
                 //複製 Header
                 ws.Cells.CreateRange(index, 4, false).Copy(ptHeader);
@@ -361,8 +361,8 @@ namespace K12.學生獎勵懲戒明細
                 Range disciplineStatisticsRange = ws.Cells.CreateRange(dataIndex, 0, 1, columnNumber);
                 disciplineStatisticsRange.Copy(ptEachRow);
                 disciplineStatisticsRange.Merge();
-                disciplineStatisticsRange.SetOutlineBorder(BorderType.TopBorder, CellBorderType.Double, Color.Black);
-                disciplineStatisticsRange.SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Double, Color.Black);
+                disciplineStatisticsRange.SetOutlineBorder(BorderType.TopBorder, CellBorderType.Thin, Color.Black);
+                disciplineStatisticsRange.SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Thin, Color.Black);
                 disciplineStatisticsRange.RowHeight = 20.0;
                 ws.Cells[dataIndex, 0].Style.HorizontalAlignment = TextAlignmentType.Center;
                 ws.Cells[dataIndex, 0].Style.VerticalAlignment = TextAlignmentType.Center;
@@ -445,7 +445,7 @@ namespace K12.學生獎勵懲戒明細
             if (dataIndex > 0)
             {
                 //最後一頁的資料列下邊加上黑線
-                ws.Cells.CreateRange(dataIndex - 1, 0, 1, columnNumber).SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Medium, Color.Black);
+                ws.Cells.CreateRange(dataIndex - 1, 0, 1, columnNumber).SetOutlineBorder(BorderType.BottomBorder, CellBorderType.Thin, Color.Black);
                 ws.Name = startPage + " ~ " + (pageNumber + startPage - 2);
             }
             else

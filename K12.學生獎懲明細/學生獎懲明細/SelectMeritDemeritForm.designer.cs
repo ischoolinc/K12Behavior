@@ -47,6 +47,7 @@ namespace K12.學生獎勵懲戒明細
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.checkBoxX2 = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.labelX6 = new DevComponents.DotNetBar.LabelX();
             ((System.ComponentModel.ISupportInitialize)(this.dateTimeInput2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateTimeInput1)).BeginInit();
             this.SuspendLayout();
@@ -100,7 +101,7 @@ namespace K12.學生獎勵懲戒明細
             this.buttonX2.AutoSize = true;
             this.buttonX2.BackColor = System.Drawing.Color.Transparent;
             this.buttonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonX2.Location = new System.Drawing.Point(189, 265);
+            this.buttonX2.Location = new System.Drawing.Point(189, 291);
             this.buttonX2.Name = "buttonX2";
             this.buttonX2.Size = new System.Drawing.Size(75, 25);
             this.buttonX2.TabIndex = 19;
@@ -325,7 +326,7 @@ namespace K12.學生獎勵懲戒明細
             this.buttonX1.AutoSize = true;
             this.buttonX1.BackColor = System.Drawing.Color.Transparent;
             this.buttonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonX1.Location = new System.Drawing.Point(111, 265);
+            this.buttonX1.Location = new System.Drawing.Point(111, 291);
             this.buttonX1.Name = "buttonX1";
             this.buttonX1.Size = new System.Drawing.Size(71, 25);
             this.buttonX1.TabIndex = 2;
@@ -380,11 +381,27 @@ namespace K12.學生獎勵懲戒明細
             this.checkBoxX2.TabIndex = 22;
             this.checkBoxX2.Text = "排除已銷過資料";
             // 
+            // labelX6
+            // 
+            this.labelX6.AutoSize = true;
+            this.labelX6.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.labelX6.BackgroundStyle.Class = "";
+            this.labelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX6.Location = new System.Drawing.Point(26, 258);
+            this.labelX6.Name = "labelX6";
+            this.labelX6.Size = new System.Drawing.Size(209, 21);
+            this.labelX6.TabIndex = 23;
+            this.labelX6.Text = "*.本報表單一頁面,資料筆數為40筆";
+            // 
             // SelectMeritDemeritForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(276, 302);
+            this.ClientSize = new System.Drawing.Size(276, 328);
+            this.Controls.Add(this.labelX6);
             this.Controls.Add(this.checkBoxX2);
             this.Controls.Add(this.labelX5);
             this.Controls.Add(this.buttonX2);
@@ -401,6 +418,7 @@ namespace K12.學生獎勵懲戒明細
             this.Controls.Add(this.buttonX1);
             this.Controls.Add(this.labelX2);
             this.Controls.Add(this.labelX1);
+            this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SelectMeritDemeritForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -432,6 +450,6 @@ namespace K12.學生獎勵懲戒明細
         private DevComponents.DotNetBar.ButtonX buttonX2;
         private DevComponents.DotNetBar.LabelX labelX5;
         private DevComponents.DotNetBar.Controls.CheckBoxX checkBoxX2;
-
+        private DevComponents.DotNetBar.LabelX labelX6;
     }
 }

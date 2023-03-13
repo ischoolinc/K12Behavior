@@ -64,11 +64,6 @@
       <HintPath>..\..\..\ischool_Senior with FISCA\LibraryProject\Aspose.Cells.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Aspose.Words, Version=4.4.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ischool_Senior with FISCA\LibraryProject\Aspose.Words.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="DevComponents.DotNetBar2, Version=7.9.0.3, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\ischool_Senior with FISCA\LibraryProject\DevComponents.DotNetBar2.dll</HintPath>

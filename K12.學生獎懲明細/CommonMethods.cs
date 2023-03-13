@@ -69,66 +69,6 @@ namespace K12.學生獎勵懲戒明細
             }
         }
 
-        //Word報表
-        public static void WordReport_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Cancelled)
-            {
-                MsgBox.Show("未取得獎勵懲戒資料");
-                return;
-            }
-
-            string reportName;
-            string path;
-            Aspose.Words.Document doc;
-
-            object[] result = (object[])e.Result;
-            reportName = (string)result[0];
-            path = (string)result[1];
-            doc = (Aspose.Words.Document)result[2];
-
-            if (File.Exists(path))
-            {
-                int i = 1;
-                while (true)
-                {
-                    string newPath = Path.GetDirectoryName(path) + "\\" + Path.GetFileNameWithoutExtension(path) + (i++) + Path.GetExtension(path);
-                    if (!File.Exists(newPath))
-                    {
-                        path = newPath;
-                        break;
-                    }
-                }
-            }
-
-            try
-            {
-                doc.Save(path, Aspose.Words.SaveFormat.Doc);
-                FISCA.Presentation.MotherForm.SetStatusBarMessage(reportName + "產生完成");
-                System.Diagnostics.Process.Start(path);
-            }
-            catch
-            {
-                SaveFileDialog sd = new SaveFileDialog();
-                sd.Title = "另存新檔";
-                sd.FileName = reportName + ".doc";
-                sd.Filter = "Word檔案 (*.doc)|*.doc|所有檔案 (*.*)|*.*";
-                if (sd.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        doc.Save(sd.FileName, Aspose.Words.SaveFormat.Doc);
-
-                    }
-                    catch
-                    {
-                        MsgBox.Show("指定路徑無法存取。", "建立檔案失敗", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-            }
-        }
-
         //回報進度
         public static void Report_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
