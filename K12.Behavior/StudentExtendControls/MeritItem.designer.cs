@@ -164,11 +164,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnView);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.listView);
             this.Controls.Add(this.btnInsert);
+            this.Controls.Add(this.btnView);
             this.Name = "MeritItem";
             this.Size = new System.Drawing.Size(550, 235);
             this.ResumeLayout(false);

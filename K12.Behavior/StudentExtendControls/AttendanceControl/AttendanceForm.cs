@@ -32,114 +32,6 @@ namespace K12.Behavior.StudentExtendControls
         //之後
         private Dictionary<string, string> DicAfterLog = new Dictionary<string, string>();
 
-        #region 無用建構式
-        /// <summary>
-        /// 新增模式
-        /// </summary>
-        //public AttendanceForm(EditorStatus status, AttendanceRecord editor, List<PeriodMappingInfo> periodList, FeatureAce permission, int SchoolYear, int Semester)
-        //{
-        //    InitializeComponent();
-
-        //    #region 初始化學年度學期
-
-        //    //學年度
-        //    intSchoolYear.Value = SchoolYear;
-        //    intSemester.Value = Semester;
-
-        //    #endregion
-
-        //    #region 初始化缺曠類別
-
-        //    //初始化時,即取得最新缺曠資料
-        //    absenceList = K12.Data.AbsenceMapping.SelectAll();
-
-        //    foreach (AbsenceMappingInfo info in absenceList)
-        //    {
-        //        RadioButton rb = new RadioButton();
-        //        //缺曠別,縮寫,熱鍵
-        //        rb.Text = info.Name + "(" + info.HotKey.ToUpper() + ")";
-        //        rb.AutoSize = true;
-        //        //rb.Font = new Font(FontStyles.GeneralFontFamily, 9.25f);
-        //        rb.Tag = info;
-        //        rb.CheckedChanged += delegate(object sender, EventArgs e)
-        //        {
-        //            if (rb.Checked)
-        //            {
-        //                foreach (DataGridViewCell cell in dataGridViewX1.SelectedCells)
-        //                {
-        //                    cell.Value = (rb.Tag as AbsenceMappingInfo).Abbreviation;
-        //                }
-        //            }
-        //        };
-        //        flpAbsence.Controls.Add(rb);
-        //    }
-
-        //    //把第一個缺曠類別設為預設值
-        //    RadioButton fouse = flpAbsence.Controls[0] as RadioButton;
-        //    fouse.Checked = true;
-
-        //    #endregion
-
-        //    #region 初始化節次表
-        //    foreach (PeriodMappingInfo info in periodList)
-        //    {
-        //        //Log使用
-        //        DicBeforeLog.Add(info.Name, "");
-        //        DicAfterLog.Add(info.Name, "");
-
-        //        DataGridViewTextBoxColumn column = new DataGridViewTextBoxColumn();
-        //        column.Width = 40;
-        //        column.HeaderText = info.Name;
-        //        column.Tag = info;
-        //        dataGridViewX1.Columns.Add(column);
-
-        //        //PeriodControl pc = new PeriodControl();
-        //        //pc.Label.Text = info.Name;
-        //        //pc.Tag = info;
-        //        //pc.TextBox.KeyUp += delegate(object sender, KeyEventArgs e)
-        //        //{
-        //        //    var txtBox = sender as DevComponents.DotNetBar.Controls.TextBoxX;
-        //        //    foreach (AbsenceMappingInfo absenceInfo in absenceList)
-        //        //    {
-        //        //        if (KeyConverter.GetKeyMapping(e) == absenceInfo.HotKey || KeyConverter.GetKeyMapping(e) == absenceInfo.HotKey.ToUpper())
-        //        //        {
-        //        //            txtBox.Text = absenceInfo.Abbreviation;
-        //        //            if (flpPeriod.GetNextControl(pc, true) != null)
-        //        //                (flpPeriod.GetNextControl(pc, true) as PeriodControl).TextBox.Focus();
-        //        //            return;
-        //        //        }
-        //        //    }
-        //        //    txtBox.SelectAll();
-        //        //};
-        //        //pc.TextBox.MouseDoubleClick += new MouseEventHandler(TextBox_MouseDoubleClick);
-        //        //flpPeriod.Controls.Add(pc);
-        //    }
-        //    DataGridViewRow row = new DataGridViewRow();
-        //    row.CreateCells(dataGridViewX1);
-        //    dataGridViewX1.Rows.Add(row);
-        //    dataGridViewX1.AutoResizeColumns();
-        //    #endregion
-
-        //    dateTimeInput1.Value = DateTime.Today;
-
-        //    btnSave.Visible = permission.Editable;
-        //    intSchoolYear.Enabled = permission.Editable;
-        //    intSemester.Enabled = permission.Editable;
-        //    panelAbsence.Enabled = permission.Editable;
-        //    //pancelAttendence.Enabled = permission.Editable;
-        //    dataGridViewX1.Enabled = permission.Editable;
-
-        //    if (status == EditorStatus.Insert)
-        //    {
-        //        Text = "管理學生缺曠紀錄【新增模式】";
-        //    }
-
-        //    _status = status;
-        //    _editor = editor;
-        //    _absenceList = absenceList;
-        //    _periodList = periodList;
-        //} 
-        #endregion
 
         public AttendanceForm(EditorStatus status, AttendanceRecord editor, List<PeriodMappingInfo> periodList, FeatureAce permission)
         {
@@ -278,6 +170,18 @@ namespace K12.Behavior.StudentExtendControls
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            //2023/3/14 - 增加驗證使用者是否未輸入時間
+            if (dateTimeInput1.Text == "0001/01/01 00:00:00" || dateTimeInput1.Text == "")
+            {
+                _errorProvider.SetError(dateTimeInput1, "請輸入時間日期");
+                return;
+            }
+            else
+            {
+                _errorProvider.SetError(dateTimeInput1, "");
+            }
+
+
             if (_status == EditorStatus.Insert)
             {
                 foreach (AttendanceRecord each in Attendance.SelectByStudentIDs(new string[] { _editor.RefStudentID }))
@@ -405,25 +309,6 @@ namespace K12.Behavior.StudentExtendControls
             this.Close();
         }
 
-        #region 未完成的處理
-        private void dataGridViewX1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            //DataGridViewCell dgvCell = dataGridViewX1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            //string dgvString = "" + dgvCell.Value;
-            //dgvCell.Value = "";
-            //if (!string.IsNullOrEmpty(dgvString))
-            //{
-            //    foreach (AbsenceMappingInfo absenceInfo in absenceList)
-            //    {
-            //        if (dgvString == absenceInfo.HotKey)
-            //        {
-            //            dgvCell.Value = absenceInfo.Abbreviation;
-            //            break;
-            //        }
-            //    }
-            //    dataGridViewX1.GoToNEXTCell();
-            //}
-        }
 
         private void dataGridViewX1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
@@ -530,8 +415,6 @@ namespace K12.Behavior.StudentExtendControls
 
             //if (e.KeyValue < 123 && e.KeyValue > 64)
         }
-
-        #endregion
 
         private void dataGridViewX1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {

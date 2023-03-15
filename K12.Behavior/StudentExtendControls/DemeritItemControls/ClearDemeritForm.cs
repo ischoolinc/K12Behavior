@@ -11,6 +11,7 @@ using DevComponents.DotNetBar;
 using FISCA.Presentation.Controls;
 using FISCA.LogAgent;
 using K12.Data;
+using DevComponents.DotNetBar.Validator;
 
 namespace K12.Behavior.StudentExtendControls
 {
@@ -31,8 +32,31 @@ namespace K12.Behavior.StudentExtendControls
             dateTimeInput1.Value = DateTime.Today;
         }
 
+        private bool CheckDateTimeInput()
+        {
+            // 2023/3/14 - 增加驗證使用者是否未輸入時間
+            if (dateTimeInput1.Text == "0001/01/01 00:00:00" || dateTimeInput1.Text == "")
+            {
+                errorProvider1.SetError(dateTimeInput1, "請輸入時間日期");
+                return false;
+            }
+            else
+            {
+                errorProvider1.SetError(dateTimeInput1, "");
+            }
+
+            return true;
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
+            // 2023/3/14 - 增加驗證使用者是否未輸入時間
+            if (!CheckDateTimeInput())
+            {
+                MsgBox.Show("請修正時間欄位,再儲存!!");
+                return;
+            }
+
             DateTime dt;
             if (!DateTime.TryParse(dateTimeInput1.Text,out dt))
             {

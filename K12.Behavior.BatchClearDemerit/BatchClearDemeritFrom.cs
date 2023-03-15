@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using FISCA.Presentation.Controls;
 using K12.Data;
 using FISCA.LogAgent;
+using DevComponents.Editors.DateTimeAdv;
 
 namespace K12.Behavior.BatchClearDemerit
 {
@@ -56,9 +57,32 @@ namespace K12.Behavior.BatchClearDemerit
             BindDate();
         }
 
+        private bool CheckDateTimeInput()
+        {
+            // 2023/3/14 - 增加驗證使用者是否未輸入時間
+            if (dtClearDate.Text == "0001/01/01 00:00:00" || dtClearDate.Text == "")
+            {
+                errorProvider1.SetError(dtClearDate, "請輸入時間日期");
+                return false;
+            }
+            else
+            {
+                errorProvider1.SetError(dtClearDate, "");
+            }
+
+            return true;
+        }
+
         //銷過作業(Log未完成)
         private void btnClearDemerit_Click(object sender, EventArgs e)
         {
+            // 2023/3/14 - 增加驗證使用者是否未輸入時間
+            if (!CheckDateTimeInput())
+            {
+                MsgBox.Show("請修正時間欄位,再儲存!!");
+                return;
+            }
+
             if (dataGridViewX1.SelectedRows.Count == 0)
             {
                 MsgBox.Show("請選擇要「銷過」的懲戒資料!!");
