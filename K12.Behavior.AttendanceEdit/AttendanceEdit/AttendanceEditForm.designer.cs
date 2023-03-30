@@ -64,6 +64,7 @@
             this.dateTimeInput1 = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.lbHelpTxt = new DevComponents.DotNetBar.LabelX();
             this.groupPanel2 = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.cpAtt = new K12.Behavior.AttendanceEdit.CardPanelEx();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,7 +77,6 @@
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSave = new DevComponents.DotNetBar.ButtonX();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.cpAtt = new K12.Behavior.AttendanceEdit.CardPanelEx();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewX1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -656,8 +656,7 @@
             // 
             // groupPanel2
             // 
-            this.groupPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupPanel2.BackColor = System.Drawing.Color.Transparent;
             this.groupPanel2.CanvasColor = System.Drawing.SystemColors.Control;
@@ -699,6 +698,19 @@
             this.groupPanel2.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.groupPanel2.TabIndex = 26;
             this.groupPanel2.Text = "缺曠條件 - 縮寫(熱鍵)";
+            // 
+            // cpAtt
+            // 
+            this.cpAtt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cpAtt.AutoScroll = true;
+            this.cpAtt.CardWidth = 80;
+            this.cpAtt.Location = new System.Drawing.Point(3, 5);
+            this.cpAtt.MinWidth = 2;
+            this.cpAtt.Name = "cpAtt";
+            this.cpAtt.Size = new System.Drawing.Size(246, 101);
+            this.cpAtt.TabIndex = 2;
+            this.cpAtt.Text = "cardPanelEx2";
             // 
             // checkBox1
             // 
@@ -804,19 +816,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 30;
             this.pictureBox1.TabStop = false;
-            // 
-            // cpAtt
-            // 
-            this.cpAtt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cpAtt.AutoScroll = true;
-            this.cpAtt.CardWidth = 80;
-            this.cpAtt.Location = new System.Drawing.Point(3, 5);
-            this.cpAtt.MinWidth = 2;
-            this.cpAtt.Name = "cpAtt";
-            this.cpAtt.Size = new System.Drawing.Size(246, 101);
-            this.cpAtt.TabIndex = 2;
-            this.cpAtt.Text = "cardPanelEx2";
             // 
             // AttendanceEditForm
             // 
