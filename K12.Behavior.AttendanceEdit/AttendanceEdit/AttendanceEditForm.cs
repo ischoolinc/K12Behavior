@@ -239,6 +239,7 @@ namespace K12.Behavior.AttendanceEdit
                 cbBox1.ForeColor = Color.FromArgb(22, 66, 113);
                 cbBox1.Checked = true;
                 cbBox1.Size = new Size(80, 23);
+                cbBox1.Tag = each;
                 cpAtt.Controls.Add(cbBox1);
             }
         }
@@ -514,7 +515,8 @@ namespace K12.Behavior.AttendanceEdit
             {
                 if (each.Checked)
                 {
-                    jone.Add(each.Text.Remove(each.Text.IndexOf('('))); //清除"("括號之後的內容
+                    AbsenceMappingInfo amf = (AbsenceMappingInfo)each.Tag;
+                    jone.Add(amf.Abbreviation); //清除"("括號之後的內容
                 }
             }
 
