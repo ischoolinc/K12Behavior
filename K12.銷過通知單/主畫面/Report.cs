@@ -10,6 +10,7 @@ using FISCA.DSAUtil;
 using FISCA.Presentation.Controls;
 using K12.Data;
 using Aspose.Words;
+using Behavior.Data;
 
 namespace K12.銷過通知單
 {
@@ -326,7 +327,7 @@ namespace K12.銷過通知單
 
                 //學生資料
                 mapping.Add("系統編號", "系統編號{" + eachStudentInfo.student.ID + "}");
-                mapping.Add("學生姓名", eachStudentInfo.student.Name);
+                mapping.Add("學生姓名", BehTool.SurrogatePairString(eachStudentInfo.student.Name));
                 mapping.Add("班級", eachStudentInfo.ClassName);
                 mapping.Add("座號", eachStudentInfo.SeatNo);
                 mapping.Add("學號", eachStudentInfo.StudentNumber);
@@ -335,13 +336,13 @@ namespace K12.銷過通知單
 
                 //收件人資料
                 if (obj.ReceiveName == "監護人姓名")
-                    mapping.Add("收件人姓名", eachStudentInfo.CustodianName);
+                    mapping.Add("收件人姓名", BehTool.SurrogatePairString(eachStudentInfo.CustodianName));
                 else if (obj.ReceiveName == "父親姓名")
-                    mapping.Add("收件人姓名", eachStudentInfo.FatherName);
+                    mapping.Add("收件人姓名", BehTool.SurrogatePairString(eachStudentInfo.FatherName));
                 else if (obj.ReceiveName == "母親姓名")
-                    mapping.Add("收件人姓名", eachStudentInfo.MotherName);
+                    mapping.Add("收件人姓名", BehTool.SurrogatePairString(eachStudentInfo.MotherName));
                 else
-                    mapping.Add("收件人姓名", eachStudentInfo.student.Name);
+                    mapping.Add("收件人姓名", BehTool.SurrogatePairString(eachStudentInfo.student.Name));
 
                 //收件人地址資料
                 mapping.Add("收件人地址", eachStudentInfo.address);

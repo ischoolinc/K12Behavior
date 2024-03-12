@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 using Aspose.Words;
+using Behavior.Data;
 using FISCA.DSAUtil;
 using K12.Data;
 using K12.Data.Configuration;
@@ -559,7 +560,7 @@ namespace K12.缺曠通知單
 
                 //學生資料
                 mapping.Add("系統編號", "系統編號{" + studentID + "}");
-                mapping.Add("學生姓名", StudentSuperOBJ[studentID].student.Name);
+                mapping.Add("學生姓名", BehTool.SurrogatePairString(StudentSuperOBJ[studentID].student.Name));
                 mapping.Add("班級", StudentSuperOBJ[studentID].ClassName);
                 mapping.Add("座號", StudentSuperOBJ[studentID].SeatNo);
                 mapping.Add("學號", StudentSuperOBJ[studentID].StudentNumber);
@@ -568,13 +569,13 @@ namespace K12.缺曠通知單
 
                 //收件人資料
                 if (obj.ReceiveName == "監護人姓名")
-                    mapping.Add("收件人姓名", StudentSuperOBJ[studentID].CustodianName);
+                    mapping.Add("收件人姓名", BehTool.SurrogatePairString(StudentSuperOBJ[studentID].CustodianName));
                 else if (obj.ReceiveName == "父親姓名")
-                    mapping.Add("收件人姓名", StudentSuperOBJ[studentID].FatherName);
+                    mapping.Add("收件人姓名", BehTool.SurrogatePairString(StudentSuperOBJ[studentID].FatherName));
                 else if (obj.ReceiveName == "母親姓名")
-                    mapping.Add("收件人姓名", StudentSuperOBJ[studentID].MotherName);
+                    mapping.Add("收件人姓名", BehTool.SurrogatePairString(StudentSuperOBJ[studentID].MotherName));
                 else
-                    mapping.Add("收件人姓名", StudentSuperOBJ[studentID].student.Name);
+                    mapping.Add("收件人姓名", BehTool.SurrogatePairString(StudentSuperOBJ[studentID].student.Name));
 
                 //收件人地址資料
                 mapping.Add("收件人地址", StudentSuperOBJ[studentID].address);
