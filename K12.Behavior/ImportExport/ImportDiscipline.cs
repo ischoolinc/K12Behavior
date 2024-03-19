@@ -441,7 +441,10 @@ namespace K12.Behavior
 
                     int schoolYear = int.Parse(row["學年度"]);
                     int semester = int.Parse(row["學期"]);
-                    DateTime occurdate = DateTime.Parse(row["日期"]);
+
+                    //20240319 將日期的時分秒Parse掉 - Dylan
+                    DateTime date2 = DateTime.Parse(row["日期"]);
+                    DateTime occurdate = DateTime.Parse(date2.ToString("yyyy/MM/dd"));
 
                     DateTime rd = new DateTime();
                     string register = e.ImportFields.Contains("登錄日期") ? row["登錄日期"] : "";

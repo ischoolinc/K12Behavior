@@ -106,7 +106,11 @@ namespace K12.Behavior
             {
                 int schoolYear = int.Parse(var["學年度"]);
                 int semester = int.Parse(var["學期"]);
-                DateTime date = DateTime.Parse(var["日期"]);
+
+                //20240319 將日期的時分秒Parse掉 - Dylan
+                DateTime date2 = DateTime.Parse(var["日期"]);
+                DateTime date = DateTime.Parse(date2.ToString("yyyy/MM/dd"));
+
                 string studentID = var.ID;
 
                 #region 1000512 - 新增檢查匯入日期,是否存在於不同學年度學期
