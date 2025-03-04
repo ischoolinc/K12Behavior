@@ -199,12 +199,12 @@ namespace K12.Behavior
             };
 
             //Config["管理"]["每日節次管理"].Image = Properties.Resources.table_properties_64;
-            Config["管理"]["每日節次管理"].Enable = Permissions.每日節次管理權限;
-            Config["管理"]["每日節次管理"].Click += delegate
-            {
-                PeriodConfigForm pcf = new PeriodConfigForm();
-                pcf.ShowDialog();
-            };
+            //Config["管理"]["每日節次管理"].Enable = Permissions.每日節次管理權限;
+            //Config["管理"]["每日節次管理"].Click += delegate
+            //{
+            //    PeriodConfigForm pcf = new PeriodConfigForm();
+            //    pcf.ShowDialog();
+            //};
 
             //Config["管理"]["功過換算管理"].Image = Properties.Resources.table_properties_64;
             Config["管理"]["功過換算管理"].Enable = Permissions.功過換算管理權限;
@@ -222,12 +222,12 @@ namespace K12.Behavior
                 AbsForm.ShowDialog();
             });
 
-            string URL每日節次管理 = "ischool/國中系統/學務/管理/每日節次管理";
-            FISCA.Features.Register(URL每日節次管理, arg =>
-            {
-                PeriodConfigForm PerForm = new PeriodConfigForm();
-                PerForm.ShowDialog();
-            });
+            //string URL每日節次管理 = "ischool/國中系統/學務/管理/每日節次管理";
+            //FISCA.Features.Register(URL每日節次管理, arg =>
+            //{
+            //    PeriodConfigForm PerForm = new PeriodConfigForm();
+            //    PerForm.ShowDialog();
+            //});
 
             string URL功過換算管理 = "ischool/國中系統/學務/管理/功過換算管理";
             FISCA.Features.Register(URL功過換算管理, arg =>
@@ -275,7 +275,7 @@ namespace K12.Behavior
 
             ribbon = RoleAclSource.Instance["學務作業"]["功能按鈕"];
             ribbon.Add(new RibbonFeature(Permissions.缺曠類別管理, "缺曠類別管理"));
-            ribbon.Add(new RibbonFeature(Permissions.每日節次管理, "每日節次管理"));
+            //ribbon.Add(new RibbonFeature(Permissions.每日節次管理, "每日節次管理"));
             ribbon.Add(new RibbonFeature(Permissions.功過換算管理, "功過換算管理"));
             ribbon.Add(new RibbonFeature(Permissions.獎懲事由管理, "獎懲事由管理"));
             ribbon.Add(new RibbonFeature(Permissions.獎懲批次修改, "獎懲批次修改"));

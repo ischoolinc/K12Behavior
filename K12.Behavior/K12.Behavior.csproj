@@ -268,6 +268,10 @@
     <Compile Include="StuAdminExtendControls\MeritAndDemeritControl\SetValueSchoolYearSemester.designer.cs">
       <DependentUpon>SetValueSchoolYearSemester.cs</DependentUpon>
     </Compile>
+    <Compile Include="StudentExtendControls\WordCommentPalmerworm.cs" />
+    <Compile Include="StudentExtendControls\WordCommentPalmerworm.designer.cs">
+      <DependentUpon>WordCommentPalmerworm.cs</DependentUpon>
+    </Compile>
     <Compile Include="StudentSortObj.cs" />
     <Compile Include="tool.cs" />
     <EmbeddedResource Include="ImportExport\ExportStudent.resx">
@@ -406,6 +410,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="StudentExtendControls\WordCommentPalmerworm.resx">
+      <DependentUpon>WordCommentPalmerworm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

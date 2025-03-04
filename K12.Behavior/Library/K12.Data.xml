@@ -1515,7 +1515,7 @@
             </summary>
             <returns></returns>
         </member>
-        <!-- 已忽略成員 "M:K12.Data.PeriodMapping.Update(System.Collections.Generic.IEnumerable{K12.Data.PeriodMappingInfo})" 中格式錯誤的 XML 註解 -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.PeriodMapping.Update(System.Collections.Generic.IEnumerable{K12.Data.PeriodMappingInfo})" -->
         <member name="E:K12.Data.PeriodMapping.AfterUpdate">
             <summary>
             更新之後所觸發的事件
@@ -2993,7 +2993,7 @@
             2.新增必填欄位為學生記錄編號（RefStudentID）、學年度（SchoolYear）、學期（Semester）、缺曠日期（OccurDate）。
             </remarks>
         </member>
-        <!-- 已忽略成員 "M:K12.Data.Attendance.Insert(System.Collections.Generic.IEnumerable{K12.Data.AttendanceRecord})" 中格式錯誤的 XML 註解 -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.Attendance.Insert(System.Collections.Generic.IEnumerable{K12.Data.AttendanceRecord})" -->
         <member name="M:K12.Data.Attendance.Update(K12.Data.AttendanceRecord)">
             <summary>
             更新單筆學生缺曠記錄
@@ -3796,6 +3796,7 @@
                 <SchoolYear>96</SchoolYear>
                 <GradeYear>2</GradeYear>
                 <MeritFlag>2</MeritFlag>
+                <Remark>2</Remark>
                 <Name>陳文淇1</Name>
                 <Detail>
                     <Discipline>
@@ -4189,7 +4190,7 @@
             2.新增必填欄位為學生記錄編號（RefStudentID）、學年度（SchoolYear）、學期（Semester）、缺曠日期（OccurDate）。
             </remarks>
         </member>
-        <!-- 已忽略成員 "M:K12.Data.Merit.Insert(System.Collections.Generic.IEnumerable{K12.Data.MeritRecord})" 中格式錯誤的 XML 註解 -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.Merit.Insert(System.Collections.Generic.IEnumerable{K12.Data.MeritRecord})" -->
         <member name="M:K12.Data.Merit.Update(K12.Data.MeritRecord)">
             <summary>
             更新單筆學生獎勵記錄
@@ -4447,7 +4448,12 @@
         </member>
         <member name="P:K12.Data.PeriodMappingInfo.Name">
             <summary>
-            節次名稱，如早自習、升旗
+            缺曠節次，如一、二、升旗
+            </summary>
+        </member>
+        <member name="P:K12.Data.PeriodMappingInfo.CoursePeriod">
+            <summary>
+            對應課程節次
             </summary>
         </member>
         <member name="P:K12.Data.PeriodMappingInfo.Type">
@@ -4826,6 +4832,11 @@
         <member name="P:K12.Data.ClassRecord.DisplayOrder">
             <summary>
             顯示順序
+            </summary>
+        </member>
+        <member name="P:K12.Data.ClassRecord.ClassNumber">
+            <summary>
+            班級代碼
             </summary>
         </member>
         <member name="P:K12.Data.ClassRecord.RefDepartmentID">
@@ -5364,7 +5375,7 @@
             </example>
             <remarks></remarks>
         </member>
-        <!-- 已忽略成員 "M:K12.Data.Course.SelectBySchoolYearAndSemester``1(System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)" 中格式錯誤的 XML 註解 -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.Course.SelectBySchoolYearAndSemester``1(System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)" -->
         <member name="M:K12.Data.Course.SelectByID(System.String)">
             <summary>
             根據單筆課程編號取得課程物件。
@@ -5761,6 +5772,11 @@
         <member name="P:K12.Data.CourseRecord.Extensions">
             <summary>
             延伸欄位資訊
+            </summary>
+        </member>
+        <member name="P:K12.Data.CourseRecord.CourseNumber">
+            <summary>
+            課程代碼(資料交換用)
             </summary>
         </member>
         <member name="M:K12.Data.CourseRecord.#ctor">
@@ -6191,8 +6207,8 @@
                 List&lt;AEIncludeRecord&gt; aeincluderecords = AEInclude.SelectByIDs(AEIncludeIDs);
             </example>
         </member>
-        <!-- 已忽略成員 "M:K12.Data.AEInclude.Insert(K12.Data.AEIncludeRecord)" 中格式錯誤的 XML 註解 -->
-        <!-- 已忽略成員 "M:K12.Data.AEInclude.Insert(System.Collections.Generic.IEnumerable{K12.Data.AEIncludeRecord})" 中格式錯誤的 XML 註解 -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.AEInclude.Insert(K12.Data.AEIncludeRecord)" -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.AEInclude.Insert(System.Collections.Generic.IEnumerable{K12.Data.AEIncludeRecord})" -->
         <member name="M:K12.Data.AEInclude.Update(K12.Data.AEIncludeRecord)">
             <summary>
             更新單筆評分樣板記錄
@@ -6474,8 +6490,8 @@
                 List&lt;AssessmentSetupRecord&gt; records = AssessmentSetup.SelectByIDs(AssessmentSetupIDs);
             </example>
         </member>
-        <!-- 已忽略成員 "M:K12.Data.AssessmentSetup.Insert(K12.Data.AssessmentSetupRecord)" 中格式錯誤的 XML 註解 -->
-        <!-- 已忽略成員 "M:K12.Data.AssessmentSetup.Insert(System.Collections.Generic.IEnumerable{K12.Data.AssessmentSetupRecord})" 中格式錯誤的 XML 註解 -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.AssessmentSetup.Insert(K12.Data.AssessmentSetupRecord)" -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.AssessmentSetup.Insert(System.Collections.Generic.IEnumerable{K12.Data.AssessmentSetupRecord})" -->
         <member name="M:K12.Data.AssessmentSetup.Update(K12.Data.AssessmentSetupRecord)">
             <summary>
             更新單筆評量設定記錄
@@ -6700,8 +6716,8 @@
                 List&lt;ExamRecord&gt; records = Exam.SelectByIDs(ExamIDs);
             </example>
         </member>
-        <!-- 已忽略成員 "M:K12.Data.Exam.Insert(K12.Data.ExamRecord)" 中格式錯誤的 XML 註解 -->
-        <!-- 已忽略成員 "M:K12.Data.Exam.Insert(System.Collections.Generic.IEnumerable{K12.Data.ExamRecord})" 中格式錯誤的 XML 註解 -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.Exam.Insert(K12.Data.ExamRecord)" -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.Exam.Insert(System.Collections.Generic.IEnumerable{K12.Data.ExamRecord})" -->
         <member name="M:K12.Data.Exam.Update(K12.Data.ExamRecord)">
             <summary>
             更新單筆試別項目記錄
@@ -6987,7 +7003,7 @@
             <exception cref="T:System.Exception">
             </exception>
         </member>
-        <!-- 已忽略成員 "M:K12.Data.MoralScore.Insert(System.Collections.Generic.IEnumerable{K12.Data.MoralScoreRecord})" 中格式錯誤的 XML 註解 -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.MoralScore.Insert(System.Collections.Generic.IEnumerable{K12.Data.MoralScoreRecord})" -->
         <member name="M:K12.Data.MoralScore.Update(K12.Data.MoralScoreRecord)">
             <summary>
             更新單筆學期德行評量記錄
@@ -7244,8 +7260,8 @@
                 List&lt;ProgramPlanRecord&gt; records = ProgramPlan.SelectByIDs(ProgramPlanIDs);
             </example>
         </member>
-        <!-- 已忽略成員 "M:K12.Data.ProgramPlan.Insert(K12.Data.ProgramPlanRecord)" 中格式錯誤的 XML 註解 -->
-        <!-- 已忽略成員 "M:K12.Data.ProgramPlan.Insert(System.Collections.Generic.IEnumerable{K12.Data.ProgramPlanRecord})" 中格式錯誤的 XML 註解 -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.ProgramPlan.Insert(K12.Data.ProgramPlanRecord)" -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.ProgramPlan.Insert(System.Collections.Generic.IEnumerable{K12.Data.ProgramPlanRecord})" -->
         <member name="M:K12.Data.ProgramPlan.Update(K12.Data.ProgramPlanRecord)">
             <summary>
             更新單筆課程規劃記錄
@@ -7730,8 +7746,8 @@
             <param name="CourseIDs"></param>
             <returns></returns>
         </member>
-        <!-- 已忽略成員 "M:K12.Data.SCAttend.Insert(K12.Data.SCAttendRecord)" 中格式錯誤的 XML 註解 -->
-        <!-- 已忽略成員 "M:K12.Data.SCAttend.Insert(System.Collections.Generic.IEnumerable{K12.Data.SCAttendRecord})" 中格式錯誤的 XML 註解 -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.SCAttend.Insert(K12.Data.SCAttendRecord)" -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.SCAttend.Insert(System.Collections.Generic.IEnumerable{K12.Data.SCAttendRecord})" -->
         <member name="M:K12.Data.SCAttend.Update(K12.Data.SCAttendRecord)">
             <summary>
             更新單筆學生修課記錄
@@ -8221,7 +8237,7 @@
             <exception cref="T:System.Exception">
             </exception>
         </member>
-        <!-- 已忽略成員 "M:K12.Data.SCETake.Insert(System.Collections.Generic.IEnumerable{K12.Data.SCETakeRecord})" 中格式錯誤的 XML 註解 -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.SCETake.Insert(System.Collections.Generic.IEnumerable{K12.Data.SCETakeRecord})" -->
         <member name="M:K12.Data.SCETake.Update(K12.Data.SCETakeRecord)">
             <summary>
             更新單筆學生期中成績記錄
@@ -8510,7 +8526,7 @@
                 </code>
             </example>
         </member>
-        <!-- 已忽略成員 "M:K12.Data.ScoreCalcRule.Insert(System.Collections.Generic.IEnumerable{K12.Data.ScoreCalcRuleRecord})" 中格式錯誤的 XML 註解 -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.ScoreCalcRule.Insert(System.Collections.Generic.IEnumerable{K12.Data.ScoreCalcRuleRecord})" -->
         <member name="M:K12.Data.ScoreCalcRule.Update(K12.Data.ScoreCalcRuleRecord)">
             <summary>
             更新單筆成績計算規則記錄
@@ -8839,8 +8855,8 @@
                 List&lt;SemesterScoreRecord&gt; records = SemesterScore.SelectByStudent&lt;K12.Data.SemesterScoreRecord&gt;(Student);
             </example>
         </member>
-        <!-- 已忽略成員 "M:K12.Data.SemesterScore.Insert(K12.Data.SemesterScoreRecord)" 中格式錯誤的 XML 註解 -->
-        <!-- 已忽略成員 "M:K12.Data.SemesterScore.Insert(System.Collections.Generic.IEnumerable{K12.Data.SemesterScoreRecord})" 中格式錯誤的 XML 註解 -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.SemesterScore.Insert(K12.Data.SemesterScoreRecord)" -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.SemesterScore.Insert(System.Collections.Generic.IEnumerable{K12.Data.SemesterScoreRecord})" -->
         <member name="M:K12.Data.SemesterScore.Update(K12.Data.SemesterScoreRecord)">
             <summary>
             更新單筆學生學期成績記錄
@@ -9334,8 +9350,8 @@
                 List&lt;TCInstructRecord&gt; tcinstructrecords = TCInstruct.SelectByIDs(TCInstructIDs);
             </example>
         </member>
-        <!-- 已忽略成員 "M:K12.Data.TCInstruct.Insert(K12.Data.TCInstructRecord)" 中格式錯誤的 XML 註解 -->
-        <!-- 已忽略成員 "M:K12.Data.TCInstruct.Insert(System.Collections.Generic.IEnumerable{K12.Data.TCInstructRecord})" 中格式錯誤的 XML 註解 -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.TCInstruct.Insert(K12.Data.TCInstructRecord)" -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.TCInstruct.Insert(System.Collections.Generic.IEnumerable{K12.Data.TCInstructRecord})" -->
         <member name="M:K12.Data.TCInstruct.Update(K12.Data.TCInstructRecord)">
             <summary>
             更新單筆教師教授課程記錄
@@ -12046,18 +12062,18 @@
         </member>
         <member name="T:K12.Data.Properties.Resources">
             <summary>
-              用於查詢當地語系化字串等的強型別資源類別
+              A strongly-typed resource class, for looking up localized strings, etc.
             </summary>
         </member>
         <member name="P:K12.Data.Properties.Resources.ResourceManager">
             <summary>
-              傳回這個類別使用的快取的 ResourceManager 執行個體。
+              Returns the cached ResourceManager instance used by this class.
             </summary>
         </member>
         <member name="P:K12.Data.Properties.Resources.Culture">
             <summary>
-              覆寫目前執行緒的 CurrentUICulture 屬性，對象是所有
-              使用這個強型別資源類別的資源查閱。
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
             </summary>
         </member>
         <member name="T:K12.Data.SemesterHistory">
@@ -12405,6 +12421,26 @@
         <member name="P:K12.Data.SemesterHistoryItem.DeptName">
             <summary>
             該學年度學期科別名稱
+            </summary>
+        </member>
+        <member name="P:K12.Data.SemesterHistoryItem.CourseGroupCode">
+            <summary>
+            該學年度學期課程群組代碼(捨棄不用)
+            </summary>
+        </member>
+        <member name="P:K12.Data.SemesterHistoryItem.StudentNumber">
+            <summary>
+            該學年度學期學號
+            </summary>
+        </member>
+        <member name="P:K12.Data.SemesterHistoryItem.ClassID">
+            <summary>
+            該學年度學期班級系統編號
+            </summary>
+        </member>
+        <member name="P:K12.Data.SemesterHistoryItem.GDCCode">
+            <summary>
+            該學年度學期群科班代碼
             </summary>
         </member>
         <member name="T:K12.Data.Student">
@@ -12881,6 +12917,11 @@
         <member name="P:K12.Data.StudentRecord.Nationality">
             <summary>
             國籍
+            </summary>
+        </member>
+        <member name="P:K12.Data.StudentRecord.EMail">
+            <summary>
+            電子信箱
             </summary>
         </member>
         <member name="P:K12.Data.StudentRecord.OverrideDepartmentID">
@@ -13568,7 +13609,7 @@
             </example>
             <remarks>傳回值為成功刪除的筆數。</remarks>
         </member>
-        <!-- 已忽略成員 "M:K12.Data.TagConfig.Delete(System.Collections.Generic.IEnumerable{System.String})" 中格式錯誤的 XML 註解 -->
+        <!-- Badly formed XML comment ignored for member "M:K12.Data.TagConfig.Delete(System.Collections.Generic.IEnumerable{System.String})" -->
         <member name="E:K12.Data.TagConfig.AfterInsert">
             <summary>
             新增之後所觸發的事件
@@ -14050,6 +14091,11 @@
             照片
             </summary>
         </member>
+        <member name="P:K12.Data.TeacherRecord.TeacherNumber">
+            <summary>
+            Teacher Access的教師代碼
+            </summary>
+        </member>
         <member name="T:K12.Data.TeacherTag">
             <summary>
             教師標籤類別，提供方法用來取得、新增、修改及刪除班級標籤資訊
@@ -14469,7 +14515,7 @@
             不給該欄位值。
             </summary>
         </member>
-        <!-- 已忽略成員 "T:K12.Data.StringComparer" 中格式錯誤的 XML 註解 -->
+        <!-- Badly formed XML comment ignored for member "T:K12.Data.StringComparer" -->
         <member name="M:K12.Data.StringComparer.Comparer(System.String,System.String)">
             <summary>
             使用預設字根比較字串

@@ -22,7 +22,6 @@ namespace K12.Behavior
 
         public static string 缺曠類別管理 { get { return "K12.Student.AbsenceConfigForm"; } }
         public static string 功過換算管理 { get { return "K12.Student.ReduceForm"; } }
-        public static string 每日節次管理 { get { return "K12.Student.PeriodConfigForm"; } }
         public static string 獎懲事由管理 { get { return "K12.Student.DisciplineForm"; } }
 
         public static string 獎懲批次修改 { get { return "K12.Student.AttendanceEditForm"; } }
@@ -37,11 +36,6 @@ namespace K12.Behavior
         public static bool 懲戒權限
         {
             get { return FISCA.Permission.UserAcl.Current[懲戒].Executable; }
-        }
-
-        public static bool 每日節次管理權限
-        {
-            get { return FISCA.Permission.UserAcl.Current[每日節次管理].Executable; }
         }
 
         public static bool 缺曠類別管理權限
